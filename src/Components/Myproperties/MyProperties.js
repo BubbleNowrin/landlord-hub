@@ -27,6 +27,11 @@ const MyProperties = () => {
 
                                 <dd class="font-medium">6 Hummingbird Ln, Somewhere, FL 32589</dd>
                             </div>
+                            <div>
+                                <dt class="sr-only">Status</dt>
+
+                                <dd class="font-medium text-green-400">Active Lease</dd>
+                            </div>
                         </dl>
 
                         <div class="mt-6 flex items-center gap-8 text-xs">
@@ -126,6 +131,11 @@ const MyProperties = () => {
 
                                 <dd class="font-medium">21 Elder Rd, Elsewhere, FL 32584</dd>
                             </div>
+                            <div>
+                                <dt class="sr-only">Status</dt>
+
+                                <dd class="font-medium text-yellow-400">Available</dd>
+                            </div>
                         </dl>
 
                         <div class="mt-6 flex items-center gap-8 text-xs">
@@ -224,6 +234,11 @@ const MyProperties = () => {
                                 <dt class="sr-only">Address</dt>
 
                                 <dd class="font-medium">8 Hummingbird Ln, Somewhere, FL 32589</dd>
+                            </div>
+                            <div>
+                                <dt class="sr-only">Status</dt>
+
+                                <dd class="font-medium text-red-400">Under Repair</dd>
                             </div>
                         </dl>
 
