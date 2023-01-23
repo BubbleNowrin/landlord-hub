@@ -7,7 +7,7 @@ const MyProperties = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto my-20 gap-10'>
             {/* card 1 */}
             <div>
-                <Link to={`/properties/:id`} class="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-110 ease-in duration-100">
+                <Link to={`/single`} class="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-110 ease-in duration-100">
                     <img
                         alt="Home"
                         src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
@@ -111,7 +111,7 @@ const MyProperties = () => {
 
             {/* card 2 */}
             <div>
-                <Link to={`/properties/:id`} class="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-110 ease-in duration-100">
+                <Link to={`/single`} class="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-110 ease-in duration-100">
                     <img
                         alt="Home"
                         src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
@@ -215,7 +215,7 @@ const MyProperties = () => {
 
             {/* card 3 */}
             <div>
-                <Link to={`/properties/:id`} class="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-110 ease-in duration-100">
+                <Link to={`/single`} class="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-110 ease-in duration-100">
                     <img
                         alt="Home"
                         src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
@@ -318,11 +318,9 @@ const MyProperties = () => {
             {/* add property */}
             <div>
                 <Link to={`/properties/:id`} class="rounded-lg p-4 shadow-lg shadow-indigo-200 h-full flex justify-center items-center hover:scale-110 ease-in duration-100">
-
                     <div>
-                        <FaPlus className='text-7xl text-indigo-700' />
+                        <FaPlus className='text-7xl text-indigo-500' />
                     </div>
-
                 </Link>
             </div>
         </div>
