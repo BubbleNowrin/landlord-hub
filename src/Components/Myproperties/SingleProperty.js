@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
 import Chart from './Chart';
+import EditPropertyModal from '../Modals/EditPropertyModal';
+import NewExpenseModal from '../Modals/NewExpenseModal';
+import NewPaymentModal from '../Modals/NewPaymentModal';
 
 const SingleProperty = () => {
     return (
@@ -17,7 +20,13 @@ const SingleProperty = () => {
             <div className='flex'>
                 {/* card */}
                 <div>
+
                     <div class="block rounded-lg max-w-xs mx-auto p-4 shadow-lg shadow-indigo-200 mt-10">
+                        <div className='text-right mb-4'>
+                            <label htmlFor="edit-property" className='text-xl font-bold text-indigo-700 cursor-pointer underline'>Edit</label>
+
+                        </div>
+                        <EditPropertyModal></EditPropertyModal>
                         <img
                             alt="Home"
                             src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
@@ -126,11 +135,12 @@ const SingleProperty = () => {
 
             {/* buttons */}
             <div className='mt-20 flex justify-around'>
-                <button className='btn btn-outline'>Add Expense</button>
-                <button className='btn btn-outline'>Rent Roll</button>
+                <label htmlFor="add-expense" className='btn btn-outline'>Add Expense</label>
+                <label htmlFor="add-payment" className='btn btn-outline'>Rent Roll</label>
                 <button className='btn btn-outline'>Export</button>
             </div>
-
+            <NewExpenseModal></NewExpenseModal>
+            <NewPaymentModal></NewPaymentModal>
             {/* table */}
 
             <div className="overflow-x-auto mt-20 mb-10">
@@ -140,7 +150,7 @@ const SingleProperty = () => {
                         <tr>
                             <th></th>
                             <th>Date</th>
-                            <th>Type</th>
+                            <th>Category</th>
                             <th>Description</th>
                             <th>Amount</th>
                         </tr>

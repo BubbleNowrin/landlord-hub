@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
+import AddPropertyModal from '../Modals/AddPropertyModal';
 
 const MyProperties = () => {
     return (
@@ -317,12 +318,13 @@ const MyProperties = () => {
             </div>
             {/* add property */}
             <div>
-                <Link to={`/properties/:id`} class="rounded-lg p-4 shadow-lg shadow-indigo-200 h-full flex justify-center items-center hover:scale-110 ease-in duration-100">
+                <label htmlFor="add-property" class="rounded-lg p-4 shadow-lg shadow-indigo-200 h-full flex justify-center items-center hover:scale-110 ease-in duration-100">
                     <div>
                         <FaPlus className='text-7xl text-indigo-500' />
                     </div>
-                </Link>
+                </label>
             </div>
+            <AddPropertyModal></AddPropertyModal>
         </div>
     );
 };
