@@ -2,15 +2,15 @@ import { axios } from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../Contexts/AuthProvider";
 import img from "../../Assets/Select house-pana.png"
+import { AuthContext } from "../../Contexts/UserContext";
+
 
 
 
 const SignUp = () => {
-    // const { googleLogin, createUser, updateUser } =
-    //     useContext(AuthContext);
-    // console.log(refetch);
+    const { googleLogin, createUser, updateUser } = useContext(AuthContext);
+
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -18,102 +18,108 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     // email log in
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     setLoading(true);
-    //     const form = event.target;
-    //     const name = form.name.value;
-    //     const image = form.photo.files[0];
-    //     const email = form.email.value;
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setLoading(true);
+        const form = event.target;
+        const name = form.name.value;
+        const image = form.photo.files[0];
+        const email = form.email.value;
 
-    //     const img_api = "3be428566b26b7c4478e29333a90fdba";
+        const img_api = "701a0d7cdce71a8410d4cf17c044dfba";
 
-    //     // create form Data
-    //     const formData = new FormData();
-    //     formData.append("image", image);
+        // create form Data
+        const formData = new FormData();
+        formData.append("image", image);
 
-    //     const url = `https://api.imgbb.com/1/upload?key=${img_api}`;
+        const url = `https://api.imgbb.com/1/upload?key=${img_api}`;
 
-    //     // post image to imgbb
-    //     fetch(url, {
-    //         method: "POST",
-    //         body: formData,
-    //     })
-    //         .then((res) => res.json())
-    //         .then((image) => {
-    //             const img = image.data.url;
-    //             createUser(email, password)
-    //                 .then((res) => {
-    //                     // update user
-    //                     updateUser(name, img)
-    //                         .then(() => {
-    //                             const user = {
-    //                                 name,
-    //                                 email,
-    //                                 img,
-    //                             };
-    //                             fetch("https://harkrx-server.vercel.app/users", {
-    //                                 method: "POST",
-    //                                 headers: {
-    //                                     "content-type": "application/json",
-    //                                 },
-    //                                 body: JSON.stringify(user),
-    //                             })
-    //                                 .then((res) => res.json())
-    //                                 .then((data) => {
-    //                                     Swal.fire(
-    //                                         "Success",
-    //                                         "User created successfully",
-    //                                         "success"
-    //                                     );
-    //                                     setLoading(false);
+        // post image to imgbb
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then((res) => res.json())
+            .then((image) => {
+                const img = image.data.url;
+                createUser(email, password)
+                    .then((res) => {
+                        console.log(res.user);
+                        // update user
+                        updateUser(name, img)
+                            .then(() => {
+                                // const user = {
+                                //     name,
+                                //     email,
+                                //     img,
+                                // };
+                                // fetch("https://harkrx-server.vercel.app/users", {
+                                //     method: "POST",
+                                //     headers: {
+                                //         "content-type": "application/json",
+                                //     },
+                                //     body: JSON.stringify(user),
+                                // })
+                                //     .then((res) => res.json())
+                                //     .then((data) => {
+                                //         Swal.fire(
+                                //             "Success",
+                                //             "User created successfully",
+                                //             "success"
+                                //         );
+                                //         setLoading(false);
 
-    //                                     navigate("/");
-    //                                 });
-    //                         })
-    //                         .catch((err) => {
-    //                             setLoading(false);
-    //                             Swal.fire("Opps", err.message, "error");
-    //                         });
-    //                 })
-    //                 .catch((err) => {
-    //                     setLoading(false);
-    //                     Swal.fire("Opps", err.message, "error");
-    //                 });
-    //         });
-    // };
+                                //         navigate("/");
+                                //     });
+                                console.log("user updated");
+                                navigate('/')
+                            })
+                            .catch((err) => {
+                                // setLoading(false);
+                                // Swal.fire("Opps", err.message, "error");
+                            });
+                    })
+                    .catch((err) => {
+                        // setLoading(false);
+                        // Swal.fire("Opps", err.message, "error");
+                        console.log(err);
+                    });
+            });
+    };
 
     // google log in
-    // const handleGoogle = (e) => {
-    //     setLoading(true);
-    //     e.preventDefault();
-    //     googleLogin()
-    //         .then((res) => {
-    //             const user = {
-    //                 name: res?.user?.displayName,
-    //                 email: res?.user?.email,
-    //                 img: res?.user?.photoURL,
-    //             };
-    //             fetch("https://harkrx-server.vercel.app/users", {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "content-type": "application/json",
-    //                 },
-    //                 body: JSON.stringify(user),
-    //             })
-    //                 .then((res) => res.json())
-    //                 .then((data) => {
-    //                     Swal.fire("Success", "Google Log In", "success");
-    //                     setLoading(false);
+    const handleGoogle = (e) => {
+        setLoading(true);
+        e.preventDefault();
+        googleLogin()
+            .then((res) => {
+                // const user = {
+                //     name: res?.user?.displayName,
+                //     email: res?.user?.email,
+                //     img: res?.user?.photoURL,
+                // };
+                // fetch("https://harkrx-server.vercel.app/users", {
+                //     method: "POST",
+                //     headers: {
+                //         "content-type": "application/json",
+                //     },
+                //     body: JSON.stringify(user),
+                // })
+                //     .then((res) => res.json())
+                //     .then((data) => {
+                //         Swal.fire("Success", "Google Log In", "success");
+                //         setLoading(false);
 
-    //                     navigate("/");
-    //                 });
-    //         })
-    //         .catch((err) => {
-    //             Swal.fire("Opps", err.message, "error");
-    //             setLoading(false);
-    //         });
-    // };
+                //         navigate("/");
+                //     });
+                console.log(res.user);
+                navigate('/');
+            })
+            .catch((err) => {
+                Swal.fire("Opps", err.message, "error");
+                setLoading(false);
+            });
+    };
 
     // setPass
     const handlePassword = (e) => {
@@ -148,7 +154,7 @@ const SignUp = () => {
                             </h2>
 
                             <form
-                                // onSubmit={handleSubmit}
+                                onSubmit={handleSubmit}
                                 className="max-w-lg border rounded-xl shadow-lg mx-auto"
                             >
                                 <div className="flex flex-col gap-4 p-4 md:p-8">
@@ -231,7 +237,7 @@ const SignUp = () => {
                                     </div>
 
                                     <button
-                                        // onClick={handleGoogle}
+                                        onClick={handleGoogle}
                                         className="flex justify-center items-center bg-base-100 hover:bg-base-100 active:bg-gray-200 border border-gray-300 focus-visible:ring ring-gray-300 text-gray-800 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 gap-2 px-8 py-3"
                                     >
                                         {loading ? (

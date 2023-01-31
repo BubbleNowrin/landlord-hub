@@ -136,7 +136,7 @@ const SingleProperty = () => {
             {/* buttons */}
             <div className='mt-20 flex justify-around'>
                 <label htmlFor="add-expense" className='btn btn-outline'>Add Expense</label>
-                <label htmlFor="add-payment" className='btn btn-outline'>Rent Roll</label>
+                <label htmlFor="add-payment" className='btn btn-outline'>Add Payment</label>
                 <button className='btn btn-outline'>Export</button>
             </div>
             <NewExpenseModal></NewExpenseModal>

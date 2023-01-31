@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import login from "../../Assets/Select house-amico.png";
-import { AuthContext } from "../../Contexts/AuthProvider";
+
 
 
 const Login = () => {
