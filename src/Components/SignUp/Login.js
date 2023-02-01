@@ -108,7 +108,7 @@ const Login = () => {
         setPassword(pass);
     };
     return (
-        <section>
+        <section className="mt-24">
             <section className="flex flex-col md:flex-row min-h-screen items-center container mx-auto">
                 <aside className="w-full ">
                     <img src={login} alt="" className="mx-auto" />

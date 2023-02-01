@@ -75,13 +75,17 @@ const Navbar = () => {
 
                 </ul>
                 <ul class="flex items-center hidden space-x-8 lg:flex">
-                    <li className='text-blue-900 font-bold flex justify-between items-center'>
-                        <div className="avatar online">
-                            <div className="w-10 rounded-full">
-                                <img src={user?.photoURL} alt="" />
+                    {
+                        user?.photoURL &&
+                        <li className='text-blue-900 font-bold flex justify-between items-center'>
+                            <div className="avatar online">
+                                <div className="w-10 rounded-full">
+                                    <img src={user?.photoURL} alt="" />
+                                </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+
+                    }
                     {
                         user?.email ?
                             <li onClick={handleLogOut}>

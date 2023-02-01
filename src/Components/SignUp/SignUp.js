@@ -141,7 +141,7 @@ const SignUp = () => {
         setPassword(pass);
     };
     return (
-        <section>
+        <section className="mt-24">
             <section className="flex flex-col lg:flex-row min-h-screen container mx-auto">
                 <aside className="w-full lg:mt-24">
                     <img src={img} alt="" className="mx-auto" />
