@@ -5,7 +5,7 @@ import AddPropertyModal from '../Modals/AddPropertyModal';
 
 const MyProperties = () => {
     return (
-        <div className='grid grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto my-20 gap-10'>
+        <div className='grid grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto my-32 gap-10'>
             {/* card 1 */}
             <div>
                 <Link to={`/single`} class="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-110 ease-in duration-100">
@@ -320,7 +320,7 @@ const MyProperties = () => {
             <div>
                 <label htmlFor="add-property" class="rounded-lg p-4 shadow-lg shadow-indigo-200 h-full flex justify-center items-center hover:scale-110 ease-in duration-100">
                     <div>
-                        <FaPlus className='text-7xl text-indigo-500' />
+                        <FaPlus className='text-7xl text-blue-900' />
                     </div>
                 </label>
             </div>

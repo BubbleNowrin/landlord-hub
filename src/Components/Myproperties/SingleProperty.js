@@ -8,13 +8,13 @@ import NewPaymentModal from '../Modals/NewPaymentModal';
 
 const SingleProperty = () => {
     return (
-        <div className='max-w-2xl mx-auto flex flex-col'>
+        <div className='max-w-2xl mx-auto flex flex-col my-32'>
 
             {/* back to home */}
             <div className='flex items-center mt-10'>
                 <BsArrowLeft className='mr-2' />
                 <div>
-                    <Link to='/properties' className='mt-10 font-bold text-lg hover:underline text-indigo-500'>Back to My Properties</Link>
+                    <Link to='/properties' className='mt-10 font-bold text-lg hover:underline text-blue-900'>Back to My Properties</Link>
                 </div>
             </div>
             <div className='flex'>

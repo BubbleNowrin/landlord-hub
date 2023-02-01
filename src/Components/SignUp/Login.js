@@ -2,12 +2,12 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import login from "../../Assets/Select house-amico.png";
+import { AuthContext } from "../../Contexts/UserContext";
 
 
 
 const Login = () => {
-    // const { googleLogin, facebookLogin, loginUser, forgetPassword } =
-    //     useContext(AuthContext);
+    const { googleLogin, loginUser, forgetPassword } = useContext(AuthContext);
     const location = useLocation();
     const from = location.state?.from?.pathName || "/";
     const navigate = useNavigate();
@@ -16,77 +16,80 @@ const Login = () => {
     const [error, setError] = useState("");
 
     // email log in
-    //   const handleSubmit = (e) => {
-    //     setLoading(true);
-    //     e.preventDefault();
-    //     const form = e.target;
-    //     const email = form.email.value;
+    const handleSubmit = (e) => {
+        setLoading(true);
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
 
-    //     loginUser(email, password)
-    //       .then((res) => {
-    //         console.log(res.user);
-    //         Swal.fire("Success", `Welcome to Harkrx `, "success");
-    //         setLoading(false);
-    //         navigate(from, { replace: true });
-    //       })
-    //       .catch((err) => {
-    //         Swal.fire("Opps", err.message, "error");
-    //         setLoading(false);
-    //       });
-    //   };
+        loginUser(email, password)
+            .then((res) => {
+                console.log(res.user);
+                Swal.fire("Success", `Welcome to LandLord`, "success");
+                setLoading(false);
+                navigate(from, { replace: true });
+            })
+            .catch((err) => {
+                Swal.fire("Opps", err.message, "error");
+                setLoading(false);
+            });
+    };
+
     // google log in
-    //   const handleGoogle = (e) => {
-    //     setLoading(true);
-    //     e.preventDefault();
-    //     googleLogin()
-    //       .then((res) => {
-    //         const user = {
-    //           name: res?.user?.displayName,
-    //           email: res?.user?.email,
-    //           img: res?.user?.photoURL,
-    //         };
-    //         fetch("https://harkrx-server.vercel.app/users", {
-    //           method: "POST",
-    //           headers: {
-    //             "content-type": "application/json",
-    //           },
-    //           body: JSON.stringify(user),
-    //         })
-    //           .then((res) => res.json())
-    //           .then((data) => {
-    //             Swal.fire("Success", "Google Log In", "success");
-    //             setLoading(false);
+    const handleGoogle = (e) => {
+        setLoading(true);
+        e.preventDefault();
+        googleLogin()
+            .then((res) => {
+                // const user = {
+                //   name: res?.user?.displayName,
+                //   email: res?.user?.email,
+                //   img: res?.user?.photoURL,
+                // };
+                // fetch("https://harkrx-server.vercel.app/users", {
+                //   method: "POST",
+                //   headers: {
+                //     "content-type": "application/json",
+                //   },
+                //   body: JSON.stringify(user),
+                // })
+                //   .then((res) => res.json())
+                //   .then((data) => {
+                //     Swal.fire("Success", "Google Log In", "success");
+                //     setLoading(false);
 
-    //             navigate("/");
-    //           });
-    //       })
-    //       .catch((err) => {
-    //         Swal.fire("Opps", err.message, "error");
-    //         setLoading(false);
-    //       });
-    //   };
+                //     navigate("/");
+                //   });
+                console.log("successfully logged in");
+                navigate('/');
+            })
+            .catch((err) => {
+                Swal.fire("Opps", err.message, "error");
+                setLoading(false);
+            });
+    };
 
     // forget pass
-    // const handleForget = async () => {
-    //     const { value: email } = await Swal.fire({
-    //         title: "Input email address",
-    //         input: "email",
-    //         inputLabel: "Your email address",
-    //         inputPlaceholder: "Enter your email address",
-    //     });
+    const handleForget = async () => {
+        const { value: email } = await Swal.fire({
+            title: "Input email address",
+            input: "email",
+            inputLabel: "Your email address",
+            inputPlaceholder: "Enter your email address",
+        });
 
-    //     if (email) {
-    //         forgetPassword(email)
-    //             .then(() => {
-    //                 Swal.fire(
-    //                     "Email send!!",
-    //                     `Password reset email send to : ${email}, please check your spam/junk folder`,
-    //                     "success"
-    //                 );
-    //             })
-    //             .catch((err) => Swal.fire(err.message));
-    //     }
-    // };
+        if (email) {
+            forgetPassword(email)
+                .then(() => {
+                    Swal.fire(
+                        "Email send!!",
+                        `Password reset email send to : ${email}, please check your spam/junk folder`,
+                        "success"
+                    );
+                })
+                .catch((err) => Swal.fire(err.message));
+        }
+    };
 
     // setPass
     const handlePassword = (e) => {
@@ -121,7 +124,7 @@ const Login = () => {
                             </h2>
 
                             <form
-                                // onSubmit={handleSubmit}
+                                onSubmit={handleSubmit}
                                 className="w-full border rounded-xl shadow-lg mx-auto"
                             >
                                 <div className="flex flex-col gap-4 p-4 md:p-8">
@@ -158,7 +161,7 @@ const Login = () => {
                                         )}
                                     </div>
                                     <p
-                                        // onClick={handleForget}
+                                        onClick={handleForget}
                                         className="text-right hover:text-indigo-700 cursor-pointer hover:underline "
                                     >
                                         forget password?
@@ -182,7 +185,7 @@ const Login = () => {
                                     </div>
 
                                     <button
-                                        // onClick={handleGoogle}
+                                        onClick={handleGoogle}
                                         className="flex justify-center items-center bg-base-100 hover:bg-base-100 active:bg-gray-200 border border-gray-300 focus-visible:ring ring-gray-300 text-gray-800 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 gap-2 px-8 py-3"
                                     >
                                         {loading ? (
