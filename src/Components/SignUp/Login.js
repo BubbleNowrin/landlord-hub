@@ -41,25 +41,25 @@ const Login = () => {
         e.preventDefault();
         googleLogin()
             .then((res) => {
-                // const user = {
-                //   name: res?.user?.displayName,
-                //   email: res?.user?.email,
-                //   img: res?.user?.photoURL,
-                // };
-                // fetch("https://harkrx-server.vercel.app/users", {
-                //   method: "POST",
-                //   headers: {
-                //     "content-type": "application/json",
-                //   },
-                //   body: JSON.stringify(user),
-                // })
-                //   .then((res) => res.json())
-                //   .then((data) => {
-                //     Swal.fire("Success", "Google Log In", "success");
-                //     setLoading(false);
+                const user = {
+                    name: res?.user?.displayName,
+                    email: res?.user?.email,
+                    img: res?.user?.photoURL,
+                };
+                fetch("https://landlord-hub.vercel.app/users", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(user),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        Swal.fire("Success", "Google Log In", "success");
+                        setLoading(false);
 
-                //     navigate("/");
-                //   });
+                        navigate("/");
+                    });
                 console.log("successfully logged in");
                 navigate('/');
             })
@@ -171,7 +171,7 @@ const Login = () => {
                                         className="flex gap-2 justify-center bg-indigo-700 hover:bg-indigo-500 active:bg-gray-600 focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
                                     >
                                         {loading ? (
-                                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin dark:border-white"></div>
+                                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin"></div>
                                         ) : (
                                             "Login"
                                         )}
@@ -189,7 +189,7 @@ const Login = () => {
                                         className="flex justify-center items-center bg-base-100 hover:bg-base-100 active:bg-gray-200 border border-gray-300 focus-visible:ring ring-gray-300 text-gray-800 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 gap-2 px-8 py-3"
                                     >
                                         {loading ? (
-                                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin dark:border-teal-300"></div>
+                                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin "></div>
                                         ) : (
                                             <>
                                                 <svg

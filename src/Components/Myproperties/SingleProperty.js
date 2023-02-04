@@ -1,14 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLoaderData, useLocation } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
 import Chart from './Chart';
 import EditPropertyModal from '../Modals/EditPropertyModal';
 import NewExpenseModal from '../Modals/NewExpenseModal';
 import NewPaymentModal from '../Modals/NewPaymentModal';
+import { useQuery } from '@tanstack/react-query';
+import ExpensesTable from './ExpensesTable';
+import PaymentsTable from './PaymentsTable';
 
 const SingleProperty = () => {
+
+    const single = useLoaderData();
+    const [modalOpen, setModalOpen] = useState(false);
+    const [singleProperty, setSingleProperty] = useState(single);
+
+
+
+    // const { data: singleProperty, refetch } = useQuery({
+    //     queryKey: ['properties'],
+    //     queryFn: () => fetch(`https://landlord-hub.vercel.app/property/${location?.state}`).then(res => res.json())
+    // })
+
+
+    let className = 'text-gray-900';
+    if (singleProperty?.status === "Active Lease") {
+        className = 'text-green-500';
+    } else if (singleProperty?.status === "Available") {
+        className = 'text-yellow-500';
+    } else if (singleProperty?.status === "Under Repair") {
+        className = 'text-red-500';
+    }
+
+    const { img, address, bedroom, bathroom, parking, status, rent } = singleProperty;
+
     return (
-        <div className='max-w-2xl mx-auto flex flex-col my-32'>
+        <div className='max-w-5xl mx-auto flex flex-col my-32'>
 
             {/* back to home */}
             <div className='flex items-center mt-10'>
@@ -17,46 +44,44 @@ const SingleProperty = () => {
                     <Link to='/properties' className='mt-10 font-bold text-lg hover:underline text-blue-900'>Back to My Properties</Link>
                 </div>
             </div>
-            <div className='flex'>
+            <div className=''>
                 {/* card */}
-                <div>
-
-                    <div class="block rounded-lg max-w-xs mx-auto p-4 shadow-lg shadow-indigo-200 mt-10">
+                {/* <div>
+                    <div className="block rounded-lg max-w-xs mx-auto p-4 shadow-lg shadow-indigo-200 mt-10">
                         <div className='text-right mb-4'>
-                            <label htmlFor="edit-property" className='text-xl font-bold text-indigo-700 cursor-pointer underline'>Edit</label>
-
+                            <label onClick={() => setModalOpen(true)} htmlFor="edit-property" className='text-xl font-bold text-indigo-700 cursor-pointer underline'>Edit</label>
                         </div>
-                        <EditPropertyModal></EditPropertyModal>
+                        <EditPropertyModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty}></EditPropertyModal>
                         <img
                             alt="Home"
-                            src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                            class="h-56 rounded-md object-cover"
+                            src={singleProperty?.img}
+                            className="h-56 rounded-md object-cover"
                         />
 
-                        <div class="mt-2">
+                        <div className="mt-2">
                             <dl>
                                 <div>
-                                    <dt class="sr-only">Rent</dt>
+                                    <dt className="sr-only">Rent</dt>
 
-                                    <dd class="text-sm text-gray-500 font-bold">$1200</dd>
+                                    <dd className="text-sm text-gray-500 font-bold">${singleProperty?.rent}</dd>
                                 </div>
 
                                 <div>
-                                    <dt class="sr-only">Address</dt>
+                                    <dt className="sr-only">Address</dt>
 
-                                    <dd class="font-medium">6 Hummingbird Ln, Somewhere, FL 32589</dd>
+                                    <dd className="font-medium">{singleProperty?.address}</dd>
                                 </div>
                                 <div>
-                                    <dt class="sr-only">Status</dt>
+                                    <dt className="sr-only">Status</dt>
 
-                                    <dd class="font-medium text-green-400">Active Lease</dd>
+                                    <dd className={`${className} font-medium`}>{singleProperty?.status}</dd>
                                 </div>
                             </dl>
 
-                            <div class="mt-6 flex items-center gap-8 text-xs">
-                                <div class="sm:inline-flex sm:shrink-0 sm:items-center">
+                            <div className="mt-6 flex items-center gap-8 text-xs">
+                                <div className="sm:inline-flex sm:shrink-0 sm:items-center">
                                     <svg
-                                        class="h-4 w-4 text-indigo-700"
+                                        className="h-4 w-4 text-indigo-700"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -70,16 +95,16 @@ const SingleProperty = () => {
                                         />
                                     </svg>
 
-                                    <div class="mt-1.5 sm:ml-3 sm:mt-0">
-                                        <p class="text-gray-500">Parking</p>
+                                    <div className="mt-1.5 sm:ml-3 sm:mt-0">
+                                        <p className="text-gray-500">Parking</p>
 
-                                        <p class="font-medium">2 spaces</p>
+                                        <p className="font-medium">{singleProperty?.parking} {singleProperty?.parking > 1 ? "spaces" : "space"}</p>
                                     </div>
                                 </div>
 
-                                <div class="sm:inline-flex sm:shrink-0 sm:items-center">
+                                <div className="sm:inline-flex sm:shrink-0 sm:items-center">
                                     <svg
-                                        class="h-4 w-4 text-indigo-700"
+                                        className="h-4 w-4 text-indigo-700"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -93,16 +118,16 @@ const SingleProperty = () => {
                                         />
                                     </svg>
 
-                                    <div class="mt-1.5 sm:ml-3 sm:mt-0">
-                                        <p class="text-gray-500">Bathroom</p>
+                                    <div className="mt-1.5 sm:ml-3 sm:mt-0">
+                                        <p className="text-gray-500">Bathroom</p>
 
-                                        <p class="font-medium">2 rooms</p>
+                                        <p className="font-medium">{singleProperty?.bathroom} {singleProperty?.bathroom > 1 ? "rooms" : "room"}</p>
                                     </div>
                                 </div>
 
-                                <div class="sm:inline-flex sm:shrink-0 sm:items-center">
+                                <div className="sm:inline-flex sm:shrink-0 sm:items-center">
                                     <svg
-                                        class="h-4 w-4 text-indigo-700"
+                                        className="h-4 w-4 text-indigo-700"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -116,72 +141,144 @@ const SingleProperty = () => {
                                         />
                                     </svg>
 
-                                    <div class="mt-1.5 sm:ml-3 sm:mt-0">
-                                        <p class="text-gray-500">Bedroom</p>
+                                    <div className="mt-1.5 sm:ml-3 sm:mt-0">
+                                        <p className="text-gray-500">Bedroom</p>
 
-                                        <p class="font-medium">4 rooms</p>
+                                        <p className="font-medium">{singleProperty?.bedroom} {singleProperty?.bedroom > 1 ? "rooms" : "room"}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                {/* chart */}
-                <Chart></Chart>
-
+                </div> */}
+                <section className="">
+                    <div className='text-right mb-4 mr-12 mt-2'>
+                        <label onClick={() => setModalOpen(true)} htmlFor="edit-property" className='text-xl font-bold cursor-pointer btn bg-blue-900'>Edit</label>
+                    </div>
+                    <EditPropertyModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty}></EditPropertyModal>
+                    <div className="container flex flex-col-reverse mx-auto lg:flex-row">
+                        <div className="flex flex-col px-6 py-8 space-y-6 rounded-sm sm:p-8 lg:p-12 lg:w-1/2 xl:w-2/5 ">
+                            <div className="flex space-x-2 sm:space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg>
+                                <div className="space-y-2">
+                                    <p className="text-lg font-medium leading-snug">Rent</p>
+                                    <p className="leading-snug text-blue-900 font-bold">${rent}</p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-2 sm:space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg>
+                                <div className="space-y-2">
+                                    <p className="text-lg font-medium leading-snug">Address</p>
+                                    <p className="leading-snug text-blue-900 font-bold">{address}</p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-2 sm:space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg>
+                                <div className="space-y-2">
+                                    <p className="text-lg font-medium leading-snug">Status</p>
+                                    <p className={`${className} font-medium`}>{status}</p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-2 sm:space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg>
+                                <div className="space-y-2">
+                                    <p className="text-lg font-medium leading-snug">Bedroom</p>
+                                    <p className="leading-snug text-blue-900 font-bold">{bedroom} {bedroom > 1 ? "rooms" : "room"}</p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-2 sm:space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg>
+                                <div className="space-y-2">
+                                    <p className="text-lg font-medium leading-snug">Bathroom</p>
+                                    <p className="leading-snug text-blue-900 font-bold">{bathroom} {bathroom > 1 ? "rooms" : "room"}</p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-2 sm:space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg>
+                                <div className="space-y-2">
+                                    <p className="text-lg font-medium leading-snug">Parking</p>
+                                    <p className="leading-snug text-blue-900 font-bold">{parking} {parking > 1 ? "spaces" : "space"}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="lg:w-1/2 xl:w-3/5 ">
+                            <div className="flex items-center justify-center p-4 md:p-8 lg:p-12">
+                                <img src={img} alt="" className="rounded-lg shadow-lg  aspect-video h-96" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
             </div>
 
             {/* buttons */}
             <div className='mt-20 flex justify-around'>
-                <label htmlFor="add-expense" className='btn btn-outline'>Add Expense</label>
-                <label htmlFor="add-payment" className='btn btn-outline'>Add Payment</label>
+                <label onClick={() => setModalOpen(true)} htmlFor="add-expense" className='btn btn-outline'>Add Expense</label>
+                <label onClick={() => setModalOpen(true)} htmlFor="add-payment" className='btn btn-outline'>Add Payment</label>
                 <button className='btn btn-outline'>Export</button>
             </div>
-            <NewExpenseModal></NewExpenseModal>
-            <NewPaymentModal></NewPaymentModal>
+            <NewExpenseModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty} singleProperty={singleProperty}></NewExpenseModal>
+            <NewPaymentModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty} singleProperty={singleProperty}></NewPaymentModal>
+
             {/* table */}
 
-            <div className="overflow-x-auto mt-20 mb-10">
-                <table className="table table-zebra w-full">
+            <div className='flex flex-col'>
+                <div className="overflow-x-auto mt-20 mb-10">
+                    <h3 className='text-center font-bold text-blue-900 text-xl mb-2'>Expenses Table</h3>
+                    <table className="table table-zebra w-full -z-10">
 
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Date</th>
-                            <th>Category</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                singleProperty?.calculations?.filter(prop => prop.expense).map((expenses, idx) => <ExpensesTable
+                                    key={idx}
+                                    expenses={expenses}
+                                ></ExpensesTable>)
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div className="overflow-x-auto mt-20 mb-10">
+                    <h3 className='text-center font-bold text-blue-900 text-xl mb-2'>Payments Table</h3>
+                    <table className="table table-zebra w-full -z-10">
 
-                        <tr>
-                            <th>1</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <th>2</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <th>3</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                singleProperty?.calculations?.filter(prop => prop.payment).map((payments, idx) => <PaymentsTable
+                                    key={idx}
+                                    payments={payments}
+                                ></PaymentsTable>)
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

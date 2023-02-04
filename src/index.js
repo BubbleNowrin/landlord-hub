@@ -6,15 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import { Router, RouterProvider } from 'react-router-dom';
 import { routes } from './Routes/Routes';
 import UserContext from './Contexts/UserContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient()
 root.render(
   <React.StrictMode>
-    <UserContext>
-      <RouterProvider router={routes}>
-        <App />
-      </RouterProvider>
-    </UserContext>
+    <QueryClientProvider client={queryClient}>
+      <UserContext>
+        <RouterProvider router={routes}>
+          <App />
+        </RouterProvider>
+      </UserContext>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

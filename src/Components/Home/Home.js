@@ -9,23 +9,23 @@ const Home = () => {
     return (
         <div>
             <section
-                class="relative bg-[url(https://media.istockphoto.com/id/1341378132/photo/side-view-of-open-plan-kitchen-with-living-room-and-garden-view-from-the-window.jpg?b=1&s=170667a&w=0&k=20&c=AkaeqhpogPOjVwB2JzMl6hLKVTb8HvOu93pnC_HC3Nk=)] bg-cover bg-center bg-no-repeat bg-fixed"
+                className="relative bg-[url(https://media.istockphoto.com/id/1341378132/photo/side-view-of-open-plan-kitchen-with-living-room-and-garden-view-from-the-window.jpg?b=1&s=170667a&w=0&k=20&c=AkaeqhpogPOjVwB2JzMl6hLKVTb8HvOu93pnC_HC3Nk=)] bg-cover bg-center bg-no-repeat bg-fixed"
             >
                 <div
-                    class="absolute inset-0  hero-overlay bg-opacity-40"
+                    className="absolute inset-0  hero-overlay bg-opacity-40"
                 ></div>
 
                 <div
-                    class="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center justify-center lg:px-8"
+                    className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center justify-center lg:px-8"
                 >
-                    <div class="max-w-full flex flex-col items-center">
-                        <h1 class="text-3xl font-extrabold sm:text-5xl">
-                            <strong class="block font-extrabold lg:text-8xl text-white">
+                    <div className="max-w-full flex flex-col items-center">
+                        <h1 className="text-3xl font-extrabold sm:text-5xl">
+                            <strong className="block font-extrabold lg:text-8xl text-white">
                                 Take The <span className='text-blue-900'>Stress</span> Out
                             </strong>
                         </h1>
 
-                        <p class="mt-4 max-w-2xl sm:text-3xl sm:leading-relaxed text-white text-center font-semibold">
+                        <p className="mt-4 max-w-2xl sm:text-3xl sm:leading-relaxed text-white text-center font-semibold">
                             of your real estate finances with our simple, but powerful, software solution
                         </p>
                     </div>

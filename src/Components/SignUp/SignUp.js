@@ -6,8 +6,6 @@ import img from "../../Assets/Select house-pana.png"
 import { AuthContext } from "../../Contexts/UserContext";
 
 
-
-
 const SignUp = () => {
     const { googleLogin, createUser, updateUser } = useContext(AuthContext);
 
@@ -42,46 +40,45 @@ const SignUp = () => {
             .then((res) => res.json())
             .then((image) => {
                 const img = image.data.url;
+                console.log(img);
                 createUser(email, password)
                     .then((res) => {
                         console.log(res.user);
                         // update user
                         updateUser(name, img)
                             .then(() => {
-                                // const user = {
-                                //     name,
-                                //     email,
-                                //     img,
-                                // };
-                                // fetch("https://harkrx-server.vercel.app/users", {
-                                //     method: "POST",
-                                //     headers: {
-                                //         "content-type": "application/json",
-                                //     },
-                                //     body: JSON.stringify(user),
-                                // })
-                                //     .then((res) => res.json())
-                                //     .then((data) => {
-                                //         Swal.fire(
-                                //             "Success",
-                                //             "User created successfully",
-                                //             "success"
-                                //         );
-                                //         setLoading(false);
+                                const user = {
+                                    name,
+                                    email,
+                                    img,
+                                };
+                                fetch("https://landlord-hub.vercel.app/users", {
+                                    method: "POST",
+                                    headers: {
+                                        "content-type": "application/json",
+                                    },
+                                    body: JSON.stringify(user),
+                                })
+                                    .then((res) => res.json())
+                                    .then((data) => {
+                                        Swal.fire(
+                                            "Success",
+                                            "User created successfully",
+                                            "success"
+                                        );
+                                        setLoading(false);
+                                        navigate("/");
+                                    });
 
-                                //         navigate("/");
-                                //     });
-                                console.log("user updated");
-                                navigate('/')
                             })
                             .catch((err) => {
-                                // setLoading(false);
-                                // Swal.fire("Opps", err.message, "error");
+                                setLoading(false);
+                                Swal.fire("Opps", err.message, "error");
                             });
                     })
                     .catch((err) => {
-                        // setLoading(false);
-                        // Swal.fire("Opps", err.message, "error");
+                        setLoading(false);
+                        Swal.fire("Opps", err.message, "error");
                         console.log(err);
                     });
             });
@@ -93,27 +90,25 @@ const SignUp = () => {
         e.preventDefault();
         googleLogin()
             .then((res) => {
-                // const user = {
-                //     name: res?.user?.displayName,
-                //     email: res?.user?.email,
-                //     img: res?.user?.photoURL,
-                // };
-                // fetch("https://harkrx-server.vercel.app/users", {
-                //     method: "POST",
-                //     headers: {
-                //         "content-type": "application/json",
-                //     },
-                //     body: JSON.stringify(user),
-                // })
-                //     .then((res) => res.json())
-                //     .then((data) => {
-                //         Swal.fire("Success", "Google Log In", "success");
-                //         setLoading(false);
+                const user = {
+                    name: res?.user?.displayName,
+                    email: res?.user?.email,
+                    img: res?.user?.photoURL,
+                };
+                fetch("https://landlord-hub.vercel.app/users", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(user),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        Swal.fire("Success", "Google Log In", "success");
+                        setLoading(false);
+                        navigate("/");
+                    });
 
-                //         navigate("/");
-                //     });
-                console.log(res.user);
-                navigate('/');
             })
             .catch((err) => {
                 Swal.fire("Opps", err.message, "error");
@@ -149,7 +144,7 @@ const SignUp = () => {
                 <div className="w-full flex justify-center items-center ">
                     <div className=" w-full lg:w-11/12 mx-auto py-6 sm:py-8 lg:py-12 ">
                         <div className="max-w-screen-2xl px-4 md:px-8 mx-auto">
-                            <h2 className="text-indigo-700 text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8">
+                            <h2 className="text-blue-900 text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8">
                                 Join Now
                             </h2>
 
@@ -214,16 +209,16 @@ const SignUp = () => {
                                             type="file"
                                             required
                                             name="photo"
-                                            className="file-input file-input-bordered file-input-primary w-full mb-2 "
+                                            className="file-input file-input-bordered file-input-[#1C2135] w-full mb-2 "
                                         />
                                     </div>
 
                                     <button
                                         type="submit"
-                                        className="flex gap-2 justify-center bg-indigo-700 hover:bg-indigo-500 active:bg-gray-600 focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
+                                        className="flex gap-2 justify-center bg-blue-900 hover:bg-blue-700 active:bg-gray-600 focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
                                     >
                                         {loading ? (
-                                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin dark:border-white"></div>
+                                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin "></div>
                                         ) : (
                                             "Register"
                                         )}
@@ -241,7 +236,7 @@ const SignUp = () => {
                                         className="flex justify-center items-center bg-base-100 hover:bg-base-100 active:bg-gray-200 border border-gray-300 focus-visible:ring ring-gray-300 text-gray-800 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 gap-2 px-8 py-3"
                                     >
                                         {loading ? (
-                                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin dark:border-teal-300"></div>
+                                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin "></div>
                                         ) : (
                                             <>
                                                 <svg
@@ -280,7 +275,7 @@ const SignUp = () => {
                                         Already have an account?{" "}
                                         <Link
                                             to="/login"
-                                            className="text-indigo-500 hover:text-indigo-600 active:text-indigo-700 transition duration-100 font-bold"
+                                            className="text-blue-900 hover:text-blue-700 active:text-blue-700 transition duration-100 font-bold"
                                         >
                                             Login
                                         </Link>

@@ -2,10 +2,12 @@ import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../Components/Dashboard/Dashboard";
 import Home from "../Components/Home/Home";
 import MyProperties from "../Components/Myproperties/MyProperties";
+import MyProperty from "../Components/Myproperties/MyProperty";
 import SingleProperty from "../Components/Myproperties/SingleProperty";
 import Login from "../Components/SignUp/Login";
 import SignUp from "../Components/SignUp/SignUp";
 import Main from "../Layouts/Main";
+import PrivateRoutes from "./PrivateRoutes";
 
 export const routes = createBrowserRouter([
     {
@@ -18,15 +20,16 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/dashboard',
-                element: <Dashboard></Dashboard>
+                element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
             },
             {
                 path: '/properties',
-                element: <MyProperties></MyProperties>
+                element: <PrivateRoutes><MyProperties></MyProperties></PrivateRoutes>
             },
             {
                 path: '/properties/:id',
-                element: <MyProperties></MyProperties>
+                loader: ({ params }) => fetch(`https://landlord-hub.vercel.app/property/${params.id}`),
+                element: <PrivateRoutes><SingleProperty></SingleProperty></PrivateRoutes>
             },
             {
                 path: '/signup',
@@ -36,10 +39,7 @@ export const routes = createBrowserRouter([
                 path: '/login',
                 element: <Login></Login>
             },
-            {
-                path: '/single',
-                element: <SingleProperty></SingleProperty>
-            },
+
         ]
     }
 ])
