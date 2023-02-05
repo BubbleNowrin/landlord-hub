@@ -77,7 +77,7 @@ const AddPropertyModal = ({ refetch, modalOpen, setModalOpen }) => {
             <div className="modal">
                 <div className="modal-box relative">
                     <label htmlFor="add-property" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-xl font-bold text-indigo-700">Add New Property</h3>
+                    <h3 className="text-xl font-bold text-blue-900">Add New Property</h3>
                     <form onSubmit={handleSubmit} className='grid grid-cols-1 gap-3 mt-10'>
                         <input type="text" defaultValue={user?.email} className="input w-full input-bordered text-gray-500" readOnly />
                         <input type="text" name='rent' placeholder="Rent" className="input w-full input-bordered" />
@@ -99,7 +99,7 @@ const AddPropertyModal = ({ refetch, modalOpen, setModalOpen }) => {
                         />
 
 
-                        <input className='w-full btn btn-primary' type="submit" value="Add" />
+                        <input className='w-full btn bg-blue-900' type="submit" value="Add" />
                     </form>
                 </div>
             </div>

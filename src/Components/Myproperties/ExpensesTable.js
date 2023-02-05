@@ -7,8 +7,8 @@ const ExpensesTable = ({ expenses }) => {
         <tr>
             <td>{date}</td>
             <td>{category}</td>
-            <td>{amount}</td>
             <td>{description}</td>
+            <td>{amount}</td>
         </tr>
     );
 };

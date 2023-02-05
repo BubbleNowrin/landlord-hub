@@ -81,7 +81,7 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty }) =
             <div className="modal">
                 <div className="modal-box relative">
                     <label htmlFor="edit-property" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-xl font-bold text-indigo-700">Edit Property</h3>
+                    <h3 className="text-xl font-bold text-blue-900">Edit Property</h3>
                     <form onSubmit={handleSubmit} className='grid grid-cols-1 gap-3 mt-10'>
                         <input type="text" defaultValue={user?.email} className="input w-full input-bordered text-gray-500" readOnly />
                         <input type="text" name='rent' placeholder="Rent" className="input w-full input-bordered" />
@@ -100,7 +100,7 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty }) =
                             name="photo"
                             className="file-input file-input-bordered file-input-primary w-full mb-2 "
                         />
-                        <input className='w-full btn btn-primary' type="submit" value="Update" />
+                        <input className='w-full btn bg-blue-900' type="submit" value="Update" />
                     </form>
                 </div>
             </div>

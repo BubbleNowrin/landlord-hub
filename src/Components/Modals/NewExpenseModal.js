@@ -51,13 +51,13 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
             <div className="modal">
                 <div className="modal-box relative">
                     <label htmlFor="add-expense" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-xl font-bold text-indigo-700">Add New Expense</h3>
+                    <h3 className="text-xl font-bold text-blue-900">Add New Expense</h3>
                     <form onSubmit={handleOnSubmit} className='grid grid-cols-1 gap-3 mt-10'>
                         <input type="date" name='date' placeholder="Date" className="input w-full input-bordered" />
                         <input name='category' type="text" placeholder="Category" className="input w-full input-bordered" />
-                        <input name="amount" type="text" placeholder="Amount" className="input w-full input-bordered" />
+                        <input name="amount" type="number" placeholder="Amount" className="input w-full input-bordered" />
                         <textarea className="textarea textarea-primary" placeholder="Description" name="description"></textarea>
-                        <input className='w-full btn btn-primary' type="submit" value="Add" />
+                        <input className='w-full btn bg-blue-900' type="submit" value="Add" />
                     </form>
                 </div>
             </div>

@@ -1,31 +1,37 @@
 import React from 'react';
 import { VictoryPie } from 'victory';
 
-const data = [
-    { x: "A", y: 35 },
-    { x: "B", y: 40 },
-    { x: "C", y: 55 },
-    { x: "D", y: 20 }
-];
 
-const Chart = () => {
+
+const Chart = ({ total, expenses, payments }) => {
+
+    console.log(expenses);
+    const data = [
+        { x: "Total Expenses", y: expenses },
+        { x: "Total Payments", y: payments },
+        { x: "Total", y: total }
+    ];
+
     return (
         <VictoryPie
             data={data}
-            innerRadius={100}
-            colorScale={["#4CAF50", "#2196F3", "#FF5722", "#9E9E9E"]}
+            innerRadius={80}
+            width={900}
+            colorScale={["#4CAF50", "#2196F3", "#9E9E9E"]}
             labels={({ datum }) => `${datum.x}: ${datum.y}`}
             style={{
+
                 data: {
                     stroke: "white",
-                    strokeWidth: 2
+                    strokeWidth: 10
                 },
                 labels: {
-                    fill: "red",
+                    fill: "black",
                     fontSize: 12
                 }
             }}
         />
+
     );
 };
 
