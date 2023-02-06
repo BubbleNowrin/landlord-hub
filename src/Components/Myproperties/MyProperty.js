@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const MyProperty = ({ property }) => {
 
     // console.log(property);
-    const { img, rent, address, status, bathroom, bedroom, parking, _id } = property;
+    const { img, rent, street, city, state, zip, status, bathroom, bedroom, parking, _id } = property;
 
     let className = 'text-gray-900';
     if (status === "Active Lease") {
@@ -22,23 +22,27 @@ const MyProperty = ({ property }) => {
                 <Link to={`/properties/${_id}`} state={_id} className="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-110 ease-in duration-100">
                     <img
                         alt="Home"
-                        src={img}
+                        src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="}
                         className="h-56 rounded-md object-cover"
                     />
 
                     <div className="mt-2">
                         <dl>
                             <div>
+                                <dt className="sr-only">Address</dt>
+                                <div className='flex text-blue-900'>
+                                    <dd className="font-medium">{street},</dd>
+                                    <dd className="font-medium">{city},</dd>
+                                    <dd className="font-medium">{state},</dd>
+                                    <dd className="font-medium">{zip}</dd>
+                                </div>
+                            </div>
+                            <div>
                                 <dt className="sr-only">Rent</dt>
 
-                                <dd className="text-sm text-gray-500 font-bold">${rent}</dd>
+                                <dd className="text-sm text-gray-500 font-bold">Rent: <span className='text-blue-900'>${rent}</span></dd>
                             </div>
 
-                            <div>
-                                <dt className="sr-only">Address</dt>
-
-                                <dd className="font-medium">{address}</dd>
-                            </div>
                             <div>
                                 <dt className="sr-only">Status</dt>
 
@@ -46,8 +50,8 @@ const MyProperty = ({ property }) => {
                             </div>
                         </dl>
 
-                        <div className="mt-6 flex items-center gap-8 text-xs">
-                            <div className="sm:inline-flex sm:shrink-0 sm:items-center">
+                        <div className="mt-6 flex justify-evenly gap-8 text-xs">
+                            {/* <div className="sm:inline-flex sm:shrink-0 sm:items-center">
                                 <svg
                                     className="h-4 w-4 text-indigo-700"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +72,7 @@ const MyProperty = ({ property }) => {
 
                                     <p className="font-medium">{parking} {parking > 1 ? "spaces" : "space"}</p>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="sm:inline-flex sm:shrink-0 sm:items-center">
                                 <svg

@@ -32,7 +32,7 @@ const SingleProperty = () => {
         className = 'text-red-500';
     }
 
-    const { img, address, bedroom, bathroom, parking, status, rent } = singleProperty;
+    const { img, street, city, state, zip, bedroom, bathroom, status, rent } = singleProperty;
 
     return (
         <div className='max-w-5xl mx-auto flex flex-col my-32'>
@@ -173,7 +173,7 @@ const SingleProperty = () => {
                                 </svg>
                                 <div className="space-y-2">
                                     <p className="text-lg font-medium leading-snug">Address</p>
-                                    <p className="leading-snug text-blue-900 font-bold">{address}</p>
+                                    <p className="leading-snug text-blue-900 font-bold">{street},{city},{state},{zip}</p>
                                 </div>
                             </div>
                             <div className="flex space-x-2 sm:space-x-4">
@@ -203,19 +203,10 @@ const SingleProperty = () => {
                                     <p className="leading-snug text-blue-900 font-bold">{bathroom} {bathroom > 1 ? "rooms" : "room"}</p>
                                 </div>
                             </div>
-                            <div className="flex space-x-2 sm:space-x-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                                </svg>
-                                <div className="space-y-2">
-                                    <p className="text-lg font-medium leading-snug">Parking</p>
-                                    <p className="leading-snug text-blue-900 font-bold">{parking} {parking > 1 ? "spaces" : "space"}</p>
-                                </div>
-                            </div>
                         </div>
                         <div className="lg:w-1/2 xl:w-3/5 ">
                             <div className="flex items-center justify-center p-4 md:p-8 lg:p-12">
-                                <img src={img} alt="" className="rounded-lg shadow-lg  aspect-video h-96" />
+                                <img src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="} alt="" className="rounded-lg shadow-lg  aspect-video h-96" />
                             </div>
                         </div>
                     </div>
@@ -236,7 +227,12 @@ const SingleProperty = () => {
 
             <div className='flex flex-col'>
                 <div className="overflow-x-auto mt-20 mb-10">
-                    <h3 className='text-center font-bold text-blue-900 text-xl mb-2'>Expenses Table</h3>
+                    <h3 className='text-center font-bold text-blue-900 text-xl mb-2'>Expenses & Payments Table</h3>
+                    {/* <div className='flex mb-10 items-center justify-center'>
+                        <button className='btn btn-outline'>2021</button>
+                        <button className='btn btn-outline'>2022</button>
+                        <button className='btn btn-outline'>2023</button>
+                    </div> */}
                     <table className="table table-zebra w-full -z-10">
 
                         <thead>
@@ -245,36 +241,25 @@ const SingleProperty = () => {
                                 <th>Category</th>
                                 <th>Description</th>
                                 <th>Amount</th>
+                                <th>Type</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {
+                            {/* {
                                 singleProperty?.calculations?.filter(prop => prop.expense).map((expenses, idx) => <ExpensesTable
                                     key={idx}
                                     expenses={expenses}
                                 ></ExpensesTable>)
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div className="overflow-x-auto mt-20 mb-10">
-                    <h3 className='text-center font-bold text-blue-900 text-xl mb-2'>Payments Table</h3>
-                    <table className="table table-zebra w-full -z-10">
-
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                            } */}
                             {
-                                singleProperty?.calculations?.filter(prop => prop.payment).map((payments, idx) => <PaymentsTable
-                                    key={idx}
-                                    payments={payments}
-                                ></PaymentsTable>)
+                                singleProperty?.calculations?.map(calc =>
+                                    <tr className={calc.expense ? "text-red-500" : "text-green-500"}>
+                                        <td>{calc?.date}</td>
+                                        <td>{calc?.category}</td>
+                                        <td>{calc?.description}</td>
+                                        <td>{calc?.amount}</td>
+                                        <td>{calc?.expense ? "Expense" : "Payment"}</td>
+                                    </tr>)
                             }
                         </tbody>
                     </table>

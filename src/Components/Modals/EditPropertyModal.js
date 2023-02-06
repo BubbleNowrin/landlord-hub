@@ -9,13 +9,11 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty }) =
     const handleSubmit = e => {
         e.preventDefault();
         const form = e.target;
-        const rent = form.rent.value;
-        const address = form.address.value;
-        const status = form.status.value;
-        const bedroom = form.bedroom.value;
-        const parking = form.parking.value;
-        const bathroom = form.bedroom.value;
-        const image = form.photo.files[0];
+        const rent = form?.rent.value;
+        const status = form?.status.value;
+        const bedroom = form?.bedroom.value;
+        const bathroom = form?.bedroom.value;
+        const image = form?.photo.files[0];
 
         // console.log(rent, address, status, bedroom, parking, bathroom, image);
 
@@ -39,10 +37,8 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty }) =
                 const property = {
                     email: user?.email,
                     rent,
-                    address,
                     status,
                     bedroom,
-                    parking,
                     bathroom,
                     img
                 }
@@ -83,16 +79,17 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty }) =
                     <label htmlFor="edit-property" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-xl font-bold text-blue-900">Edit Property</h3>
                     <form onSubmit={handleSubmit} className='grid grid-cols-1 gap-3 mt-10'>
-                        <input type="text" defaultValue={user?.email} className="input w-full input-bordered text-gray-500" readOnly />
+                        {/* <input type="text" defaultValue={user?.email} className="input w-full input-bordered text-gray-500" readOnly /> */}
+
+                        {/* <input name='address' type="text" placeholder="Address" className="input w-full input-bordered" /> */}
                         <input type="text" name='rent' placeholder="Rent" className="input w-full input-bordered" />
-                        <input name='address' type="text" placeholder="Address" className="input w-full input-bordered" />
                         <select name='status' className="select select-bordered w-full text-gray-500" placeholder='Bedrooms'>
                             <option>Active Lease</option>
                             <option>Available</option>
                             <option>Under Repair</option>
                         </select>
                         <input name="bedroom" type="text" placeholder="Bedroom" className="input w-full input-bordered" />
-                        <input name="parking" type="text" placeholder="Parking" className="input w-full input-bordered" />
+                        {/* <input name="parking" type="text" placeholder="Parking" className="input w-full input-bordered" /> */}
                         <input name="bathroom" type="text" placeholder="Bathroom" className="input w-full input-bordered" />
                         <input
                             type="file"
