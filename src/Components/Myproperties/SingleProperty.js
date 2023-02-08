@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLoaderData, useLocation } from 'react-router-dom';
-import { BsArrowLeft } from 'react-icons/bs';
+import { BsArrowLeft, BsPencilFill } from 'react-icons/bs';
 import Chart from './Chart';
 import EditPropertyModal from '../Modals/EditPropertyModal';
 import NewExpenseModal from '../Modals/NewExpenseModal';
@@ -153,10 +153,10 @@ const SingleProperty = () => {
                 </div> */}
                 <section className="">
                     <div className='text-right mb-4 mr-12 mt-2'>
-                        <label onClick={() => setModalOpen(true)} htmlFor="edit-property" className='text-xl font-bold cursor-pointer btn bg-blue-900'>Edit</label>
+                        {/* <label onClick={() => setModalOpen(true)} htmlFor="edit-property" className='text-xl font-bold cursor-pointer btn bg-blue-900'><BsPencilFill /></label> */}
                     </div>
                     <EditPropertyModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty}></EditPropertyModal>
-                    <div className="container flex flex-col-reverse mx-auto lg:flex-row">
+                    {/* <div className="container flex flex-col-reverse mx-auto lg:flex-row">
                         <div className="flex flex-col px-6 py-8 space-y-6 rounded-sm sm:p-8 lg:p-12 lg:w-1/2 xl:w-2/5 ">
                             <div className="flex space-x-2 sm:space-x-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
@@ -208,6 +208,21 @@ const SingleProperty = () => {
                             <div className="flex items-center justify-center p-4 md:p-8 lg:p-12">
                                 <img src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="} alt="" className="rounded-lg shadow-lg  aspect-video h-96" />
                             </div>
+                        </div>
+                    </div> */}
+                    <div className='mt-6'>
+                        <div className='flex flex-col gap-6 items-center justify-center'>
+                            <div className='flex items-center gap-8'>
+                                <p className='text-blue-900 font-bold text-2xl'>{street}, {city}, {state}, {zip}</p>
+                                <span> <label onClick={() => setModalOpen(true)} htmlFor="edit-property" className='text-xl font-bold cursor-pointer btn bg-blue-900'><BsPencilFill /></label></span>
+                            </div>
+                            <img src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="} alt="" className="rounded-lg shadow-lg aspect-video h-96" />
+                        </div>
+                        <div className='flex justify-around items-center mt-10'>
+                            <p className=" text-blue-900 font-bold text-xl">Rent: ${rent}</p>
+                            <p className={`${className} font-medium text-xl`}>Status: {status}</p>
+                            <p className="leading-snug text-blue-900 font-bold text-xl">BR:    {bedroom} {bedroom > 1 ? "rooms" : "room"}</p>
+                            <p className="leading-snug text-blue-900 font-bold text-xl">BA: {bathroom} {bathroom > 1 ? "rooms" : "room"}</p>
                         </div>
                     </div>
                 </section>

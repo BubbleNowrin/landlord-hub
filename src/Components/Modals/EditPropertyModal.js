@@ -32,7 +32,7 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty }) =
         })
             .then((res) => res.json())
             .then((image) => {
-                const img = image.data.url;
+                const img = image?.data?.url;
                 // console.log(img);
                 const property = {
                     email: user?.email,
@@ -93,9 +93,8 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty }) =
                         <input name="bathroom" type="text" placeholder="Bathroom" className="input w-full input-bordered" />
                         <input
                             type="file"
-                            required
                             name="photo"
-                            className="file-input file-input-bordered file-input-primary w-full mb-2 "
+                            className="file-input file-input-bordered file-input-blue-900 w-full mb-2 "
                         />
                         <input className='w-full btn bg-blue-900' type="submit" value="Update" />
                     </form>
