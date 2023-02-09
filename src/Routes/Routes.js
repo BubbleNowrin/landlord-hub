@@ -28,7 +28,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/properties/:id',
-                loader: ({ params }) => fetch(`https://landlord-hub.vercel.app/property/${params.id}`),
+                loader: ({ params }) => fetch(`http://localhost:5000/property/${params.id}`),
                 element: <PrivateRoutes><SingleProperty></SingleProperty></PrivateRoutes>
             },
             {

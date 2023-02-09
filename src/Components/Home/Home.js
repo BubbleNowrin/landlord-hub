@@ -88,7 +88,7 @@ const Home = () => {
                 <div className="container mx-auto space-y-12">
 
                     <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row-reverse">
-                        <img src={img} alt="" className="h-96 object-cover aspect-video p-10" />
+                        <img src={img} alt="" className="h-96 object-cover aspect-video pt-10 px-10" />
                         <div className="flex flex-col justify-center flex-1 p-6 ">
                             <div className="flex flex-col justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
                                 <h1 className="text-4xl font-bold leading-none"> <span className='font-bold text-blue-900'>Easy-to-use</span> Business Tools for Small to Mid-Size <span className='font-bold text-blue-900'> Real Estate</span> Investors

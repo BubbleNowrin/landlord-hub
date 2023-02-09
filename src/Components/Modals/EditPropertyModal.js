@@ -12,7 +12,7 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty }) =
         const rent = form?.rent.value;
         const status = form?.status.value;
         const bedroom = form?.bedroom.value;
-        const bathroom = form?.bedroom.value;
+        const bathroom = form?.bathroom.value;
         const image = form?.photo.files[0];
 
         // console.log(rent, address, status, bedroom, parking, bathroom, image);
@@ -82,15 +82,15 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty }) =
                         {/* <input type="text" defaultValue={user?.email} className="input w-full input-bordered text-gray-500" readOnly /> */}
 
                         {/* <input name='address' type="text" placeholder="Address" className="input w-full input-bordered" /> */}
-                        <input type="text" name='rent' placeholder="Rent" className="input w-full input-bordered" />
-                        <select name='status' className="select select-bordered w-full text-gray-500" placeholder='Bedrooms'>
+                        <input type="text" name='rent' placeholder="Rent" className="input w-full input-bordered" required />
+                        <select name='status' className="select select-bordered w-full text-gray-500" placeholder='Bedrooms' required>
                             <option>Active Lease</option>
                             <option>Available</option>
                             <option>Under Repair</option>
                         </select>
-                        <input name="bedroom" type="text" placeholder="Bedroom" className="input w-full input-bordered" />
+                        <input name="bedroom" type="text" placeholder="Bedroom" className="input w-full input-bordered" required />
                         {/* <input name="parking" type="text" placeholder="Parking" className="input w-full input-bordered" /> */}
-                        <input name="bathroom" type="text" placeholder="Bathroom" className="input w-full input-bordered" />
+                        <input name="bathroom" type="text" placeholder="Bathroom" className="input w-full input-bordered" required />
                         <input
                             type="file"
                             name="photo"

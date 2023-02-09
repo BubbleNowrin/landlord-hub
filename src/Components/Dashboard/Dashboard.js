@@ -73,7 +73,7 @@ const Dashboard = () => {
                         {
                             properties?.map(prop => prop?.calculations?.map(calc =>
                                 <tr className={calc.expense ? "text-red-500" : "text-green-500"}>
-                                    <td>{calc?.address}</td>
+                                    <td>{calc?.street}, {calc?.city}, {calc?.state}, {calc?.zip}</td>
                                     <td>{calc?.date}</td>
                                     <td>{calc?.category}</td>
                                     <td>{calc?.description}</td>
