@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useLoaderData, useLocation } from 'react-router-dom';
-import { BsArrowLeft, BsPencilFill } from 'react-icons/bs';
+import { Link, Navigate, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { BsArrowLeft, BsPencilFill, BsThreeDotsVertical } from 'react-icons/bs';
 import Chart from './Chart';
 import EditPropertyModal from '../Modals/EditPropertyModal';
 import NewExpenseModal from '../Modals/NewExpenseModal';
@@ -8,6 +8,8 @@ import NewPaymentModal from '../Modals/NewPaymentModal';
 import { useQuery } from '@tanstack/react-query';
 import ExpensesTable from './ExpensesTable';
 import PaymentsTable from './PaymentsTable';
+import Swal from 'sweetalert2';
+import UpdateImageModal from '../Modals/UpdateImageModal';
 
 const SingleProperty = () => {
 
@@ -27,8 +29,44 @@ const SingleProperty = () => {
         return allYear;
     })
 
+    const navigate = useNavigate();
 
-    console.log(allYear);
+
+    const handleDelete = id => {
+        fetch(`https://landlord-hub.vercel.app/delete/${id}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                navigate('/properties')
+                Swal.fire(
+                    "Success",
+                    "Property Deleted Successfully",
+                    "success"
+                );
+            })
+    }
+
+    const handleArchive = id => {
+        fetch(`https://landlord-hub.vercel.app/archived/${id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                Swal.fire(
+                    "Success",
+                    "Property Archived Successfully",
+                    "success"
+                );
+                navigate('/archived')
+            })
+    }
 
 
 
@@ -61,122 +99,35 @@ const SingleProperty = () => {
             </div>
             <div className=''>
                 {/* card */}
-                {/* <div>
-                    <div className="block rounded-lg max-w-xs mx-auto p-4 shadow-lg shadow-indigo-200 mt-10">
-                        <div className='text-right mb-4'>
-                            <label onClick={() => setModalOpen(true)} htmlFor="edit-property" className='text-xl font-bold text-indigo-700 cursor-pointer underline'>Edit</label>
-                        </div>
-                        <EditPropertyModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty}></EditPropertyModal>
-                        <img
-                            alt="Home"
-                            src={singleProperty?.img}
-                            className="h-56 rounded-md object-cover"
-                        />
 
-                        <div className="mt-2">
-                            <dl>
-                                <div>
-                                    <dt className="sr-only">Rent</dt>
-
-                                    <dd className="text-sm text-gray-500 font-bold">${singleProperty?.rent}</dd>
-                                </div>
-
-                                <div>
-                                    <dt className="sr-only">Address</dt>
-
-                                    <dd className="font-medium">{singleProperty?.address}</dd>
-                                </div>
-                                <div>
-                                    <dt className="sr-only">Status</dt>
-
-                                    <dd className={`${className} font-medium`}>{singleProperty?.status}</dd>
-                                </div>
-                            </dl>
-
-                            <div className="mt-6 flex items-center gap-8 text-xs">
-                                <div className="sm:inline-flex sm:shrink-0 sm:items-center">
-                                    <svg
-                                        className="h-4 w-4 text-indigo-700"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"
-                                        />
-                                    </svg>
-
-                                    <div className="mt-1.5 sm:ml-3 sm:mt-0">
-                                        <p className="text-gray-500">Parking</p>
-
-                                        <p className="font-medium">{singleProperty?.parking} {singleProperty?.parking > 1 ? "spaces" : "space"}</p>
-                                    </div>
-                                </div>
-
-                                <div className="sm:inline-flex sm:shrink-0 sm:items-center">
-                                    <svg
-                                        className="h-4 w-4 text-indigo-700"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                                        />
-                                    </svg>
-
-                                    <div className="mt-1.5 sm:ml-3 sm:mt-0">
-                                        <p className="text-gray-500">Bathroom</p>
-
-                                        <p className="font-medium">{singleProperty?.bathroom} {singleProperty?.bathroom > 1 ? "rooms" : "room"}</p>
-                                    </div>
-                                </div>
-
-                                <div className="sm:inline-flex sm:shrink-0 sm:items-center">
-                                    <svg
-                                        className="h-4 w-4 text-indigo-700"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                                        />
-                                    </svg>
-
-                                    <div className="mt-1.5 sm:ml-3 sm:mt-0">
-                                        <p className="text-gray-500">Bedroom</p>
-
-                                        <p className="font-medium">{singleProperty?.bedroom} {singleProperty?.bedroom > 1 ? "rooms" : "room"}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
                 <section className="">
                     <div className='text-right mb-4 mr-12 mt-2'>
                         {/* <label onClick={() => setModalOpen(true)} htmlFor="edit-property" className='text-xl font-bold cursor-pointer btn bg-blue-900'><BsPencilFill /></label> */}
                     </div>
-                    <EditPropertyModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty}></EditPropertyModal>
+                    <EditPropertyModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty} singleProperty={singleProperty}></EditPropertyModal>
+
+                    <UpdateImageModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty} singleProperty={singleProperty}></UpdateImageModal>
 
                     <div className='mt-6'>
                         <div className='flex flex-col gap-6 items-center justify-center'>
                             <div className='flex items-center gap-8'>
                                 <p className='text-blue-900 font-bold text-2xl'>{street}, {city}, {state}, {zip}</p>
-                                <span> <label onClick={() => setModalOpen(true)} htmlFor="edit-property" className='text-xl font-bold cursor-pointer btn bg-blue-900'><BsPencilFill /></label></span>
+                                <div>
+                                    <div className="dropdown dropdown-right">
+                                        <label tabIndex={0} className="text-xl font-bold cursor-pointer btn bg-blue-900 m-1"><BsPencilFill /></label>
+                                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                            <li><label onClick={() => setModalOpen(true)} htmlFor="edit-property">Add Info</label></li>
+                                            <li><label onClick={() => setModalOpen(true)} htmlFor="upload-Image">Upload Image</label></li>
+                                        </ul>
+                                    </div>
+                                    <div className="dropdown dropdown-right">
+                                        <label tabIndex={0} className="text-xl font-bold cursor-pointer btn bg-blue-900 m-1"><BsThreeDotsVertical /></label>
+                                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                            <li><button onClick={() => handleDelete(single._id)}>Delete</button></li>
+                                            <li><button onClick={() => handleArchive(single._id)}>Archive</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                             <img src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="} alt="" className="rounded-lg shadow-lg aspect-video h-96" />
                         </div>
@@ -264,7 +215,7 @@ const SingleProperty = () => {
                                 ></ExpensesTable>)
                             } */}
                             {
-                                singleProperty?.calculations?.filter(prp => prp.date.slice(0, 4) === year).map(calc =>
+                                singleProperty?.calculations?.filter(prp => prp.date.slice(0, 4) === year)?.map(calc =>
                                     <tr className={calc.expense ? "text-red-500" : "text-green-500"}>
                                         <td>{calc?.date}</td>
                                         <td>{calc?.category}</td>

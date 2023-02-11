@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../Components/Dashboard/Dashboard";
 import Home from "../Components/Home/Home";
+import Archived from "../Components/Myproperties/Archived";
 import MyProperties from "../Components/Myproperties/MyProperties";
 import MyProperty from "../Components/Myproperties/MyProperty";
 import SingleProperty from "../Components/Myproperties/SingleProperty";
@@ -27,8 +28,12 @@ export const routes = createBrowserRouter([
                 element: <PrivateRoutes><MyProperties></MyProperties></PrivateRoutes>
             },
             {
+                path: '/archived',
+                element: <PrivateRoutes><Archived></Archived></PrivateRoutes>
+            },
+            {
                 path: '/properties/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/property/${params.id}`),
+                loader: ({ params }) => fetch(`https://landlord-hub.vercel.app/property/${params.id}`),
                 element: <PrivateRoutes><SingleProperty></SingleProperty></PrivateRoutes>
             },
             {

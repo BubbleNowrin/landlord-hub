@@ -19,7 +19,10 @@ const NewPaymentModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
             amount,
             description,
             payment: true,
-            address: singleProperty?.address
+            street: singleProperty?.street,
+            city: singleProperty?.city,
+            state: singleProperty?.state,
+            zip: singleProperty?.zip,
         }
         fetch(`https://landlord-hub.vercel.app/calculation/${id}`, {
             method: "PUT",
@@ -52,10 +55,10 @@ const NewPaymentModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
                     <label htmlFor="add-payment" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-xl font-bold text-blue-900">Add New Payment</h3>
                     <form onSubmit={handleOnSubmit} className='grid grid-cols-1 gap-3 mt-10'>
-                        <input type="date" name='date' placeholder="Date" className="input w-full input-bordered" />
-                        <input name='category' type="text" placeholder="Category" className="input w-full input-bordered" />
-                        <input name="amount" type="number" placeholder="Amount" className="input w-full input-bordered" />
-                        <textarea className="textarea textarea-primary" placeholder="Description" name="description"></textarea>
+                        <input type="date" name='date' placeholder="Date" className="input w-full input-bordered" required />
+                        <input name='category' type="text" placeholder="Category" className="input w-full input-bordered" required />
+                        <input name="amount" type="text" placeholder="Amount" className="input w-full input-bordered" required />
+                        <textarea className="textarea textarea-primary" placeholder="Description" name="description" required></textarea>
 
                         <input className='w-full btn bg-blue-900' type="submit" value="Add" />
                     </form>
