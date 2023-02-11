@@ -21,68 +21,69 @@ const SignUp = () => {
         setLoading(true);
         const form = event.target;
         const name = form.name.value;
-        const image = form.photo.files[0];
+        // const image = form.photo.files[0];
         const email = form.email.value;
 
-        const img_api = "701a0d7cdce71a8410d4cf17c044dfba";
+        // const img_api = "701a0d7cdce71a8410d4cf17c044dfba";
 
         // create form Data
-        const formData = new FormData();
-        formData.append("image", image);
+        // const formData = new FormData();
+        // formData.append("image", image);
 
-        const url = `https://api.imgbb.com/1/upload?key=${img_api}`;
+        // const url = `https://api.imgbb.com/1/upload?key=${img_api}`;
 
         // post image to imgbb
-        fetch(url, {
-            method: "POST",
-            body: formData,
-        })
-            .then((res) => res.json())
-            .then((image) => {
-                const img = image.data.url;
-                console.log(img);
-                createUser(email, password)
-                    .then((res) => {
-                        console.log(res.user);
-                        // update user
-                        updateUser(name, img)
-                            .then(() => {
-                                const user = {
-                                    name,
-                                    email,
-                                    img,
-                                };
-                                fetch("https://landlord-hub.vercel.app/users", {
-                                    method: "POST",
-                                    headers: {
-                                        "content-type": "application/json",
-                                    },
-                                    body: JSON.stringify(user),
-                                })
-                                    .then((res) => res.json())
-                                    .then((data) => {
-                                        Swal.fire(
-                                            "Success",
-                                            "User created successfully",
-                                            "success"
-                                        );
-                                        setLoading(false);
-                                        navigate("/");
-                                    });
+        //     fetch(url, {
+        //         method: "POST",
+        //         body: formData,
+        //     })
+        //         .then((res) => res.json())
+        //         .then((image) => {
+        //             const img = image.data.url;
+        //             console.log(img);
 
-                            })
-                            .catch((err) => {
+        //         });
+        // };
+        createUser(email, password)
+            .then((res) => {
+                console.log(res.user);
+                // update user
+                updateUser(name)
+                    .then(() => {
+                        const user = {
+                            name,
+                            email,
+                        };
+                        fetch("https://landlord-hub.vercel.app/users", {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json",
+                            },
+                            body: JSON.stringify(user),
+                        })
+                            .then((res) => res.json())
+                            .then((data) => {
+                                Swal.fire(
+                                    "Success",
+                                    "User created successfully",
+                                    "success"
+                                );
                                 setLoading(false);
-                                Swal.fire("Opps", err.message, "error");
+                                navigate("/");
                             });
+
                     })
                     .catch((err) => {
                         setLoading(false);
                         Swal.fire("Opps", err.message, "error");
-                        console.log(err);
                     });
+            })
+            .catch((err) => {
+                setLoading(false);
+                Swal.fire("Opps", err.message, "error");
+                console.log(err);
             });
-    };
+    }
 
     // google log in
     const handleGoogle = (e) => {
@@ -197,20 +198,6 @@ const SignUp = () => {
                                         {error && (
                                             <small className="text-red-400 my-2">{error}</small>
                                         )}
-                                    </div>
-                                    <div>
-                                        <label
-                                            htmlFor="photo"
-                                            className="inline-block text-gray-800 text-sm sm:text-base mb-2"
-                                        >
-                                            Upload Photo
-                                        </label>
-                                        <input
-                                            type="file"
-                                            required
-                                            name="photo"
-                                            className="file-input file-input-bordered file-input-[#1C2135] w-full mb-2 "
-                                        />
                                     </div>
 
                                     <button

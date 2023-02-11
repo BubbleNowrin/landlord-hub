@@ -95,7 +95,7 @@ const Navbar = () => {
 
                     </ul>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
-                        {
+                        {/* {
                             user?.photoURL &&
                             <li className='text-blue-900 font-bold flex justify-between items-center'>
                                 <div className="avatar online">
@@ -105,7 +105,7 @@ const Navbar = () => {
                                 </div>
                             </li>
 
-                        }
+                        } */}
                         {
                             user?.email ?
                                 <li onClick={handleLogOut}>
@@ -121,12 +121,12 @@ const Navbar = () => {
                                 :
                                 <li>
                                     <Link
-                                        to="/signup"
+                                        to="/login"
                                         className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide bg-blue-900 hover:bg-blue-700  text-white transition duration-200 rounded shadow-md text-lg"
                                         aria-label="Sign up"
                                         title="Sign up"
                                     >
-                                        Sign up
+                                        Log In
                                     </Link>
                                 </li>
                         }
@@ -251,12 +251,12 @@ const Navbar = () => {
                                                 :
                                                 <li>
                                                     <Link
-                                                        to="/signup"
+                                                        to="/login"
                                                         className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide bg-blue-900 transition duration-200 rounded shadow-md text-white hover:bg-blue-700 "
                                                         aria-label="Sign up"
                                                         title="Sign up"
                                                     >
-                                                        Sign up
+                                                        Log In
                                                     </Link>
                                                 </li>
                                         }

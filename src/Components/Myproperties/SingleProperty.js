@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, Navigate, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { BsArrowLeft, BsPencilFill, BsThreeDotsVertical } from 'react-icons/bs';
 import Chart from './Chart';
@@ -10,8 +10,11 @@ import ExpensesTable from './ExpensesTable';
 import PaymentsTable from './PaymentsTable';
 import Swal from 'sweetalert2';
 import UpdateImageModal from '../Modals/UpdateImageModal';
+import { DownloadTableExcel } from 'react-export-table-to-excel';
 
 const SingleProperty = () => {
+
+    const tableRef = useRef(null);
 
     let allYear = [];
     const single = useLoaderData();
@@ -109,12 +112,54 @@ const SingleProperty = () => {
                     <UpdateImageModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty} singleProperty={singleProperty}></UpdateImageModal>
 
                     <div className='mt-6'>
-                        <div className='flex flex-col gap-6 items-center justify-center'>
-                            <div className='flex flex-col md:flex-row items-center gap-8'>
+                        <div className='flex flex-col gap-6 items-center'>
+                            <div className='flex flex-col items-center gap-8'>
                                 <p className='text-blue-900 font-bold text-2xl'>{street}, {city}, {state}, {zip}</p>
+                            </div>
+                        </div>
+                        <div className="flex space-x-2 sm:space-x-4 mt-3">
+                            <div className="space-y-2">
+                                <p className="text-lg font-medium leading-snug">Status</p>
+                                <p className={`${className} font-medium`}>{status}</p>
+                            </div>
+                        </div>
+                        <div className='flex justify-center items-center mt-5'>
+                            <img src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="} alt="" className="rounded-lg shadow-lg aspect-video h-96" />
+                        </div>
+                        <div className='flex justify-around items-center mt-10'>
+                            <div className="flex space-x-2 sm:space-x-4">
+                                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg> */}
+                                <div className="space-y-2">
+                                    <p className="text-lg font-medium leading-snug">Rent</p>
+                                    <p className="leading-snug text-blue-900 font-bold">{rent ? "$" : ""}{rent}</p>
+                                </div>
+                            </div>
+
+                            <div className="flex space-x-2 sm:space-x-4">
+                                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg> */}
+                                <div className="space-y-2">
+                                    <p className="text-lg font-medium leading-snug">Bed</p>
+                                    <p className="leading-snug text-blue-900 font-bold">{bedroom}</p>
+                                </div>
+                            </div>
+
+                            <div className="flex space-x-2 sm:space-x-4">
+                                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg> */}
+                                <div className="space-y-2">
+                                    <p className="text-lg font-medium leading-snug">Bath</p>
+                                    <p className="leading-snug text-blue-900 font-bold">{bathroom}</p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-2 sm:space-x-4">
                                 {
                                     singleProperty?.archived || <div>
-                                        <div className="dropdown">
+                                        <div className="dropdown  dropdown-bottom dropdown-end">
                                             <label tabIndex={0} className="text-xl font-bold cursor-pointer btn bg-blue-900 m-1"><BsPencilFill /></label>
                                             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                                                 <li><label onClick={() => setModalOpen(true)} htmlFor="edit-property">Add Info</label></li>
@@ -131,46 +176,6 @@ const SingleProperty = () => {
                                     </div>
                                 }
                             </div>
-                            <img src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="} alt="" className="rounded-lg shadow-lg aspect-video h-96" />
-                        </div>
-                        <div className='flex justify-around items-center mt-10'>
-                            <div className="flex space-x-2 sm:space-x-4">
-                                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                                </svg> */}
-                                <div className="space-y-2">
-                                    <p className="text-lg font-medium leading-snug">Rent</p>
-                                    <p className="leading-snug text-blue-900 font-bold">${rent}</p>
-                                </div>
-                            </div>
-                            <div className="flex space-x-2 sm:space-x-4">
-                                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                                </svg> */}
-                                <div className="space-y-2">
-                                    <p className="text-lg font-medium leading-snug">Status</p>
-                                    <p className={`${className} font-medium`}>{status}</p>
-                                </div>
-                            </div>
-                            <div className="flex space-x-2 sm:space-x-4">
-                                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                                </svg> */}
-                                <div className="space-y-2">
-                                    <p className="text-lg font-medium leading-snug">Bedroom</p>
-                                    <p className="leading-snug text-blue-900 font-bold">{bedroom} {bedroom > 1 ? "rooms" : "room"}</p>
-                                </div>
-                            </div>
-
-                            <div className="flex space-x-2 sm:space-x-4">
-                                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                                </svg> */}
-                                <div className="space-y-2">
-                                    <p className="text-lg font-medium leading-snug">Bathroom</p>
-                                    <p className="leading-snug text-blue-900 font-bold">{bathroom} {bathroom > 1 ? "rooms" : "room"}</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </section>
@@ -182,7 +187,15 @@ const SingleProperty = () => {
                 singleProperty?.archived || <div className='mt-20 flex justify-around'>
                     <label onClick={() => setModalOpen(true)} htmlFor="add-expense" className='btn btn-outline'>Add Expense</label>
                     <label onClick={() => setModalOpen(true)} htmlFor="add-payment" className='btn btn-outline'>Add Payment</label>
-                    <button className='btn btn-outline'>Export</button>
+                    <DownloadTableExcel
+                        filename="users table"
+                        sheet="users"
+                        currentTableRef={tableRef.current}
+                    >
+
+                        <button className='btn btn-outline'>Export</button>
+
+                    </DownloadTableExcel>
                 </div>
             }
 
@@ -193,15 +206,15 @@ const SingleProperty = () => {
 
             <div className='flex flex-col'>
                 <div className="overflow-x-auto mt-20 mb-10">
-                    <h3 className='text-center font-bold text-blue-900 text-xl mb-2'>Expenses & Payments Table</h3>
-                    <div className='flex mb-10 items-center justify-center'>
+                    {/* <h3 className='text-center font-bold text-blue-900 text-xl mb-2'>Expenses & Payments Table</h3> */}
+                    <div className='flex mb-10 items-center justify-start'>
                         {/* <button onClick={() => setYear("2021")} className='btn btn-outline'>2021</button> */}
                         {
                             allYear?.map(singleYear => <button onClick={() => setYear(singleYear)} className='btn btn-outline'>{singleYear}</button>)
                         }
 
                     </div>
-                    <table className="table table-zebra w-full -z-10">
+                    <table className="table table-zebra w-full -z-10" ref={tableRef}>
 
                         <thead>
                             <tr>

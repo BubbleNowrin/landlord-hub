@@ -12,7 +12,7 @@ const Archived = () => {
     //get the user specific bookings data
     const { data: archived, refetch, isLoading } = useQuery({
         queryKey: ['archived'],
-        queryFn: () => fetch(`http://localhost:5000/arhived-property?email=${user?.email}`).then(res => res.json())
+        queryFn: () => fetch(`https://landlord-hub.vercel.app/arhived-property?email=${user?.email}`).then(res => res.json())
     })
 
     console.log(archived);

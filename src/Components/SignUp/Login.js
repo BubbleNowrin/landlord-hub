@@ -119,7 +119,7 @@ const Login = () => {
                 <div className="w-full flex justify-center items-center">
                     <div className="w-full lg:w-9/12 mx-auto py-6 sm:py-8 lg:py-12">
                         <div className="w-full px-4 md:px-8 mx-auto">
-                            <h2 className="text-indigo-700 text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8">
+                            <h2 className="text-blue-900 text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8">
                                 Login Now
                             </h2>
 
@@ -168,7 +168,7 @@ const Login = () => {
                                     </p>
                                     <button
                                         type="submit"
-                                        className="flex gap-2 justify-center bg-indigo-700 hover:bg-indigo-500 active:bg-gray-600 focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
+                                        className="flex gap-2 justify-center bg-blue-900 hover:bg-blue-700 active:bg-gray-600  focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
                                     >
                                         {loading ? (
                                             <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin"></div>
@@ -228,7 +228,7 @@ const Login = () => {
                                         Don't have an account?{" "}
                                         <Link
                                             to="/signup"
-                                            className="text-indigo-500 hover:text-indigo-600 active:text-indigo-700 transition duration-100 font-bold"
+                                            className="text-blue-900 hover:text-blue-700 active:text-blue-700 transition duration-100 font-bold"
                                         >
                                             Register
                                         </Link>
