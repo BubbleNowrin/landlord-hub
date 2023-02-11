@@ -21,8 +21,6 @@ const MyProperties = () => {
 
     })
 
-
-
     if (isLoading) {
         return <Loader></Loader>
     }

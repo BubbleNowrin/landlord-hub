@@ -79,6 +79,19 @@ const Navbar = () => {
                                 </Link>
                             </li>
                         }
+                        {
+                            user?.uid &&
+                            <li>
+                                <Link
+                                    to="/archived"
+                                    aria-label="Our product"
+                                    title="Our product"
+                                    className="font-medium tracking-wide text-blue-900 transition-colors duration-200 hover:text-blue-800 text-lg"
+                                >
+                                    Archived
+                                </Link>
+                            </li>
+                        }
 
                     </ul>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
@@ -206,6 +219,19 @@ const Navbar = () => {
                                                     className="font-medium tracking-wide text-blue-900 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                                 >
                                                     My Properties
+                                                </Link>
+                                            </li>
+                                        }
+                                        {
+                                            user?.uid &&
+                                            <li>
+                                                <Link
+                                                    to="/archived"
+                                                    aria-label="Our product"
+                                                    title="Our product"
+                                                    className="font-medium tracking-wide text-blue-900 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                >
+                                                    Archived
                                                 </Link>
                                             </li>
                                         }

@@ -110,24 +110,26 @@ const SingleProperty = () => {
 
                     <div className='mt-6'>
                         <div className='flex flex-col gap-6 items-center justify-center'>
-                            <div className='flex items-center gap-8'>
+                            <div className='flex flex-col md:flex-row items-center gap-8'>
                                 <p className='text-blue-900 font-bold text-2xl'>{street}, {city}, {state}, {zip}</p>
-                                <div>
-                                    <div className="dropdown dropdown-right">
-                                        <label tabIndex={0} className="text-xl font-bold cursor-pointer btn bg-blue-900 m-1"><BsPencilFill /></label>
-                                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                            <li><label onClick={() => setModalOpen(true)} htmlFor="edit-property">Add Info</label></li>
-                                            <li><label onClick={() => setModalOpen(true)} htmlFor="upload-Image">Upload Image</label></li>
-                                        </ul>
+                                {
+                                    singleProperty?.archived || <div>
+                                        <div className="dropdown">
+                                            <label tabIndex={0} className="text-xl font-bold cursor-pointer btn bg-blue-900 m-1"><BsPencilFill /></label>
+                                            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                <li><label onClick={() => setModalOpen(true)} htmlFor="edit-property">Add Info</label></li>
+                                                <li><label onClick={() => setModalOpen(true)} htmlFor="upload-Image">Upload Image</label></li>
+                                            </ul>
+                                        </div>
+                                        <div className="dropdown dropdown-bottom dropdown-end">
+                                            <label tabIndex={0} className="text-xl font-bold cursor-pointer btn bg-blue-900 m-1"><BsThreeDotsVertical /></label>
+                                            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                <li><button onClick={() => handleDelete(single._id)}>Delete</button></li>
+                                                <li><button onClick={() => handleArchive(single._id)}>Archive</button></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div className="dropdown dropdown-right">
-                                        <label tabIndex={0} className="text-xl font-bold cursor-pointer btn bg-blue-900 m-1"><BsThreeDotsVertical /></label>
-                                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                            <li><button onClick={() => handleDelete(single._id)}>Delete</button></li>
-                                            <li><button onClick={() => handleArchive(single._id)}>Archive</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                }
                             </div>
                             <img src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="} alt="" className="rounded-lg shadow-lg aspect-video h-96" />
                         </div>
@@ -176,11 +178,14 @@ const SingleProperty = () => {
             </div>
 
             {/* buttons */}
-            <div className='mt-20 flex justify-around'>
-                <label onClick={() => setModalOpen(true)} htmlFor="add-expense" className='btn btn-outline'>Add Expense</label>
-                <label onClick={() => setModalOpen(true)} htmlFor="add-payment" className='btn btn-outline'>Add Payment</label>
-                <button className='btn btn-outline'>Export</button>
-            </div>
+            {
+                singleProperty?.archived || <div className='mt-20 flex justify-around'>
+                    <label onClick={() => setModalOpen(true)} htmlFor="add-expense" className='btn btn-outline'>Add Expense</label>
+                    <label onClick={() => setModalOpen(true)} htmlFor="add-payment" className='btn btn-outline'>Add Payment</label>
+                    <button className='btn btn-outline'>Export</button>
+                </div>
+            }
+
             <NewExpenseModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty} singleProperty={singleProperty}></NewExpenseModal>
             <NewPaymentModal modalOpen={modalOpen} setModalOpen={setModalOpen} id={singleProperty?._id} setSingleProperty={setSingleProperty} singleProperty={singleProperty}></NewPaymentModal>
 
