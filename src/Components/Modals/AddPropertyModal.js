@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Contexts/UserContext';
 
@@ -6,13 +7,22 @@ const AddPropertyModal = ({ refetch, modalOpen, setModalOpen }) => {
 
     const { user } = useContext(AuthContext);
 
+    const { data: states } = useQuery({
+        queryKey: ['states'],
+        queryFn: () => fetch(`https://landlord-hub.vercel.app/states`).then(res => res.json())
+    })
+
+    // console.log(states);
+
     const handleSubmit = e => {
         e.preventDefault();
         const form = e.target;
         // const rent = form.rent.value;
         const street = form.street.value;
         const city = form.city.value;
-        const state = form.state.value;
+        const stateFull = form.state.value;
+        const state = stateFull.split(',')[1];
+        // console.log(state);
         const zip = form.zip.value;
         // const status = form.status.value;
         // const bedroom = form.bedroom.value;
@@ -81,8 +91,14 @@ const AddPropertyModal = ({ refetch, modalOpen, setModalOpen }) => {
                         {/* <input type="text" name='rent' placeholder="Rent" className="input w-full input-bordered" /> */}
                         <input name='street' type="text" placeholder="Street" className="input w-full input-bordered" />
                         <input name='city' type="text" placeholder="City" className="input w-full input-bordered" />
-                        <input name='state' type="text" placeholder="State" className="input w-full input-bordered" />
-                        <input name='zip' type="text" placeholder="ZIP" className="input w-full input-bordered" />
+                        {/* <input name='state' type="text" placeholder="State" className="input w-full input-bordered" /> */}
+                        <select name='state' className="select select-bordered w-full text-gray-500">
+                            {
+                                states?.map(state => <option>{state?.name}, {state?.code}</option>)
+                            }
+
+                        </select>
+                        <input name='zip' type="text" placeholder="ZIP" className="input w-full input-bordered" maxLength={5} />
                         {/* <select name='status' className="select select-bordered w-full text-gray-500" placeholder='Bedrooms'>
                             <option>Active Lease</option>
                             <option>Available</option>

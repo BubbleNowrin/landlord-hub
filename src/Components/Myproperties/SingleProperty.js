@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 import UpdateImageModal from '../Modals/UpdateImageModal';
 import { DownloadTableExcel } from 'react-export-table-to-excel';
 
+
+
 const SingleProperty = () => {
 
     const tableRef = useRef(null);
@@ -20,7 +22,9 @@ const SingleProperty = () => {
     const single = useLoaderData();
     const [modalOpen, setModalOpen] = useState(false);
     const [singleProperty, setSingleProperty] = useState(single);
-    const [year, setYear] = useState("")
+    const currentYear = new Date().getFullYear();
+    const [year, setYear] = useState(currentYear.toString());
+    // console.log(typeof (year));
     const years = singleProperty?.calculations?.map(yrs => {
 
         const yr = yrs.date.slice(0, 4);
@@ -71,6 +75,24 @@ const SingleProperty = () => {
             })
     }
 
+    const handleReactivate = id => {
+        fetch(`https://landlord-hub.vercel.app/reactivate/${id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                Swal.fire(
+                    "Success",
+                    "Property Reactivated Successfully",
+                    "success"
+                );
+                navigate('/properties')
+            })
+    }
+
 
 
     // const { data: singleProperty, refetch } = useQuery({
@@ -81,11 +103,11 @@ const SingleProperty = () => {
 
     let className = 'text-gray-900';
     if (singleProperty?.status === "Active Lease") {
-        className = 'text-green-500';
+        className = 'text-green-500 btn ';
     } else if (singleProperty?.status === "Available") {
-        className = 'text-yellow-500';
+        className = 'text-yellow-500 btn ';
     } else if (singleProperty?.status === "Under Repair") {
-        className = 'text-red-500';
+        className = 'text-red-500 btn ';
     }
 
     const { img, street, city, state, zip, bedroom, bathroom, status, rent } = singleProperty;
@@ -94,12 +116,23 @@ const SingleProperty = () => {
         <div className='max-w-5xl mx-auto flex flex-col my-32'>
 
             {/* back to home */}
-            <div className='flex items-center mt-10'>
-                <BsArrowLeft className='mr-2' />
-                <div>
-                    <Link to='/properties' className='mt-10 font-bold text-lg hover:underline text-blue-900'>Back to My Properties</Link>
+            {
+                singleProperty?.archived || <div className='flex items-center mt-10'>
+                    <BsArrowLeft className='mr-2' />
+                    <div>
+                        <Link to='/properties' className='mt-10 font-bold text-lg hover:underline text-blue-900'>Back to My Properties</Link>
+                    </div>
                 </div>
-            </div>
+            }
+            {
+                singleProperty?.archived && <div className='flex items-center mt-10'>
+                    <BsArrowLeft className='mr-2' />
+                    <div>
+                        <Link to='/archived' className='mt-10 font-bold text-lg hover:underline text-blue-900'>Back to Archived Properties</Link>
+                    </div>
+                </div>
+            }
+
             <div className=''>
                 {/* card */}
 
@@ -119,11 +152,12 @@ const SingleProperty = () => {
                         </div>
                         <div className="flex space-x-2 sm:space-x-4 mt-3">
                             <div className="space-y-2">
-                                <p className="text-lg font-medium leading-snug">Status</p>
-                                <p className={`${className} font-medium`}>{status}</p>
+
+
                             </div>
                         </div>
-                        <div className='flex justify-center items-center mt-5'>
+                        <div className='relative flex justify-center items-center mt-5'>
+                            <p className={`${className}  font-medium absolute top-5 left-5 md:left-48`}>{status}</p>
                             <img src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="} alt="" className="rounded-lg shadow-lg aspect-video h-96" />
                         </div>
                         <div className='flex justify-around items-center mt-10'>
@@ -174,6 +208,10 @@ const SingleProperty = () => {
                                             </ul>
                                         </div>
                                     </div>
+
+                                }
+                                {
+                                    singleProperty?.archived && <button onClick={() => handleReactivate((single._id))} className='btn bg-blue-900'>Reactivate</button>
                                 }
                             </div>
                         </div>
@@ -206,23 +244,22 @@ const SingleProperty = () => {
 
             <div className='flex flex-col'>
                 <div className="overflow-x-auto mt-20 mb-10">
-                    {/* <h3 className='text-center font-bold text-blue-900 text-xl mb-2'>Expenses & Payments Table</h3> */}
                     <div className='flex mb-10 items-center justify-start'>
-                        {/* <button onClick={() => setYear("2021")} className='btn btn-outline'>2021</button> */}
+
                         {
                             allYear?.map(singleYear => <button onClick={() => setYear(singleYear)} className='btn btn-outline'>{singleYear}</button>)
                         }
 
                     </div>
-                    <table className="table table-zebra w-full -z-10" ref={tableRef}>
+                    <table className="table w-full -z-10" ref={tableRef}>
 
                         <thead>
                             <tr>
                                 <th>Date</th>
                                 <th>Category</th>
-                                <th>Description</th>
                                 <th>Amount</th>
                                 <th>Type</th>
+                                <th>Description</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -237,9 +274,9 @@ const SingleProperty = () => {
                                     <tr className={calc.expense ? "text-red-500" : "text-green-500"}>
                                         <td>{calc?.date}</td>
                                         <td>{calc?.category}</td>
-                                        <td>{calc?.description}</td>
                                         <td>{calc?.amount}</td>
                                         <td>{calc?.expense ? "Expense" : "Payment"}</td>
+                                        {calc.description.length > 50 ? <td className='max-w-sm text-ellipsis'><textarea cols="50">{calc?.description}</textarea></td> : <td className='max-w-sm text-ellipsis'>{calc?.description}</td>}
                                     </tr>)
                             }
                         </tbody>

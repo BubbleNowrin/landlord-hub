@@ -27,7 +27,7 @@ const Login = () => {
                 console.log(res.user);
                 Swal.fire("Success", `Welcome to LandLord`, "success");
                 setLoading(false);
-                navigate(from, { replace: true });
+                navigate('/dashboard');
             })
             .catch((err) => {
                 Swal.fire("Opps", err.message, "error");
@@ -58,10 +58,10 @@ const Login = () => {
                         Swal.fire("Success", "Google Log In", "success");
                         setLoading(false);
 
-                        navigate("/");
+                        navigate('/dashboard');
                     });
-                console.log("successfully logged in");
-                navigate('/');
+                // console.log("successfully logged in");
+                // navigate('/dashboard');
             })
             .catch((err) => {
                 Swal.fire("Opps", err.message, "error");

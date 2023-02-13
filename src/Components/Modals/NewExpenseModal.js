@@ -59,7 +59,7 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
                         <input type="date" name='date' placeholder="Date" className="input w-full input-bordered" required />
                         <input name='category' type="text" placeholder="Category" className="input w-full input-bordered" required />
                         <input name="amount" type="text" placeholder="Amount" className="input w-full input-bordered" required />
-                        <textarea className="textarea textarea-primary" placeholder="Description" name="description" required></textarea>
+                        <textarea className="textarea textarea-primary" placeholder="Description" name="description" maxLength={100} required></textarea>
                         <input className='w-full btn bg-blue-900' type="submit" value="Add" />
                     </form>
                 </div>

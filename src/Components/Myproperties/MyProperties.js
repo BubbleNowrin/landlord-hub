@@ -39,6 +39,9 @@ const MyProperties = () => {
                     </div>
                 </label>
             </div>
+            <div className='flex justify-end items-end'>
+                <Link to='/archived' className='text-2xl mt-5 text-blue-900 font-semibold underline cursor-pointer'>View Archived Properties</Link>
+            </div>
             <AddPropertyModal refetch={refetch} modalOpen={modalOpen} setModalOpen={setModalOpen}></AddPropertyModal>
         </div>
             :

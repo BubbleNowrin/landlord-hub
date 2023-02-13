@@ -79,7 +79,7 @@ const Navbar = () => {
                                 </Link>
                             </li>
                         }
-                        {
+                        {/* {
                             user?.uid &&
                             <li>
                                 <Link
@@ -91,7 +91,7 @@ const Navbar = () => {
                                     Archived
                                 </Link>
                             </li>
-                        }
+                        } */}
 
                     </ul>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
@@ -222,7 +222,7 @@ const Navbar = () => {
                                                 </Link>
                                             </li>
                                         }
-                                        {
+                                        {/* {
                                             user?.uid &&
                                             <li>
                                                 <Link
@@ -234,7 +234,7 @@ const Navbar = () => {
                                                     Archived
                                                 </Link>
                                             </li>
-                                        }
+                                        } */}
 
                                         {
                                             user?.email ?

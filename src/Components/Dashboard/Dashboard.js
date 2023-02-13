@@ -55,15 +55,15 @@ const Dashboard = () => {
             </div>
             <div className="overflow-x-auto mb-10">
                 <h3 className='text-center font-bold text-blue-900 text-xl mb-2'>Expenses & Payments Table of All the Properties</h3>
-                <table className="table table-zebra w-full -z-10">
+                <table className="table w-full -z-10">
 
                     <thead>
                         <tr>
                             <th>Property Address</th>
                             <th>Date</th>
                             <th>Category</th>
-                            <th>Description</th>
                             <th>Amount</th>
+                            <th>Description</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,8 +76,8 @@ const Dashboard = () => {
                                     <td>{calc?.street}, {calc?.city}, {calc?.state}, {calc?.zip}</td>
                                     <td>{calc?.date}</td>
                                     <td>{calc?.category}</td>
-                                    <td>{calc?.description}</td>
                                     <td>{calc?.amount}</td>
+                                    {calc.description.length > 50 ? <td className='max-w-sm text-ellipsis'><textarea cols="50">{calc?.description}</textarea></td> : <td className='max-w-sm text-ellipsis'>{calc?.description}</td>}
                                 </tr>
 
                             ))

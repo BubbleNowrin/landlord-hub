@@ -8,11 +8,11 @@ const MyProperty = ({ property }) => {
 
     let className = 'text-gray-900';
     if (status === "Active Lease") {
-        className = 'text-green-500';
+        className = 'text-green-500 btn';
     } else if (status === "Available") {
-        className = 'text-yellow-500';
+        className = 'text-yellow-500 btn';
     } else if (status === "Under Repair") {
-        className = 'text-red-500';
+        className = 'text-red-500 btn';
     }
 
 
@@ -20,37 +20,33 @@ const MyProperty = ({ property }) => {
         <div>
             <div>
                 <Link to={`/properties/${_id}`} state={_id} className="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-110 ease-in duration-100">
-                    <img
-                        alt="Home"
-                        src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="}
-                        className="h-56 rounded-md object-cover"
-                    />
+                    <div className='relative'>
+                        <p className={`${className} font-medium absolute top-2 left-1`}>{status}</p>
+                        <img
+                            alt="Home"
+                            src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="}
+                            className="h-56 rounded-md object-cover"
+                        />
+                    </div>
 
                     <div className="mt-2">
                         <dl>
                             <div>
                                 <dt className="sr-only">Address</dt>
                                 <div className='flex text-blue-900'>
-                                    <dd className="font-medium">{street},</dd>
-                                    <dd className="font-medium">{city},</dd>
-                                    <dd className="font-medium">{state},</dd>
-                                    <dd className="font-medium">{zip}</dd>
+                                    <dd className="font-medium">{street}, {city}, {state}, {zip}</dd>
                                 </div>
                             </div>
-                            <div>
+                            {/* <div>
                                 <dt className="sr-only">Rent</dt>
 
-                                <dd className="text-sm text-gray-500 font-bold">Rent: <span className='text-blue-900'>${rent}</span></dd>
-                            </div>
+                                <dd className="text-sm text-gray-500 font-bold"><span className='text-blue-900'>Rent: {rent ? "$" : ""}{rent}</span></dd>
+                            </div> */}
 
-                            <div>
-                                <dt className="sr-only">Status</dt>
 
-                                <dd className={`${className} font-medium`}>{status}</dd>
-                            </div>
                         </dl>
 
-                        <div className="mt-6 flex justify-evenly gap-8 text-xs">
+                        <div className="mt-6 flex justify-between gap-8 text-xs">
                             {/* <div className="sm:inline-flex sm:shrink-0 sm:items-center">
                                 <svg
                                     className="h-4 w-4 text-indigo-700"
@@ -75,7 +71,7 @@ const MyProperty = ({ property }) => {
                             </div> */}
 
                             <div className="sm:inline-flex sm:shrink-0 sm:items-center">
-                                <svg
+                                {/* <svg
                                     className="h-4 w-4 text-indigo-700"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -88,17 +84,39 @@ const MyProperty = ({ property }) => {
                                         stroke-width="2"
                                         d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
                                     />
-                                </svg>
+                                </svg> */}
 
                                 <div className="mt-1.5 sm:ml-3 sm:mt-0">
-                                    <p className="text-gray-500">Bathroom</p>
+                                    <p className="text-gray-500 text-md text-semibold">Rent</p>
 
-                                    <p className="font-medium">{bathroom} {bathroom > 1 ? "rooms" : "room"}</p>
+                                    <p className="font-medium"> {rent ? "$" : ""}{rent}</p>
+                                </div>
+                            </div>
+                            <div className="sm:inline-flex sm:shrink-0 sm:items-center">
+                                {/* <svg
+                                    className="h-4 w-4 text-indigo-700"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                                    />
+                                </svg> */}
+
+                                <div className="mt-1.5 sm:ml-3 sm:mt-0">
+                                    <p className="text-gray-500 text-md text-semibold">Bath</p>
+
+                                    <p className="font-medium">{bathroom}</p>
                                 </div>
                             </div>
 
                             <div className="sm:inline-flex sm:shrink-0 sm:items-center">
-                                <svg
+                                {/* <svg
                                     className="h-4 w-4 text-indigo-700"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -111,12 +129,12 @@ const MyProperty = ({ property }) => {
                                         stroke-width="2"
                                         d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
                                     />
-                                </svg>
+                                </svg> */}
 
                                 <div className="mt-1.5 sm:ml-3 sm:mt-0">
-                                    <p className="text-gray-500">Bedroom</p>
+                                    <p className="text-gray-500 text-md text-semibold">Bed</p>
 
-                                    <p className="font-medium">{bedroom} {bedroom > 1 ? "rooms" : "room"}</p>
+                                    <p className="font-medium">{bedroom}</p>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { BsArrowLeft } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserContext';
 import Loader from '../Loader/Loader';
 import MyArchived from './MyArchived';
@@ -26,6 +28,11 @@ const Archived = () => {
             {
                 archived?.map(archivedProperty => <MyArchived archivedProperty={archivedProperty} key={archivedProperty._id}></MyArchived>)
             }
+            <div className='flex justify-end items-end '>
+                <div>
+                    <Link to='/properties' className='text-2xl mt-5 text-blue-900 font-semibold underline cursor-pointer'>Back to My Properties</Link>
+                </div>
+            </div>
         </div>
             :
             <div className='flex flex-col h-[80vh] w-full items-center justify-center gap-10'>
