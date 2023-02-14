@@ -8,11 +8,11 @@ const MyProperty = ({ property }) => {
 
     let className = 'text-gray-900';
     if (status === "Active Lease") {
-        className = 'text-green-500 btn';
+        className = 'text-white font-bold btn bg-green-500 hover:bg-green-500 border-none';
     } else if (status === "Available") {
-        className = 'text-yellow-500 btn';
+        className = 'text-white font-bold btn bg-yellow-500 hover:bg-yellow-500 border-none';
     } else if (status === "Under Repair") {
-        className = 'text-red-500 btn';
+        className = 'text-white font-bold btn bg-red-500 hover:bg-red-500 border-none';
     }
 
 

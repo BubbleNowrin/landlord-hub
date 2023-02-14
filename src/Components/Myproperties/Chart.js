@@ -29,7 +29,8 @@ const Chart = ({ total, expenses, payments }) => {
                     },
                     labels: {
                         fill: "black",
-                        fontSize: 12
+                        fontSize: 12,
+                        padding: 30
                     }
                 }}
             />
