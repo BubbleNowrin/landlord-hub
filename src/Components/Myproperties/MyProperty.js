@@ -8,11 +8,11 @@ const MyProperty = ({ property }) => {
 
     let className = 'text-gray-900';
     if (status === "Active Lease") {
-        className = 'text-white font-bold btn bg-green-500 hover:bg-green-500 border-none';
+        className = 'text-white font-bold px-4 py-1 rounded-md bg-green-500 hover:bg-green-500 border-none';
     } else if (status === "Available") {
-        className = 'text-white font-bold btn bg-yellow-500 hover:bg-yellow-500 border-none';
+        className = 'text-white font-bold px-4 py-1 rounded-md bg-yellow-500 hover:bg-yellow-500 border-none';
     } else if (status === "Under Repair") {
-        className = 'text-white font-bold btn bg-red-500 hover:bg-red-500 border-none';
+        className = 'text-white font-bold px-4 py-1 rounded-md bg-red-500 hover:bg-red-500 border-none';
     }
 
 

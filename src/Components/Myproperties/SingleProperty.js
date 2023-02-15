@@ -103,11 +103,11 @@ const SingleProperty = () => {
 
     let className = 'text-gray-900';
     if (singleProperty?.status === "Active Lease") {
-        className = 'text-white font-bold btn bg-green-500 border-none hover:bg-green-500';
+        className = 'text-white font-bold  px-4 py-1 rounded-md bg-green-500 border-none hover:bg-green-500';
     } else if (singleProperty?.status === "Available") {
-        className = 'text-white font-bold btn bg-yellow-500 border-none hover:bg-yellow-500 ';
+        className = 'text-white font-bold px-4 py-1 rounded-md bg-yellow-500 border-none hover:bg-yellow-500 ';
     } else if (singleProperty?.status === "Under Repair") {
-        className = 'text-white font-bold btn bg-red-500 border-none hover:bg-red-500';
+        className = 'text-white font-bold px-4 py-1 rounded-md bg-red-500 border-none hover:bg-red-500';
     }
 
     const { img, street, city, state, zip, bedroom, bathroom, status, rent } = singleProperty;
