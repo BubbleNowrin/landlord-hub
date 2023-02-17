@@ -6,11 +6,56 @@ import Loader from '../Loader/Loader';
 import Chart from '../Myproperties/Chart';
 import { RiArrowDropDownLine } from "react-icons/ri";
 import MonthPieChart from "../Myproperties/MonthPieChart";
+import CashFlowChart from '../Myproperties/CashFlowChart';
 
 
 const Dashboard = () => {
 
-    const [data, setData] = useState({});
+    // const [monthName, setmonthName] = useState("");
+    // const [monthNum, setmonthNum] = useState("");
+
+    // if (monthNum === "01") {
+    //     setmonthName('Jan');
+    // }
+    // else if (monthNum === "02") {
+    //     setmonthName('Feb');
+    // }
+    // else if (monthNum === "03") {
+    //     setmonthName('Mar');
+    // }
+    // else if (monthNum === "04") {
+    //     setmonthName('Apr');
+    // }
+    // else if (monthNum === "05") {
+    //     setmonthName('May');
+    // }
+    // else if (monthNum === "06") {
+    //     setmonthName('Jun');
+    // }
+    // else if (monthNum === "07") {
+    //     setmonthName('Jul');
+    // }
+    // else if (monthNum === "08") {
+    //     setmonthName('Aug');
+    // }
+    // else if (monthNum === "09") {
+    //     setmonthName('Sep');
+    // }
+    // else if (monthNum === "10") {
+    //     setmonthName('Oct');
+    // }
+    // else if (monthNum === "11") {
+    //     setmonthName('Nov');
+    // }
+    // else if (monthNum === "12") {
+    //     setmonthName('Dec');
+    // }
+
+    // const monthNumber = 2; // January (0-indexed)
+    // const monthName = new Date(Date.UTC(0, monthNumber)).toLocaleString('default', { month: 'long' });
+    // console.log(monthName); // Output: January
+
+
     let allYear = [];
 
     const currentYear = new Date().getFullYear();
@@ -18,8 +63,12 @@ const Dashboard = () => {
     const [year, setYear] = useState(currentYear.toString());
 
     let allMonth = [];
-    const currentMonth = new Date().getMonth();
-    const [month, setMonth] = useState(currentMonth.toString());
+    const currentMonth = new Date();
+    let MyDateString;
+    currentMonth.setDate(currentMonth.getDate() + 20);
+    MyDateString = ('0' + (currentMonth.getMonth())).slice(-2);
+    const [month, setMonth] = useState(MyDateString);
+
 
     const { user } = useContext(AuthContext);
     //get the user specific bookings data
@@ -76,6 +125,8 @@ const Dashboard = () => {
         }
         return allMonth;
     }))
+
+    // console.log(allMonth);
 
     let monthExpenses = 0;
     let monthPayments = 0;
@@ -136,12 +187,16 @@ const Dashboard = () => {
 
                         <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                             {
-                                allMonth?.map(singleMonth => <li><p onClick={() => setMonth(singleMonth)}>{singleMonth}</p></li>)
+                                allMonth?.map(singleMonth => <li><p onClick={() => setMonth(singleMonth)}>{new Date(Date.UTC(0, singleMonth - 1)).toLocaleString('default', { month: 'long' })}</p></li>)
                             }
-
                         </ul>
                     </div>
                 </div>
+            </div>
+
+            <div className='w-full lg:w-2/3 mb-10 mx-auto flex flex-col items-center justify-center'>
+
+                <CashFlowChart className="z-10" expenses={monthExpenses} payments={monthPayments} allMonth={allMonth} calculations={properties?.map(prop => prop?.calculations)} properties={properties}></CashFlowChart>
             </div>
 
             <div className="overflow-x-auto mb-10">

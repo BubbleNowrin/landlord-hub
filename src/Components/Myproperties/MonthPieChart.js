@@ -5,7 +5,7 @@ import { VictoryLabel, VictoryPie } from 'victory';
 
 const Chart = ({ total, expenses, payments }) => {
 
-    console.log(expenses);
+    // console.log(expenses);
     const data = [
         { x: "Payments", y: payments },
         { x: "Expenses", y: expenses }
@@ -29,7 +29,7 @@ const Chart = ({ total, expenses, payments }) => {
                     },
                     labels: {
                         fill: "black",
-                        fontSize: 12,
+                        fontSize: 16,
                         padding: 30
                     }
                 }}

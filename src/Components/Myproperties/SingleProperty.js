@@ -94,6 +94,11 @@ const SingleProperty = () => {
     }
 
 
+    const handleImageClick = (url) => {
+        console.log(url);
+        window.open(url, "_blank");
+    };
+
 
     // const { data: singleProperty, refetch } = useQuery({
     //     queryKey: ['properties'],
@@ -260,6 +265,7 @@ const SingleProperty = () => {
                                 <th>Amount</th>
                                 <th>Type</th>
                                 <th>Description</th>
+                                <th>Receipt</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -271,12 +277,19 @@ const SingleProperty = () => {
                             } */}
                             {
                                 singleProperty?.calculations?.filter(prp => prp.date.slice(0, 4) === year)?.map(calc =>
-                                    <tr className={calc.expense ? "text-red-500" : "text-green-500"}>
+                                    <tr className={calc?.expense ? "text-red-500" : "text-green-500"}>
                                         <td>{calc?.date}</td>
                                         <td>{calc?.category}</td>
                                         <td>{calc?.amount}</td>
                                         <td>{calc?.expense ? "Expense" : "Payment"}</td>
                                         {calc.description.length > 50 ? <td className='max-w-sm text-ellipsis'><textarea cols="50">{calc?.description}</textarea></td> : <td className='max-w-sm text-ellipsis'>{calc?.description}</td>}
+                                        <td>{calc?.expense && calc?.receipt && <a href={calc?.receipt}
+                                            target="_blank"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                handleImageClick(calc?.receipt);
+                                            }}
+                                        >View</a>}</td>
                                     </tr>)
                             }
                         </tbody>
