@@ -7,6 +7,7 @@ import Chart from '../Myproperties/Chart';
 import { RiArrowDropDownLine } from "react-icons/ri";
 import MonthPieChart from "../Myproperties/MonthPieChart";
 import CashFlowChart from '../Myproperties/CashFlowChart';
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 
 const Dashboard = () => {
@@ -114,6 +115,12 @@ const Dashboard = () => {
     }
     ));
 
+    let allMonths = [];
+    let cashFlow = 0;
+     let monthExpenses = 0;
+     let monthPayments = 0;
+     let monthTotal = 0;
+
     const months = properties?.map(props => props?.calculations?.filter(prps => prps.date.slice(0, 4) === year)?.map(mnths => {
 
         const mnth = mnths.date.slice(5, 7);
@@ -123,14 +130,26 @@ const Dashboard = () => {
 
             allMonth.push(mnth);
         }
+
+        if (mnths?.expense) {
+          monthExpenses = monthExpenses + parseFloat(mnths?.amount);
+        } else {
+          monthPayments = monthPayments + parseFloat(mnths?.amount);
+        }
+
+        cashFlow = monthPayments - monthExpenses;
+        allMonths.push({ month: new Date(Date.UTC(0, mnths.date.slice(5,7) - 1)).toLocaleString("default", {
+                month: "short",
+              }), cashFlow });
         return allMonth;
     }))
 
-    // console.log(allMonth);
+    console.log(allMonths);
 
-    let monthExpenses = 0;
-    let monthPayments = 0;
-    let monthTotal = 0;
+   
+    
+
+    
 
     const monthExpense = properties?.map(prop => prop?.calculations?.filter(prp => prp.date.slice(5, 7) === month)?.map(calc => {
         monthTotal = monthTotal + parseFloat(calc?.amount);
@@ -141,96 +160,178 @@ const Dashboard = () => {
         else {
             monthPayments = monthPayments + parseFloat(calc?.amount)
         }
+        
     }
     ));
 
+    
+
     return (
+      <div className="my-44 container mx-auto">
+        <div className="mb-10 flex justify-between align-center">
+          <div>
+            <p className="font-semibold lg:text-lg text-red-500">
+              <span>Expenses in Red</span>
+            </p>
+            <p className="font-semibold lg:text-lg text-green-500">
+              Payments in Green
+            </p>
+          </div>
 
-        <div className='my-44 container mx-auto'>
-            <div className='mb-10 flex justify-between align-center'>
-                <div>
-                    <p className='font-semibold lg:text-lg text-red-500'><span>Expenses in Red</span></p>
-                    <p className='font-semibold lg:text-lg text-green-500'>Payments in Green</p>
-                </div>
+          <div>
+            <p className="font-semibold lg:text-lg text-black">
+              <span>CashFlow:</span> {total}
+            </p>
+            <p className="font-semibold lg:text-lg text-red-500">
+              <span>Total Expenses:</span> {expenses}
+            </p>
+            <p className="font-semibold lg:text-lg text-green-500">
+              Total Payments: {payments}
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+          <div className="">
+            <Chart
+              className="z-10"
+              expenses={expenses}
+              payments={payments}
+              total={total}
+            ></Chart>
+            <div className="flex mb-10 items-center justify-center">
+              <div className="dropdown dropdown-bottom dropdown-end">
+                <label tabIndex={0} className="m-1 btn btn-outline">
+                  Select Year <RiArrowDropDownLine className="text-2xl" />
+                </label>
 
-                <div>
-                    <p className='font-semibold lg:text-lg text-black'><span>CashFlow:</span> {total}</p>
-                    <p className='font-semibold lg:text-lg text-red-500'><span>Total Expenses:</span> {expenses}</p>
-                    <p className='font-semibold lg:text-lg text-green-500'>Total Payments: {payments}</p>
-                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  {allYear?.map((singleYear) => (
+                    <li>
+                      <p onClick={() => setYear(singleYear)}>{singleYear}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className='flex items-center justify-center'>
-                <div className=''>
-                    <Chart className="z-10" expenses={expenses} payments={payments} total={total}></Chart>
-                    <div className='flex mb-10 items-center justify-center'>
-                        <div className="dropdown dropdown-bottom dropdown-end">
-
-                            <label tabIndex={0} className="m-1 btn btn-outline">Select Year <RiArrowDropDownLine className='text-2xl' /></label>
-
-                            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                                {
-                                    allYear?.map(singleYear => <li><p onClick={() => setYear(singleYear)}>{singleYear}</p></li>)
-                                }
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                {/* <div className=''>
+          </div>
+          {/* <div className=''>
                     <MonthChart></MonthChart>
                 </div> */}
-                <div className='w-full lg:w-2/3 mb-10 mx-auto flex flex-col items-center justify-center'>
-                    <MonthPieChart className="z-10" expenses={monthExpenses} payments={monthPayments} total={monthTotal}></MonthPieChart>
-                    <div className="dropdown dropdown-bottom dropdown-end">
+          <div className="w-full lg:w-2/3 mb-10 mx-auto flex flex-col items-center justify-center">
+            <MonthPieChart
+              className="z-10"
+              expenses={monthExpenses}
+              payments={monthPayments}
+              total={monthTotal}
+            ></MonthPieChart>
+            <div className="dropdown dropdown-bottom dropdown-end">
+              <label tabIndex={0} className="m-1 btn btn-outline">
+                Select Month <RiArrowDropDownLine className="text-2xl" />
+              </label>
 
-                        <label tabIndex={0} className="m-1 btn btn-outline">Select Month <RiArrowDropDownLine className='text-2xl' /></label>
-
-                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                            {
-                                allMonth?.map(singleMonth => <li><p onClick={() => setMonth(singleMonth)}>{new Date(Date.UTC(0, singleMonth - 1)).toLocaleString('default', { month: 'long' })}</p></li>)
-                            }
-                        </ul>
-                    </div>
-                </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                {allMonth?.map((singleMonth) => (
+                  <li>
+                    <p onClick={() => setMonth(singleMonth)}>
+                      {new Date(Date.UTC(0, singleMonth - 1)).toLocaleString(
+                        "default",
+                        { month: "long" }
+                      )}
+                    </p>
+                  </li>
+                ))}
+              </ul>
             </div>
+          </div>
+        </div>
 
-            <div className='w-full lg:w-2/3 mb-10 mx-auto flex flex-col items-center justify-center'>
+        <div className="w-full lg:w-2/3 mb-10 mx-auto flex flex-col items-center justify-center">
+          {/* <CashFlowChart
+            className="z-10"
+            year={year}
+            allMonths={allMonths}
+            properties={properties}
+          ></CashFlowChart> */}
+          
+            <LineChart
+              width={700}
+              height={400}
+              data={allMonths}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis dataKey="cashFlow"/>
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="month"
+                stroke="#8884d8"
+                activeDot={{ r: 8 }}
+              />
+              <Line type="monotone" dataKey="cashFlow" stroke="#82ca9d" />
+            </LineChart>
+          
+        </div>
 
-                <CashFlowChart className="z-10" expenses={monthExpenses} payments={monthPayments} allMonth={allMonth} calculations={properties?.map(prop => prop?.calculations)} properties={properties}></CashFlowChart>
-            </div>
-
-            <div className="overflow-x-auto mb-10">
-                <h3 className='text-center font-bold text-blue-900 text-xl mb-2'>Expenses & Payments Table of All the Properties</h3>
-                <table className="table w-full -z-10">
-
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Category</th>
-                            <th>Amount</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* {
+        <div className="overflow-x-auto mb-10">
+          <h3 className="text-center font-bold text-blue-900 text-xl mb-2">
+            Expenses & Payments Table of All the Properties
+          </h3>
+          <table className="table w-full -z-10">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {
                         property?.calculations?.map(calc => <DashboardExpense calc={calc}></DashboardExpense>)
                     } */}
 
-                        {
-                            properties?.map(prop => prop?.calculations?.filter(prp => prp.date.slice(0, 4) === year)?.map(calc => <tr className={calc.expense ? "text-red-500" : "text-green-500"}>
-                                <td>{calc?.date}</td>
-                                <td>{calc?.category}</td>
-                                <td>{calc?.amount}</td>
-                                {calc.description.length > 50 ? <td className='max-w-sm text-ellipsis'><textarea cols="50">{calc?.description}</textarea></td> : <td className='max-w-sm text-ellipsis'>{calc?.description}</td>}
-                            </tr>)
-                            )
-                        }
-
-                    </tbody>
-                </table>
-
-            </div>
+              {properties?.map((prop) =>
+                prop?.calculations
+                  ?.filter((prp) => prp.date.slice(0, 4) === year)
+                  ?.map((calc) => (
+                    <tr
+                      className={
+                        calc.expense ? "text-red-500" : "text-green-500"
+                      }
+                    >
+                      <td>{calc?.date}</td>
+                      <td>{calc?.category}</td>
+                      <td>{calc?.amount}</td>
+                      {calc.description.length > 50 ? (
+                        <td className="max-w-sm text-ellipsis">
+                          <textarea cols="50">{calc?.description}</textarea>
+                        </td>
+                      ) : (
+                        <td className="max-w-sm text-ellipsis">
+                          {calc?.description}
+                        </td>
+                      )}
+                    </tr>
+                  ))
+              )}
+            </tbody>
+          </table>
         </div>
+      </div>
     );
 };
 
