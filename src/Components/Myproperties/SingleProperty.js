@@ -12,7 +12,8 @@ import Swal from 'sweetalert2';
 import UpdateImageModal from '../Modals/UpdateImageModal';
 import { DownloadTableExcel } from 'react-export-table-to-excel';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import PhotoModal from '../Modals/PhotoModal';
+
+
 
 
 
@@ -21,6 +22,7 @@ import PhotoModal from '../Modals/PhotoModal';
 const SingleProperty = () => {
 
     const tableRef = useRef(null);
+    
 
     let allYear = [];
     const single = useLoaderData();
@@ -97,11 +99,35 @@ const SingleProperty = () => {
             })
     }
 
+    const uploadPhoto = (id,e) =>{
+        const image = e.target.files[0]
+        console.log(id)
 
-    const handleImageClick = (url) => {
-        console.log(url);
-        window.open(url, "_blank");
-    };
+        const img_api = "701a0d7cdce71a8410d4cf17c044dfba";
+        
+
+        // create form Data
+        const formData = new FormData();
+        formData.append("image", image);
+
+        const url = `https://api.imgbb.com/1/upload?key=${img_api}`;
+
+        fetch(url,{
+            method: 'POST',
+            body: formData
+        }).then(res => res.json()).then(image => {
+            const img = image.data.url;
+            const data = {img, id}
+            fetch(`http://localhost:5000/update_image/${single?._id}`,{
+                method: 'PUT',
+                headers:{
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(res => res.json()).then(data =>console.log(data))
+        })
+    }
+   
 
 
     // const { data: singleProperty, refetch } = useQuery({
@@ -392,7 +418,7 @@ const SingleProperty = () => {
                       }
                     >
                       <td>{calc?.date}</td>
-                      <td>{calc?.category}</td>
+                      <td>{calc?.category} {calc?._id}</td>
                       <td>{calc?.amount}</td>
                       <td>{calc?.expense ? "Expense" : "Payment"}</td>
                       {calc.description.length > 50 ? (
@@ -406,14 +432,20 @@ const SingleProperty = () => {
                       )}
                       <td>
                         {calc?.receipt ? (
-                          <label
-                            htmlFor="my-modal-3"
-                            className="btn btn-outline"
-                          >
-                            view receipt
-                          </label>
+                        //   <label
+                        //     htmlFor="my-modal-3"
+                        //     className="btn btn-outline w-full"
+                        //   >
+                        //     view receipt
+                        //   </label>
+                        <PhotoProvider>
+                            <PhotoView src={calc?.receipt}>
+                                <button className='btn btn-md btn-primary w-full'>View Receipt</button>
+                            </PhotoView>
+                        </PhotoProvider>
                         ) : (
                           <label
+                          
                             for="dropzone-file"
                             class="w-full flex items-center px-3 py-3 mx-auto text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900"
                           >
@@ -439,11 +471,12 @@ const SingleProperty = () => {
                               type="file"
                               class="hidden"
                               name="photo"
+                              onChange={(e)=> uploadPhoto(calc?._id,e)}
                             />
                           </label>
                         )}
                       </td>
-                      {calc?.receipt && <PhotoModal photo={calc?.receipt} />}
+                      
                     </tr>
                   ))}
               </tbody>

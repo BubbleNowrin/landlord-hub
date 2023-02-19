@@ -17,6 +17,7 @@
     "react-photo-view": "^1.2.3",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
+    "react-uuid": "^2.0.0",
     "recharts": "^2.3.2",
     "sweetalert2": "^11.7.1",
     "victory": "^36.6.8",

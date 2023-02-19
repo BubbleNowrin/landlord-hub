@@ -1,7 +1,10 @@
 import React from 'react';
+import uuid from 'react-uuid';
 import Swal from 'sweetalert2';
 
 const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singleProperty }) => {
+    const uniqueId = uuid();
+   
 
     const handleOnSubmit = e => {
         e.preventDefault();
@@ -11,63 +14,96 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
         const amount = form.amount.value;
         const description = form.description.value;
         const image = form.photo.files[0];
+        if(image){
+            const img_api = "701a0d7cdce71a8410d4cf17c044dfba";
 
+            // create form Data
+            const formData = new FormData();
+            formData.append("image", image);
 
-        console.log(date, category, amount, description);
+            const url = `https://api.imgbb.com/1/upload?key=${img_api}`;
 
-        const img_api = "701a0d7cdce71a8410d4cf17c044dfba";
-
-        // create form Data
-        const formData = new FormData();
-        formData.append("image", image);
-
-        const url = `https://api.imgbb.com/1/upload?key=${img_api}`;
-
-        // post image to imgbb
-        fetch(url, {
-            method: "POST",
-            body: formData,
-        })
-            .then((res) => res.json())
-            .then((image) => {
+            // post image to imgbb
+            fetch(url, {
+              method: "POST",
+              body: formData,
+            })
+              .then((res) => res.json())
+              .then((image) => {
                 const img = image.data.url;
                 console.log(img);
                 const expenses = {
-                    date,
-                    category,
-                    amount,
-                    description,
-                    expense: true,
-                    street: singleProperty?.street,
-                    city: singleProperty?.city,
-                    state: singleProperty?.state,
-                    zip: singleProperty?.zip,
-                    receipt: img
-                }
+                  _id: id,
+                  date,
+                  category,
+                  amount,
+                  description,
+                  expense: true,
+                  street: singleProperty?.street,
+                  city: singleProperty?.city,
+                  state: singleProperty?.state,
+                  zip: singleProperty?.zip,
+                  receipt: img,
+                };
                 fetch(`https://landlord-hub.vercel.app/calculation/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify(expenses)
+                  method: "PUT",
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                  body: JSON.stringify(expenses),
                 })
-                    .then(res => res.json())
-                    .then(data => {
-                        Swal.fire(
-                            "Success",
-                            "Expenses Added Successfully",
-                            "success"
-                        );
-                        fetch(`https://landlord-hub.vercel.app/property/${id}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                setSingleProperty(data)
-                                setModalOpen(false);
-                            })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    Swal.fire(
+                      "Success",
+                      "Expenses Added Successfully",
+                      "success"
+                    );
+                    fetch(`https://landlord-hub.vercel.app/property/${id}`)
+                      .then((res) => res.json())
+                      .then((data) => {
+                        setSingleProperty(data);
+                        setModalOpen(false);
+                      });
+                  });
+              });
+        }
+        else{
+            const expenses = {
+              _id: uniqueId,
+              date,
+              category,
+              amount,
+              description,
+              expense: true,
+              street: singleProperty?.street,
+              city: singleProperty?.city,
+              state: singleProperty?.state,
+              zip: singleProperty?.zip,
+            };
+            fetch(`https://landlord-hub.vercel.app/calculation/${id}`, {
+              method: "PUT",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(expenses),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                Swal.fire("Success", "Expenses Added Successfully", "success");
+                fetch(`https://landlord-hub.vercel.app/property/${id}`)
+                  .then((res) => res.json())
+                  .then((data) => {
+                    setSingleProperty(data);
+                    setModalOpen(false);
+                  });
+              });
+        }
 
-                    })
-            }
-            );
+
+        
+
+        
     };
 
 
