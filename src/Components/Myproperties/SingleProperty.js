@@ -30,7 +30,8 @@ const SingleProperty = () => {
     const [singleProperty, setSingleProperty] = useState(single);
     const currentYear = new Date().getFullYear();
     const [year, setYear] = useState(currentYear.toString());
-    // console.log(typeof (year));
+    const [expId,setExpId] = useState('');
+    console.log(single);
     const years = singleProperty?.calculations?.map(yrs => {
 
         const yr = yrs.date.slice(0, 4);
@@ -99,9 +100,10 @@ const SingleProperty = () => {
             })
     }
 
-    const uploadPhoto = (id,e) =>{
+    const uploadPhoto = (e) =>{
+        e.preventDefault();
         const image = e.target.files[0]
-        console.log(id)
+        console.log(expId,image)
 
         const img_api = "701a0d7cdce71a8410d4cf17c044dfba";
         
@@ -117,7 +119,7 @@ const SingleProperty = () => {
             body: formData
         }).then(res => res.json()).then(image => {
             const img = image.data.url;
-            const data = {img, id}
+            const data = {img, expId}
             fetch(`http://localhost:5000/update_image/${single?._id}`,{
                 method: 'PUT',
                 headers:{
@@ -418,7 +420,9 @@ const SingleProperty = () => {
                       }
                     >
                       <td>{calc?.date}</td>
-                      <td>{calc?.category} {calc?._id}</td>
+                      <td>
+                        {calc?.category} {calc?._id}
+                      </td>
                       <td>{calc?.amount}</td>
                       <td>{calc?.expense ? "Expense" : "Payment"}</td>
                       {calc.description.length > 50 ? (
@@ -432,20 +436,22 @@ const SingleProperty = () => {
                       )}
                       <td>
                         {calc?.receipt ? (
-                        //   <label
-                        //     htmlFor="my-modal-3"
-                        //     className="btn btn-outline w-full"
-                        //   >
-                        //     view receipt
-                        //   </label>
-                        <PhotoProvider>
+                          //   <label
+                          //     htmlFor="my-modal-3"
+                          //     className="btn btn-outline w-full"
+                          //   >
+                          //     view receipt
+                          //   </label>
+                          <PhotoProvider>
                             <PhotoView src={calc?.receipt}>
-                                <button className='btn btn-md btn-primary w-full'>View Receipt</button>
+                              <button className="btn btn-md btn-primary w-full">
+                                View Receipt
+                              </button>
                             </PhotoView>
-                        </PhotoProvider>
+                          </PhotoProvider>
                         ) : (
                           <label
-                          
+                          onClick={()=> setExpId(calc?._id)}
                             for="dropzone-file"
                             class="w-full flex items-center px-3 py-3 mx-auto text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900"
                           >
@@ -470,13 +476,12 @@ const SingleProperty = () => {
                               id="dropzone-file"
                               type="file"
                               class="hidden"
-                              name="photo"
-                              onChange={(e)=> uploadPhoto(calc?._id,e)}
+                              name='photo'
+                              onChange={uploadPhoto}
                             />
                           </label>
                         )}
                       </td>
-                      
                     </tr>
                   ))}
               </tbody>
