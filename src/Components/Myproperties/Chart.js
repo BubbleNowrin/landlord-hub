@@ -3,7 +3,7 @@ import { VictoryLabel, VictoryPie } from 'victory';
 
 
 
-const Chart = ({ total, expenses, payments }) => {
+const Chart = ({ total, expenses, payments,cashflow }) => {
 
     // console.log(expenses);
     const data = [
@@ -12,7 +12,7 @@ const Chart = ({ total, expenses, payments }) => {
 
     ];
 
-    const cashFlow = payments - expenses;
+
 
     return (
         <div className='relative'>
@@ -37,7 +37,7 @@ const Chart = ({ total, expenses, payments }) => {
             />
             <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center'>
                 <p>Cashflow</p>
-                <span className={cashFlow > 0 ? "text-green-500" : "text-red-500"}>{cashFlow}</span>
+                <span className={cashflow > 0 ? "text-green-500" : "text-red-500"}>{cashflow}</span>
             </div>
         </div>
 

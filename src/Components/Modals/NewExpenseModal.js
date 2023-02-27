@@ -1,11 +1,10 @@
 import React from 'react';
-import uuid from 'react-uuid';
 import Swal from 'sweetalert2';
 
-const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singleProperty }) => {
-    const uniqueId = uuid();
+const NewExpenseModal = ({ modalOpen, setModalOpen, refetch,singleProperty }) => {
    
-
+const date = new Date();
+const today = date.toJSON().slice(0, 10);
     const handleOnSubmit = e => {
         e.preventDefault();
         const form = e.target;
@@ -31,10 +30,11 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
               .then((res) => res.json())
               .then((image) => {
                 const img = image.data.url;
-                console.log(img);
                 const expenses = {
-                  _id: id,
                   date,
+                  dateString: new Date(),
+                  propertyOwner: singleProperty?.email,
+                  propertyId: singleProperty?._id,
                   category,
                   amount,
                   description,
@@ -43,10 +43,10 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
                   city: singleProperty?.city,
                   state: singleProperty?.state,
                   zip: singleProperty?.zip,
-                  receipt: img,
+                  receipt: img
                 };
-                fetch(`https://landlord-hub.vercel.app/calculation/${id}`, {
-                  method: "PUT",
+                fetch(`http://localhost:5000/calculation`, {
+                  method: "POST",
                   headers: {
                     "content-type": "application/json",
                   },
@@ -59,19 +59,17 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
                       "Expenses Added Successfully",
                       "success"
                     );
-                    fetch(`https://landlord-hub.vercel.app/property/${id}`)
-                      .then((res) => res.json())
-                      .then((data) => {
-                        setSingleProperty(data);
-                        setModalOpen(false);
-                      });
+                    refetch();
+                    setModalOpen(false);
                   });
               });
         }
         else{
             const expenses = {
-              _id: uniqueId,
               date,
+              dateString: new Date(),
+              propertyOwner: singleProperty?.email,
+              propertyId: singleProperty?._id,
               category,
               amount,
               description,
@@ -81,8 +79,8 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
               state: singleProperty?.state,
               zip: singleProperty?.zip,
             };
-            fetch(`https://landlord-hub.vercel.app/calculation/${id}`, {
-              method: "PUT",
+            fetch(`http://localhost:5000/calculation`, {
+              method: "POST",
               headers: {
                 "content-type": "application/json",
               },
@@ -90,13 +88,10 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
             })
               .then((res) => res.json())
               .then((data) => {
+                console.log(data)
                 Swal.fire("Success", "Expenses Added Successfully", "success");
-                fetch(`https://landlord-hub.vercel.app/property/${id}`)
-                  .then((res) => res.json())
-                  .then((data) => {
-                    setSingleProperty(data);
-                    setModalOpen(false);
-                  });
+                refetch()
+                setModalOpen(false)
               });
         }
 
@@ -115,7 +110,7 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, id, setSingleProperty, singl
                     <label htmlFor="add-expense" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-xl font-bold text-blue-900">Add New Expense</h3>
                     <form onSubmit={handleOnSubmit} className='grid grid-cols-1 gap-3 mt-10'>
-                        <input type="date" name='date' placeholder="Date" className="input w-full input-bordered" required />
+                        <input type="date" name='date' defaultValue={today} placeholder="Date" className="input w-full input-bordered" required />
                         <input name='category' type="text" placeholder="Category" className="input w-full input-bordered" required />
                         <input name="amount" type="text" placeholder="Amount" className="input w-full input-bordered" required />
                         <label for="dropzone-file" class="w-full flex items-center px-3 py-3 mx-auto text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900">
