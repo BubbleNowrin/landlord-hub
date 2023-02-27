@@ -9,18 +9,19 @@ import MonthPieChart from "../Myproperties/MonthPieChart";
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 
 
+
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const date = new Date();
   const [year, setYear] = useState(date.getFullYear());
   const [month, setMonth] = useState("");
-  const [property, setProperty] = useState();
+  const [property, setProperty] = useState("");
 
   //get the user specific bookings data
   const { data: properties, isLoading } = useQuery({
-    queryKey: ["properties", user?.email, year, month],
+    queryKey: ["properties", user?.email, year, month, property],
     queryFn: () =>
-      fetch(`https://landlord-hub.vercel.app/dashboard?email=${user?.email}&year=${year}&month=${month}`).then(
+      fetch(`http://localhost:5000/dashboard?email=${user?.email}&year=${year}&month=${month}&street=${property}`).then(
         (res) => res.json()
       ),
   });
@@ -29,6 +30,8 @@ const Dashboard = () => {
     setYear(year);
     setMonth('');
   }
+
+
 
   if (isLoading) {
     return <Loader />;
@@ -97,10 +100,10 @@ const Dashboard = () => {
       </div>
       <div className="flex justify-center my-10">
         <p>
-          {property ? property : "All Properties"}, {year},{" "}
-          {month ? new Date(Date.UTC(0, month - 1)).toLocaleString("default", {
+          {property ? property : "All Properties"}, {year} {" "}
+          {month ? "," + new Date(Date.UTC(0, month - 1)).toLocaleString("default", {
             month: "long",
-          }) : "January"}
+          }) : ""}
         </p>
       </div>
       <div className="flex items-center justify-between gap-12 my-12">
@@ -112,6 +115,9 @@ const Dashboard = () => {
             total={properties?.total}
             cashflow={properties?.cashflow}
           ></Chart>
+
+
+
         </div>
         {/* <div className=''>
                     <MonthChart></MonthChart>
@@ -145,32 +151,32 @@ const Dashboard = () => {
               </ul>
             </div>
           </div> */}
-        {/* <div className="mx-auto  rounded-md p-5">
-            <LineChart
-              width={550}
-              height={450}
-              data={allMonths}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis dataKey="cashFlow" />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="month"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-              <Line type="monotone" dataKey="cashFlow" stroke="#82ca9d" />
-            </LineChart>
-          </div> */}
+        <div className="mx-auto  rounded-md p-5">
+          <LineChart
+            width={550}
+            height={450}
+            data={properties?.cashflowData}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" />
+            <YAxis dataKey="cashflow" />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="date"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+            />
+            <Line type="monotone" dataKey="cashflow" stroke="#82ca9d" />
+          </LineChart>
+        </div>
       </div>
 
       {/* <div className="w-full lg:w-2/3 mb-10 mx-auto flex flex-col items-center justify-center">
