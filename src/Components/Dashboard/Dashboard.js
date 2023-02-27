@@ -31,11 +31,6 @@ const Dashboard = () => {
     setMonth('');
   }
 
-  const data = [
-    { value: 300, total: 500, color: "#FF6384" },
-    { value: 100, total: 500, color: "#36A2EB" },
-    { value: 100, total: 500, color: "#FFCE56" },
-  ];
 
 
     if (isLoading) {
