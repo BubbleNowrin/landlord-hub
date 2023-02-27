@@ -1,13 +1,13 @@
 
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 
-const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refetch}) => {
-  
+const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, refetch }) => {
+
   const [loading, setLoading] = useState(false);
 
 
-  
+
 
   const uploadPhoto = (id, e) => {
     setLoading(true);
@@ -30,7 +30,7 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
       .then((image) => {
         const img = image.data.url;
         const data = { img };
-        fetch(`http://localhost:5000/upload_photo/${id}`, {
+        fetch(`https://landlord-hub.vercel.app/upload_photo/${id}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",
@@ -40,9 +40,9 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
           .then((res) => res.json())
           .then((data) => {
             console.log(data)
-            if(data.modifiedCount > 0){
-                refetch()
-                setLoading(false)
+            if (data.modifiedCount > 0) {
+              refetch()
+              setLoading(false)
             }
           });
       });
