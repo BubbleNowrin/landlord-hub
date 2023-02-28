@@ -1,10 +1,15 @@
 
 import React, {  useState } from 'react'
+import { BsFillEyeFill, BsPencilFill, BsTrash, BsUpload } from 'react-icons/bs';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
+import Swal from 'sweetalert2';
+import EdiTableModal from '../Modals/EdiTableModal';
 
 const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refetch}) => {
   
   const [loading, setLoading] = useState(false);
+  const [modalData,setModalData]= useState({});
+  const [modalOpen,setModalOpen] = useState(false);
 
 
   
@@ -47,10 +52,41 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
           });
       });
   };
+
+  const handleDelete = id=>{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/delete-calculation/${id}`,{
+          method: 'DELETE'
+        })
+        .then(res=> res.json())
+        .then(data=>{
+          
+          if(data.deletedCount > 0){
+refetch();
+            Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          }
+        })
+      }
+    });
+  }
+
+  const handleModal = calc => {
+    setModalData(calc);
+    setModalOpen(true);
+  }
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto mt-20 mb-10">
-        <div className='flex justify-between'>
+        <div className="flex justify-between">
           <div className="flex mb-10 gap-4 items-center justify-start">
             {allYears?.map((singleYear) => (
               <button
@@ -66,7 +102,7 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
               onClick={() => setYear(current.toString())}
               className="btn btn-outline"
             >
-              Show All
+              Current Year
             </button>
           </div>
         </div>
@@ -79,6 +115,7 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
               <th>Type</th>
               <th>Description</th>
               <th>Receipt</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -92,7 +129,7 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
             {tableData?.map((calc) => (
               <tr
                 key={calc?._id}
-                className={calc?.expense ? "text-red-500" : "text-green-500"}
+                className={calc?.expense ? "text-red-500" : "text-blue-900"}
               >
                 <td>{calc?.date}</td>
                 <td>{calc?.category}</td>
@@ -108,7 +145,7 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
                   </td>
                 )}
 
-                {calc?.expense && (
+                {calc?.expense ? (
                   <>
                     {calc?.receipt ? (
                       //   <label
@@ -120,9 +157,9 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
                       <td>
                         <PhotoProvider>
                           <PhotoView src={calc?.receipt}>
-                            <button className="btn btn-md btn-primary w-full">
-                              View Receipt
-                            </button>
+                            <label className="flex items-center gap-2 justify-center btn btn-sm bg-blue-900 hover:bg-blue-900 text-white">
+                              <BsFillEyeFill /> View Receipt
+                            </label>
                           </PhotoView>
                         </PhotoProvider>
                       </td>
@@ -131,20 +168,52 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
                         {loading ? (
                           <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin mx-auto"></div>
                         ) : (
+                          <div className="">
+                          <label htmlFor="file-upload" className="mb-2"></label>
                           <input
+                            id="file-upload"
                             type="file"
-                            name=""
-                            id=""
+                            className="hidden"
                             onChange={(e) => uploadPhoto(calc?._id, e)}
                           />
+                          <label
+                            htmlFor="file-upload"
+                            className="flex items-center gap-2 justify-center btn btn-sm btn-error text-white"
+                          >
+                            <BsUpload /> Add receipt
+                          </label>
+                        </div>
                         )}
                       </td>
                     )}
                   </>
+                ) : (
+                  <td></td>
                 )}
+                <td className="flex gap-2">
+                  <label
+                    onClick={() => handleModal(calc)}
+                    htmlFor="edit-table"
+                    className="btn btn-sm bg-blue-900 hover:bg-blue-900 text-white"
+                  >
+                    <BsPencilFill />
+                  </label>
+                  <button
+                    onClick={() => handleDelete(calc?._id)}
+                    className="btn btn-sm btn-error text-white"
+                  >
+                    <BsTrash />
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
+          <EdiTableModal
+            modalData={modalData}
+            refetch={refetch}
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+          />
         </table>
       </div>
     </div>

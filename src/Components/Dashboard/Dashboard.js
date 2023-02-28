@@ -5,8 +5,9 @@ import { AuthContext } from '../../Contexts/UserContext';
 import Loader from '../Loader/Loader';
 import Chart from '../Myproperties/Chart';
 import { RiArrowDropDownLine } from "react-icons/ri";
-import MonthPieChart from "../Myproperties/MonthPieChart";
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
+import { CartesianGrid,  Legend, Line, LineChart,  Tooltip, XAxis, YAxis } from 'recharts';
+
+
 
 
 
@@ -41,25 +42,32 @@ const Dashboard = () => {
       <div className="my-44 container mx-auto">
         <div className="flex justify-evenly">
           <div className="dropdown dropdown-bottom dropdown-end">
-            <label tabIndex={0} className="m-1 btn btn-outline">
-              Select Property <RiArrowDropDownLine className="text-2xl" />
-            </label>
-
+            <div className="flex flex-col justify-center items-center">
+              <label tabIndex={0} className="m-1 flex items-center">
+                Select Property <RiArrowDropDownLine className="text-2xl" />
+              </label>
+              <button className="btn btn-outline">
+                {property ? property : "All Properties"}
+              </button>
+            </div>
             <ul
               tabIndex={0}
               className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
             >
               {properties?.allProperty?.map((prp) => (
                 <li>
-                  <p onClick={()=>setProperty(prp)}>{prp}</p>
+                  <p onClick={() => setProperty(prp)}>{prp}</p>
                 </li>
               ))}
             </ul>
           </div>
           <div className="dropdown dropdown-bottom dropdown-end">
-            <label tabIndex={0} className="m-1 btn btn-outline">
-              Select Year <RiArrowDropDownLine className="text-2xl" />
-            </label>
+            <div className="flex flex-col justify-center items-center">
+              <label tabIndex={0} className="m-1 flex items-center">
+                Select Year <RiArrowDropDownLine className="text-2xl" />
+              </label>
+              <button className="btn btn-outline">{year}</button>
+            </div>
 
             <ul
               tabIndex={0}
@@ -75,10 +83,18 @@ const Dashboard = () => {
             </ul>
           </div>
           <div className="dropdown dropdown-bottom dropdown-end">
-            <label tabIndex={0} className="m-1 btn btn-outline">
-              Select Month <RiArrowDropDownLine className="text-2xl" />
-            </label>
-
+            <div className="flex flex-col justify-center items-center">
+              <label tabIndex={0} className="m-1 flex items-center">
+                Select Month <RiArrowDropDownLine className="text-2xl" />
+              </label>
+              <button className="btn btn-outline">
+                {month
+                  ? new Date(Date.UTC(0, month - 1)).toLocaleString("default", {
+                      month: "long",
+                    })
+                  : "All Months"}
+              </button>
+            </div>
             <ul
               tabIndex={0}
               className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
@@ -98,15 +114,8 @@ const Dashboard = () => {
             </ul>
           </div>
         </div>
-        <div className="flex justify-center my-10">
-          <p>
-            {property ? property : "All Properties"}, {year} {" "}
-            {month?"," + new Date(Date.UTC(0, month - 1)).toLocaleString("default", {
-              month: "long",
-            }): ""}
-          </p>
-        </div>
-        <div className="flex items-center justify-between gap-12 my-12">
+
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 my-12">
           <div className="flex justify-start  rounded-md p-5">
             <Chart
               className="z-10"
@@ -115,42 +124,8 @@ const Dashboard = () => {
               total={properties?.total}
               cashflow={properties?.cashflow}
             ></Chart>
-            
-
-
           </div>
-          {/* <div className=''>
-                    <MonthChart></MonthChart>
-                </div> */}
-          {/* <div className="w-full lg:w-2/3 mb-10 mx-auto flex flex-col items-center justify-center">
-            <MonthPieChart
-              className="z-10"
-              expenses={monthExpenses}
-              payments={monthPayments}
-              total={monthTotal}
-            ></MonthPieChart>
-            <div className="dropdown dropdown-bottom dropdown-end">
-              <label tabIndex={0} className="m-1 btn btn-outline">
-                Select Month <RiArrowDropDownLine className="text-2xl" />
-              </label>
 
-              <ul
-                tabIndex={0}
-                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                {allMonth?.map((singleMonth) => (
-                  <li>
-                    <p onClick={() => setMonth(singleMonth)}>
-                      {new Date(Date.UTC(0, singleMonth - 1)).toLocaleString(
-                        "default",
-                        { month: "long" }
-                      )}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div> */}
           <div className="mx-auto  rounded-md p-5">
             <LineChart
               width={550}
@@ -176,6 +151,8 @@ const Dashboard = () => {
               />
               <Line type="monotone" dataKey="cashflow" stroke="#82ca9d" />
             </LineChart>
+            
+            
           </div>
         </div>
 
