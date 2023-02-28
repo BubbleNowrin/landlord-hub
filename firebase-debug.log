@@ -1,0 +1,48 @@
+[debug] [2023-02-27T19:25:18.263Z] ----------------------------------------------------------------------
+[debug] [2023-02-27T19:25:18.268Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\win 10\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2023-02-27T19:25:18.269Z] CLI Version:   11.24.0
+[debug] [2023-02-27T19:25:18.269Z] Platform:      win32
+[debug] [2023-02-27T19:25:18.270Z] Node Version:  v19.0.0
+[debug] [2023-02-27T19:25:18.270Z] Time:          Tue Feb 28 2023 01:25:18 GMT+0600 (Bangladesh Standard Time)
+[debug] [2023-02-27T19:25:18.270Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-27T19:25:18.364Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-27T19:25:18.365Z] > authorizing via signed-in user (rafsanchowdhuryrudro@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\IVEY-SOLUTIONS\landlord-hub
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2023-02-27T19:25:32.781Z] Using project from CLI flag: landlord-hub
+[debug] [2023-02-27T19:25:32.783Z] > refreshing access token with scopes: []
+[debug] [2023-02-27T19:25:32.789Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-02-27T19:25:32.790Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-02-27T19:25:33.224Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2023-02-27T19:25:33.224Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-02-27T19:25:33.226Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/landlord-hub [none]
+[debug] [2023-02-27T19:25:33.757Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/landlord-hub 401
+[debug] [2023-02-27T19:25:33.758Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/landlord-hub {"error":{"code":401,"message":"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.","status":"UNAUTHENTICATED"}}
+[debug] [2023-02-27T19:25:33.761Z] HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+[debug] [2023-02-27T19:25:34.050Z] FirebaseError: HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.
+    at responseToError (C:\Users\win 10\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:49:12)
+    at RetryOperation._fn (C:\Users\win 10\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:288:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to get Firebase project landlord-hub. Please make sure the project exists and your account has permission to access it.
