@@ -26,14 +26,14 @@ const MyProperties = () => {
     }
 
     return (
-        properties?.length > 0 ? <div className='grid grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto my-32 gap-10'>
+        properties?.length > 0 ? <div className='grid grid-cols-1 md:grid-cols-3 max-w-4xl mx-auto my-32 gap-4'>
             {
                 properties?.map(property => <MyProperty property={property} key={property._id}></MyProperty>)
             }
 
             {/* add property */}
             <div>
-                <label onClick={() => setModalOpen(true)} htmlFor="add-property" className="rounded-lg p-4 shadow-lg shadow-indigo-200 h-full flex justify-center items-center hover:scale-110 ease-in duration-100">
+                <label onClick={() => setModalOpen(true)} htmlFor="add-property" className="rounded-lg p-4 shadow-lg shadow-indigo-200 h-[375px] flex justify-center items-center hover:scale-90 ease-in duration-100">
                     <div>
                         <FaPlus className='text-7xl text-blue-900' />
                     </div>

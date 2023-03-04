@@ -8,6 +8,7 @@ import SingleProperty from "../Components/Myproperties/SingleProperty";
 import Login from "../Components/SignUp/Login";
 import SignUp from "../Components/SignUp/SignUp";
 import Main from "../Layouts/Main";
+import PropertyLayout from "../Layouts/PropertyLayout";
 import PrivateRoutes from "./PrivateRoutes";
 
 export const routes = createBrowserRouter([
@@ -20,12 +21,12 @@ export const routes = createBrowserRouter([
                 element: <Home></Home>
             },
             {
-                path: '/dashboard',
-                element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
+                path: '/home',
+                element: <Home></Home>
             },
             {
-                path: '/properties',
-                element: <PrivateRoutes><MyProperties></MyProperties></PrivateRoutes>
+                path: '/dashboard',
+                element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
             },
             {
                 path: '/archived',
@@ -45,6 +46,16 @@ export const routes = createBrowserRouter([
                 element: <Login></Login>
             },
 
+        ]
+    },
+    {
+        path: '/properties',
+        element: <PrivateRoutes><PropertyLayout></PropertyLayout></PrivateRoutes>,
+        children: [
+            {
+                path: '/properties',
+                element: <PrivateRoutes><MyProperties></MyProperties></PrivateRoutes>,
+            }
         ]
     }
 ])

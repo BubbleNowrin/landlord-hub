@@ -1,5 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { BsTag } from "react-icons/bs";
+import { MdOutlineBathtub } from "react-icons/md";
+import { RiHotelBedLine } from "react-icons/ri";
+import { HiLocationMarker } from "react-icons/hi";
+import location from "../../Assets/Vector (1).svg"
 
 const MyProperty = ({ property }) => {
 
@@ -18,8 +23,8 @@ const MyProperty = ({ property }) => {
 
     return (
         <div>
-            <div>
-                <Link to={`/properties/${_id}`} state={_id} className="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-110 ease-in duration-100">
+            <div className=''>
+                <Link to={`/properties/${_id}`} state={_id} className="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-90 ease-in duration-100">
                     <div className='relative'>
                         <p className={`${className} font-medium absolute top-2 left-1`}>{status}</p>
                         <img
@@ -29,22 +34,14 @@ const MyProperty = ({ property }) => {
                         />
                     </div>
 
-                    <div className="mt-2">
-                        <dl>
-                            <div>
-                                <dt className="sr-only">Address</dt>
-                                <div className='flex text-blue-900'>
-                                    <dd className="font-medium">{street}, {city}, {state}, {zip}</dd>
-                                </div>
+                    <div className="mt-2 h-28 flex flex-col justify-evenly">
+                        <div className=''>
+                            <div className='flex items-start gap-1'>
+                                {/* <HiLocationMarker size={20} /> */}
+                                <img src={location} alt="" className='h-4 w-4 mt-1' />
+                                <p className="font-medium">{street}, {city}, {state}, {zip}</p>
                             </div>
-                            {/* <div>
-                                <dt className="sr-only">Rent</dt>
-
-                                <dd className="text-sm text-gray-500 font-bold"><span className='text-blue-900'>Rent: {rent ? "$" : ""}{rent}</span></dd>
-                            </div> */}
-
-
-                        </dl>
+                        </div>
 
                         <div className="mt-6 flex justify-between gap-8 text-xs">
                             {/* <div className="sm:inline-flex sm:shrink-0 sm:items-center">
@@ -85,6 +82,9 @@ const MyProperty = ({ property }) => {
                                         d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
                                     />
                                 </svg> */}
+                                <div className='bg-gray-200 rounded-full p-1'>
+                                    <BsTag className="h-4 w-4 text-indigo-700" />
+                                </div>
 
                                 <div className="mt-1.5 sm:ml-3 sm:mt-0">
                                     <p className="text-gray-500 text-md text-semibold">Rent</p>
@@ -108,6 +108,10 @@ const MyProperty = ({ property }) => {
                                     />
                                 </svg> */}
 
+                                <div className='bg-gray-200 rounded-full p-1'>
+                                    <MdOutlineBathtub className="h-4 w-4 text-indigo-700" />
+                                </div>
+
                                 <div className="mt-1.5 sm:ml-3 sm:mt-0">
                                     <p className="text-gray-500 text-md text-semibold">Bath</p>
 
@@ -130,6 +134,10 @@ const MyProperty = ({ property }) => {
                                         d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
                                     />
                                 </svg> */}
+
+                                <div className='bg-gray-200 rounded-full p-1'>
+                                    <RiHotelBedLine className="h-4 w-4 text-indigo-700" />
+                                </div>
 
                                 <div className="mt-1.5 sm:ml-3 sm:mt-0">
                                     <p className="text-gray-500 text-md text-semibold">Bed</p>
