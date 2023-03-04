@@ -23,14 +23,14 @@ import Loader from "../Loader/Loader";
 
 const SingleProperty = () => {
   const tableRef = useRef(null);
-const currentYear = new Date().getFullYear();
-const [year, setYear] = useState(currentYear.toString());
+  const currentYear = new Date().getFullYear();
+  const [year, setYear] = useState(currentYear.toString());
   // const [tableData, setTableData] = useState([]);
   const single = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [singleProperty, setSingleProperty] = useState(single);
   // console.log(typeof (year));
-  
+
 
   const navigate = useNavigate();
 
@@ -76,15 +76,15 @@ const [year, setYear] = useState(currentYear.toString());
       });
   };
 
-  
+
 
   const {
-    data: tableData,isLoading,
+    data: tableData, isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["calculations",year,singleProperty?._id],
+    queryKey: ["calculations", year, singleProperty?._id],
     queryFn: () =>
-      fetch(`http://localhost:5000/calculations/${singleProperty?._id}?year=${year}`).then(
+      fetch(`https://landlord-hub.vercel.app/calculations/${singleProperty?._id}?year=${year}`).then(
         (res) => res.json()
       ),
   });
@@ -102,11 +102,11 @@ const [year, setYear] = useState(currentYear.toString());
       "text-white font-bold px-4 py-1 rounded-md bg-red-500 border-none hover:bg-red-500";
   }
 
-  const { _id,img, street, city, state, zip, bedroom, bathroom, status, rent } =
+  const { _id, img, street, city, state, zip, bedroom, bathroom, status, rent } =
     singleProperty;
-    if(isLoading){
-      return <Loader/>
-    }
+  if (isLoading) {
+    return <Loader />
+  }
 
   return (
     <div className="max-w-5xl mx-auto flex flex-col my-32">
@@ -341,7 +341,7 @@ const [year, setYear] = useState(currentYear.toString());
       ></NewPaymentModal>
 
       {/* table */}
-      
+
       <SinglePropertyTable
         id={_id}
         tableRef={tableRef}

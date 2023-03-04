@@ -1,18 +1,18 @@
 
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { BsFillEyeFill, BsPencilFill, BsTrash, BsUpload } from 'react-icons/bs';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import Swal from 'sweetalert2';
 import EdiTableModal from '../Modals/EdiTableModal';
 
-const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refetch}) => {
-  
+const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, refetch }) => {
+
   const [loading, setLoading] = useState(false);
-  const [modalData,setModalData]= useState({});
-  const [modalOpen,setModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
 
 
-  
+
 
   const uploadPhoto = (id, e) => {
     setLoading(true);
@@ -45,15 +45,15 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
           .then((res) => res.json())
           .then((data) => {
             console.log(data)
-            if(data.modifiedCount > 0){
-                refetch()
-                setLoading(false)
+            if (data.modifiedCount > 0) {
+              refetch()
+              setLoading(false)
             }
           });
       });
   };
 
-  const handleDelete = id=>{
+  const handleDelete = id => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -64,17 +64,17 @@ const SinglePropertyTable = ({ current, tableRef,tableData,allYears,setYear,refe
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/delete-calculation/${id}`,{
+        fetch(`http://localhost:5000/delete-calculation/${id}`, {
           method: 'DELETE'
         })
-        .then(res=> res.json())
-        .then(data=>{
-          
-          if(data.deletedCount > 0){
-refetch();
-            Swal.fire("Deleted!", "Your data has been deleted.", "success");
-          }
-        })
+          .then(res => res.json())
+          .then(data => {
+
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire("Deleted!", "Your data has been deleted.", "success");
+            }
+          })
       }
     });
   }
@@ -169,20 +169,20 @@ refetch();
                           <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin mx-auto"></div>
                         ) : (
                           <div className="">
-                          <label htmlFor="file-upload" className="mb-2"></label>
-                          <input
-                            id="file-upload"
-                            type="file"
-                            className="hidden"
-                            onChange={(e) => uploadPhoto(calc?._id, e)}
-                          />
-                          <label
-                            htmlFor="file-upload"
-                            className="flex items-center gap-2 justify-center btn btn-sm btn-error text-white"
-                          >
-                            <BsUpload /> Add receipt
-                          </label>
-                        </div>
+                            <label htmlFor="file-upload" className="mb-2"></label>
+                            <input
+                              id="file-upload"
+                              type="file"
+                              className="hidden"
+                              onChange={(e) => uploadPhoto(calc?._id, e)}
+                            />
+                            <label
+                              htmlFor="file-upload"
+                              className="flex items-center gap-2 justify-center btn btn-sm btn-error text-white"
+                            >
+                              <BsUpload /> Add receipt
+                            </label>
+                          </div>
                         )}
                       </td>
                     )}
