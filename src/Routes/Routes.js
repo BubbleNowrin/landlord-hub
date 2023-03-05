@@ -33,11 +33,6 @@ export const routes = createBrowserRouter([
                 element: <PrivateRoutes><Archived></Archived></PrivateRoutes>
             },
             {
-                path: '/properties/:id',
-                loader: ({ params }) => fetch(`https://landlord-hub.vercel.app/property/${params.id}`),
-                element: <PrivateRoutes><SingleProperty></SingleProperty></PrivateRoutes>
-            },
-            {
                 path: '/signup',
                 element: <SignUp></SignUp>
             },
@@ -55,7 +50,12 @@ export const routes = createBrowserRouter([
             {
                 path: '/properties',
                 element: <PrivateRoutes><MyProperties></MyProperties></PrivateRoutes>,
-            }
+            },
+            {
+                path: '/properties/:id',
+                loader: ({ params }) => fetch(`https://landlord-hub.vercel.app/property/${params.id}`),
+                element: <PrivateRoutes><SingleProperty></SingleProperty></PrivateRoutes>
+            },
         ]
     }
 ])

@@ -84,139 +84,141 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
     setModalOpen(true);
   }
   return (
-    <div className="flex flex-col">
-      <div className="overflow-x-auto mt-20 mb-10">
-        <div className="flex justify-between">
-          <div className="flex mb-10 gap-4 items-center justify-start">
-            {allYears?.map((singleYear) => (
+    <section className='bg-white p-10 rounded-xl my-5'>
+      <div className="flex flex-col">
+        <div className="overflow-x-auto">
+          <div className="flex justify-between">
+            <div className="flex mb-5 gap-4 items-center justify-start">
+              {allYears?.map((singleYear) => (
+                <button
+                  onClick={() => setYear(singleYear)}
+                  className="btn bg-white text-black hover:bg-blue-900 hover:text-white"
+                >
+                  {singleYear}
+                </button>
+              ))}
+            </div>
+            <div>
               <button
-                onClick={() => setYear(singleYear)}
-                className="btn btn-outline"
+                onClick={() => setYear(current.toString())}
+                className="btn bg-white text-black hover:bg-blue-900 hover:text-white"
               >
-                {singleYear}
+                Current Year
               </button>
-            ))}
+            </div>
           </div>
-          <div>
-            <button
-              onClick={() => setYear(current.toString())}
-              className="btn btn-outline"
-            >
-              Current Year
-            </button>
-          </div>
-        </div>
-        <table className="table w-full" ref={tableRef}>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Category</th>
-              <th>Amount</th>
-              <th>Type</th>
-              <th>Description</th>
-              <th>Receipt</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* {
+          <table className="table w-full " ref={tableRef}>
+            <thead className=''>
+              <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Receipt</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {
                                 singleProperty?.calculations?.filter(prop => prop.expense).map((expenses, idx) => <ExpensesTable
                                     key={idx}
                                     expenses={expenses}
                                 ></ExpensesTable>)
                             } */}
 
-            {tableData?.map((calc) => (
-              <tr
-                key={calc?._id}
-                className={calc?.expense ? "text-red-500" : "text-blue-900"}
-              >
-                <td>{calc?.date}</td>
-                <td>{calc?.category}</td>
-                <td>{calc?.amount}</td>
-                <td>{calc?.expense ? "Expense" : "Payment"}</td>
-                {calc.description.length > 50 ? (
-                  <td className="max-w-sm text-ellipsis">
-                    <textarea cols="50">{calc?.description}</textarea>
-                  </td>
-                ) : (
-                  <td className="max-w-sm text-ellipsis">
-                    {calc?.description}
-                  </td>
-                )}
+              {tableData?.map((calc) => (
+                <tr
+                  key={calc?._id}
+                  className={calc?.expense ? "text-red-500" : "text-green-500"}
+                >
+                  <td>{calc?.date}</td>
+                  <td>{calc?.category}</td>
+                  <td>{calc?.amount}</td>
+                  <td>{calc?.expense ? "Expense" : "Payment"}</td>
+                  {calc.description.length > 50 ? (
+                    <td className="max-w-sm text-ellipsis">
+                      <textarea cols="50">{calc?.description}</textarea>
+                    </td>
+                  ) : (
+                    <td className="max-w-sm text-ellipsis">
+                      {calc?.description}
+                    </td>
+                  )}
 
-                {calc?.expense ? (
-                  <>
-                    {calc?.receipt ? (
-                      //   <label
-                      //     htmlFor="my-modal-3"
-                      //     className="btn btn-outline w-full"
-                      //   >
-                      //     view receipt
-                      //   </label>
-                      <td>
-                        <PhotoProvider>
-                          <PhotoView src={calc?.receipt}>
-                            <label className="flex items-center gap-2 justify-center btn btn-sm bg-blue-900 hover:bg-blue-900 text-white">
-                              <BsFillEyeFill /> View Receipt
-                            </label>
-                          </PhotoView>
-                        </PhotoProvider>
-                      </td>
-                    ) : (
-                      <td>
-                        {loading ? (
-                          <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin mx-auto"></div>
-                        ) : (
-                          <div className="">
-                            <label htmlFor="file-upload" className="mb-2"></label>
-                            <input
-                              id="file-upload"
-                              type="file"
-                              className="hidden"
-                              onChange={(e) => uploadPhoto(calc?._id, e)}
-                            />
-                            <label
-                              htmlFor="file-upload"
-                              className="flex items-center gap-2 justify-center btn btn-sm btn-error text-white"
-                            >
-                              <BsUpload /> Add receipt
-                            </label>
-                          </div>
-                        )}
-                      </td>
-                    )}
-                  </>
-                ) : (
-                  <td></td>
-                )}
-                <td className="flex gap-2">
-                  <label
-                    onClick={() => handleModal(calc)}
-                    htmlFor="edit-table"
-                    className="btn btn-sm bg-blue-900 hover:bg-blue-900 text-white"
-                  >
-                    <BsPencilFill />
-                  </label>
-                  <button
-                    onClick={() => handleDelete(calc?._id)}
-                    className="btn btn-sm btn-error text-white"
-                  >
-                    <BsTrash />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          <EdiTableModal
-            modalData={modalData}
-            refetch={refetch}
-            modalOpen={modalOpen}
-            setModalOpen={setModalOpen}
-          />
-        </table>
+                  {calc?.expense ? (
+                    <>
+                      {calc?.receipt ? (
+                        //   <label
+                        //     htmlFor="my-modal-3"
+                        //     className="btn btn-outline w-full"
+                        //   >
+                        //     view receipt
+                        //   </label>
+                        <td>
+                          <PhotoProvider>
+                            <PhotoView src={calc?.receipt}>
+                              <label className="flex items-center gap-2 justify-center btn btn-sm bg-blue-900 hover:bg-blue-800 border-none text-white">
+                                <BsFillEyeFill /> View Receipt
+                              </label>
+                            </PhotoView>
+                          </PhotoProvider>
+                        </td>
+                      ) : (
+                        <td>
+                          {loading ? (
+                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin mx-auto"></div>
+                          ) : (
+                            <div className="">
+                              <label htmlFor="file-upload" className="mb-2"></label>
+                              <input
+                                id="file-upload"
+                                type="file"
+                                className="hidden"
+                                onChange={(e) => uploadPhoto(calc?._id, e)}
+                              />
+                              <label
+                                htmlFor="file-upload"
+                                className="flex items-center gap-2 justify-center btn btn-sm bg-red-500 border-none hover:bg-red-600 text-white"
+                              >
+                                <BsUpload /> Add receipt
+                              </label>
+                            </div>
+                          )}
+                        </td>
+                      )}
+                    </>
+                  ) : (
+                    <td></td>
+                  )}
+                  <td className="flex gap-2">
+                    <label
+                      onClick={() => handleModal(calc)}
+                      htmlFor="edit-table"
+                      className="btn btn-sm bg-blue-900 hover:bg-blue-800 border-none text-white"
+                    >
+                      <BsPencilFill />
+                    </label>
+                    <button
+                      onClick={() => handleDelete(calc?._id)}
+                      className="btn btn-sm bg-red-500 hover:bg-red-600 border-none text-white"
+                    >
+                      <BsTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <EdiTableModal
+              modalData={modalData}
+              refetch={refetch}
+              modalOpen={modalOpen}
+              setModalOpen={setModalOpen}
+            />
+          </table>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

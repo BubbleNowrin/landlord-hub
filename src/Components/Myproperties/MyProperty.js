@@ -24,7 +24,7 @@ const MyProperty = ({ property }) => {
     return (
         <div>
             <div className=''>
-                <Link to={`/properties/${_id}`} state={_id} className="block rounded-lg p-4 shadow-lg shadow-indigo-200 hover:scale-90 ease-in duration-100">
+                <Link to={`/properties/${_id}`} state={_id} className="block rounded-lg p-4 shadow-lg shadow-indigo-200 bg-white hover:scale-90 ease-in duration-100">
                     <div className='relative'>
                         <p className={`${className} font-medium absolute top-2 left-1`}>{status}</p>
                         <img

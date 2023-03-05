@@ -6,7 +6,7 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import { BsArrowLeft, BsPencilFill, BsThreeDotsVertical } from "react-icons/bs";
+import { BsArrowLeft, BsPencilFill, BsTag, BsThreeDotsVertical } from "react-icons/bs";
 import Chart from "./Chart";
 import EditPropertyModal from "../Modals/EditPropertyModal";
 import NewExpenseModal from "../Modals/NewExpenseModal";
@@ -20,6 +20,9 @@ import { DownloadTableExcel } from "react-export-table-to-excel";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import SinglePropertyTable from "./SinglePropertyTable";
 import Loader from "../Loader/Loader";
+import { MdOutlineBathtub } from "react-icons/md";
+import { RiHotelBedLine } from "react-icons/ri";
+import location from "../../Assets/Vector (1).svg"
 
 const SingleProperty = () => {
   const tableRef = useRef(null);
@@ -109,42 +112,39 @@ const SingleProperty = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto flex flex-col my-32">
-      {/* back to home */}
-      {singleProperty?.archived || (
-        <div className="flex items-center mt-10">
-          <BsArrowLeft className="mr-2" />
-          <div>
-            <Link
-              to="/properties"
-              className="mt-10 font-bold text-lg hover:underline text-blue-900"
-            >
-              Back to My Properties
-            </Link>
-          </div>
-        </div>
-      )}
-      {singleProperty?.archived && (
-        <div className="flex items-center mt-10">
-          <BsArrowLeft className="mr-2" />
-          <div>
-            <Link
-              to="/archived"
-              className="mt-10 font-bold text-lg hover:underline text-blue-900"
-            >
-              Back to Archived Properties
-            </Link>
-          </div>
-        </div>
-      )}
-
+    <div className="max-w-5xl mx-auto flex flex-col my-5">
       <div className="">
         {/* card */}
 
-        <section className="">
-          <div className="text-right mb-4 mr-12 mt-2">
-            {/* <label onClick={() => setModalOpen(true)} htmlFor="edit-property" className='text-xl font-bold cursor-pointer btn bg-blue-900'><BsPencilFill /></label> */}
-          </div>
+        <section className="bg-white p-10 rounded-xl">
+          {/* back to home */}
+          {singleProperty?.archived || (
+            <div className="flex items-center">
+              <BsArrowLeft className="mr-2" />
+              <div>
+                <Link
+                  to="/properties"
+                  className="mt-10 font-bold text-lg hover:underline text-blue-900"
+                >
+                  Back to My Properties
+                </Link>
+              </div>
+            </div>
+          )}
+          {singleProperty?.archived && (
+            <div className="flex items-center">
+              <BsArrowLeft className="mr-2" />
+              <div>
+                <Link
+                  to="/archived"
+                  className="mt-10 font-bold text-lg hover:underline text-blue-900"
+                >
+                  Back to Archived Properties
+                </Link>
+              </div>
+            </div>
+          )}
+
           <EditPropertyModal
             modalOpen={modalOpen}
             setModalOpen={setModalOpen}
@@ -161,168 +161,167 @@ const SingleProperty = () => {
             singleProperty={singleProperty}
           ></UpdateImageModal>
 
-          <div className="mt-6">
-            <div className="flex flex-col gap-6 items-center">
-              <div className="flex flex-col items-center gap-8">
-                <p className="text-blue-900 font-bold text-2xl">
-                  {street}, {city}, {state}, {zip}
-                </p>
+          <div>
+            <div className="block rounded-lg p-4 shadow-lg shadow-indigo-200 bg-white w-96">
+              <div className='relative'>
+                <p className={`${className} font-medium absolute top-2 left-1`}>{status}</p>
+                <img
+                  alt="Home"
+                  src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="}
+                  className="h-56 rounded-md object-cover"
+                />
               </div>
-            </div>
-            <div className="flex space-x-2 sm:space-x-4 mt-3">
-              <div className="space-y-2"></div>
-            </div>
-            <div className="relative flex justify-center items-center mt-5">
-              <p
-                className={`${className}  font-medium absolute top-5 left-5 md:left-48`}
-              >
-                {status}
-              </p>
-              <img
-                src={
-                  img
-                    ? img
-                    : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="
-                }
-                alt=""
-                className="rounded-lg shadow-lg aspect-video h-96"
-              />
-            </div>
-            <div className="flex justify-around items-center mt-10">
-              <div className="flex space-x-2 sm:space-x-4">
-                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                                </svg> */}
-                <div className="space-y-2">
-                  <p className="text-lg font-medium leading-snug">Rent</p>
-                  <p className="leading-snug text-blue-900 font-bold">
-                    {rent ? "$" : ""}
-                    {rent}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex space-x-2 sm:space-x-4">
-                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                                </svg> */}
-                <div className="space-y-2">
-                  <p className="text-lg font-medium leading-snug">Bed</p>
-                  <p className="leading-snug text-blue-900 font-bold">
-                    {bedroom}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex space-x-2 sm:space-x-4">
-                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                                </svg> */}
-                <div className="space-y-2">
-                  <p className="text-lg font-medium leading-snug">Bath</p>
-                  <p className="leading-snug text-blue-900 font-bold">
-                    {bathroom}
-                  </p>
-                </div>
-              </div>
-              <div className="flex space-x-2 sm:space-x-4">
-                {singleProperty?.archived || (
-                  <div>
-                    <div className="dropdown  dropdown-bottom dropdown-end">
-                      <label
-                        tabIndex={0}
-                        className="text-xl font-bold cursor-pointer btn bg-blue-900 m-1"
-                      >
-                        <BsPencilFill />
-                      </label>
-                      <ul
-                        tabIndex={0}
-                        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-                      >
-                        <li>
+              <div className="flex flex-col">
+                <div className="flex justify-end mt-2">
+                  <div className="flex">
+                    {singleProperty?.archived || (
+                      <div>
+                        <div className="dropdown dropdown-bottom dropdown-end">
                           <label
-                            onClick={() => setModalOpen(true)}
-                            htmlFor="edit-property"
+                            tabIndex={0}
+                            className="text-xl font-bold cursor-pointer"
                           >
-                            Add Info
+                            <BsPencilFill className="p-2 text-3xl rounded-md bg-gray-200 text-blue-900" />
                           </label>
-                        </li>
-                        <li>
+                          <ul
+                            tabIndex={0}
+                            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                          >
+                            <li>
+                              <label
+                                onClick={() => setModalOpen(true)}
+                                htmlFor="edit-property"
+                              >
+                                Add Info
+                              </label>
+                            </li>
+                            <li>
+                              <label
+                                onClick={() => setModalOpen(true)}
+                                htmlFor="upload-Image"
+                              >
+                                Upload Image
+                              </label>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="dropdown dropdown-bottom dropdown-end">
                           <label
-                            onClick={() => setModalOpen(true)}
-                            htmlFor="upload-Image"
+                            tabIndex={0}
+                            className="text-xl font-bold cursor-pointer"
                           >
-                            Upload Image
+                            <BsThreeDotsVertical className="p-2 text-3xl rounded-md bg-gray-200 text-blue-900" />
                           </label>
-                        </li>
-                      </ul>
+                          <ul
+                            tabIndex={0}
+                            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                          >
+                            <li>
+                              <button onClick={() => handleDelete(single._id)}>
+                                Delete
+                              </button>
+                            </li>
+                            <li>
+                              <button onClick={() => handleArchive(single._id)}>
+                                Archive
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+                    {singleProperty?.archived && (
+                      <button
+                        onClick={() => handleReactivate(single._id)}
+                        className="p-2 rounded-md bg-gray-200 hover:bg-gray-300 text-blue-900"
+                      >
+
+                        Reactivate
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className='flex items-start gap-1'>
+                  <img src={location} alt="" className='h-4 w-4 mt-1' />
+                  <p className="font-medium">{street}, {city}, {state}, {zip}</p>
+                </div>
+
+
+
+                <div className="mt-6 flex justify-between gap-8 text-xs">
+
+
+                  <div className="sm:inline-flex sm:shrink-0 sm:items-center">
+
+                    <div className='bg-gray-200 rounded-full p-1'>
+                      <BsTag className="h-4 w-4 text-indigo-700" />
                     </div>
-                    <div className="dropdown dropdown-bottom dropdown-end">
-                      <label
-                        tabIndex={0}
-                        className="text-xl font-bold cursor-pointer btn bg-blue-900 m-1"
-                      >
-                        <BsThreeDotsVertical />
-                      </label>
-                      <ul
-                        tabIndex={0}
-                        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-                      >
-                        <li>
-                          <button onClick={() => handleDelete(single._id)}>
-                            Delete
-                          </button>
-                        </li>
-                        <li>
-                          <button onClick={() => handleArchive(single._id)}>
-                            Archive
-                          </button>
-                        </li>
-                      </ul>
+
+                    <div className="mt-1.5 sm:ml-3 sm:mt-0">
+                      <p className="text-gray-500 text-md text-semibold">Rent</p>
+
+                      <p className="font-medium"> {rent ? "$" : ""}{rent}</p>
                     </div>
                   </div>
-                )}
-                {singleProperty?.archived && (
-                  <button
-                    onClick={() => handleReactivate(single._id)}
-                    className="btn bg-blue-900"
-                  >
-                    Reactivate
-                  </button>
-                )}
+                  <div className="sm:inline-flex sm:shrink-0 sm:items-center">
+
+
+                    <div className='bg-gray-200 rounded-full p-1'>
+                      <MdOutlineBathtub className="h-4 w-4 text-indigo-700" />
+                    </div>
+
+                    <div className="mt-1.5 sm:ml-3 sm:mt-0">
+                      <p className="text-gray-500 text-md text-semibold">Bath</p>
+
+                      <p className="font-medium">{bathroom}</p>
+                    </div>
+                  </div>
+
+                  <div className="sm:inline-flex sm:shrink-0 sm:items-center">
+
+
+                    <div className='bg-gray-200 rounded-full p-1'>
+                      <RiHotelBedLine className="h-4 w-4 text-indigo-700" />
+                    </div>
+
+                    <div className="mt-1.5 sm:ml-3 sm:mt-0">
+                      <p className="text-gray-500 text-md text-semibold">Bed</p>
+
+                      <p className="font-medium">{bedroom}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+            {/* buttons */}
+            {singleProperty?.archived || (
+              <div className="flex gap-5 mt-5">
+                <label
+                  onClick={() => setModalOpen(true)}
+                  htmlFor="add-expense"
+                  className="btn bg-white text-black hover:bg-blue-900 hover:text-white"
+                >
+                  Add Expense
+                </label>
+                <label
+                  onClick={() => setModalOpen(true)}
+                  htmlFor="add-payment"
+                  className="btn bg-white text-black hover:bg-blue-900 hover:text-white"
+                >
+                  Add Payment
+                </label>
+                <DownloadTableExcel
+                  filename="users table"
+                  sheet="users"
+                  currentTableRef={tableRef.current}
+                >
+                  <button className="btn bg-white text-black hover:bg-blue-900 hover:text-white">Export</button>
+                </DownloadTableExcel>
+              </div>
+            )}
           </div>
         </section>
       </div>
-
-      {/* buttons */}
-      {singleProperty?.archived || (
-        <div className="mt-20 flex justify-around">
-          <label
-            onClick={() => setModalOpen(true)}
-            htmlFor="add-expense"
-            className="btn btn-outline"
-          >
-            Add Expense
-          </label>
-          <label
-            onClick={() => setModalOpen(true)}
-            htmlFor="add-payment"
-            className="btn btn-outline"
-          >
-            Add Payment
-          </label>
-          <DownloadTableExcel
-            filename="users table"
-            sheet="users"
-            currentTableRef={tableRef.current}
-          >
-            <button className="btn btn-outline">Export</button>
-          </DownloadTableExcel>
-        </div>
-      )}
-
       <NewExpenseModal
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
