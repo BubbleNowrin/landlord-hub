@@ -61,7 +61,7 @@ const SingleProperty = () => {
       .then((res) => res.json())
       .then((data) => {
         Swal.fire("Success", "Property Archived Successfully", "success");
-        navigate("/archived");
+        navigate("/properties/archived");
       });
   };
 
@@ -136,7 +136,7 @@ const SingleProperty = () => {
               <BsArrowLeft className="mr-2" />
               <div>
                 <Link
-                  to="/archived"
+                  to="/properties/archived"
                   className="mt-10 font-bold text-lg hover:underline text-blue-900"
                 >
                   Back to Archived Properties

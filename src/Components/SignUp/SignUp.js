@@ -2,7 +2,7 @@ import { axios } from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import img from "../../Assets/Select house-pana.png"
+import img from "../../Assets/Group 5236.svg"
 import { AuthContext } from "../../Contexts/UserContext";
 
 
@@ -137,75 +137,57 @@ const SignUp = () => {
         setPassword(pass);
     };
     return (
-        <section className="mt-24">
-            <section className="flex flex-col lg:flex-row min-h-screen container mx-auto">
-                <aside className="w-full lg:mt-24">
-                    <img src={img} alt="" className="mx-auto" />
-                </aside>
-                <div className="w-full flex justify-center items-center ">
-                    <div className=" w-full lg:w-11/12 mx-auto py-6 sm:py-8 lg:py-12 ">
-                        <div className="max-w-screen-2xl px-4 md:px-8 mx-auto">
-                            <h2 className="text-blue-900 text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8">
-                                Join Now
-                            </h2>
+        <div className="bg-[#F3F4FC] lg:m-40 rounded-2xl">
+            <div className="flex flex-col-reverse  lg:flex-row container my-10 mx-auto">
+                <div className="w-full flex justify-center items-center">
+                    <div className="w-full mx-auto">
+                        <div className="max-w-xl ">
 
                             <form
                                 onSubmit={handleSubmit}
-                                className="max-w-lg border rounded-xl shadow-lg mx-auto"
+                                className="w-full lg:max-w-lg border rounded-3xl shadow-2xl mx-auto bg-white p-8"
                             >
+                                <h2 className="text-black text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8">
+                                    Sign Up
+                                </h2>
+                                <p className="text-center">Please Enter Your Details</p>
                                 <div className="flex flex-col gap-4 p-4 md:p-8">
                                     <div>
-                                        <label
-                                            htmlFor="name"
-                                            className="inline-block text-gray-800 text-sm sm:text-base mb-2"
-                                        >
-                                            Full Name
-                                        </label>
                                         <input
                                             name="name"
                                             required
                                             className="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2"
+                                            placeholder="Full Name"
                                         />
                                     </div>
                                     <div>
-                                        <label
-                                            htmlFor="email"
-                                            className="inline-block text-gray-800 text-sm sm:text-base mb-2"
-                                        >
-                                            Email
-                                        </label>
+
                                         <input
                                             required
                                             name="email"
                                             className="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2"
+                                            placeholder="Email"
                                         />
                                     </div>
 
                                     <div>
-                                        <label
-                                            htmlFor="password"
-                                            className="inline-block text-gray-800 text-sm sm:text-base mb-2"
-                                        >
-                                            Password
-                                        </label>
+
                                         <input
                                             onChange={handlePassword}
                                             required
                                             name="password"
                                             type="password"
                                             className="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2"
+                                            placeholder="Password"
                                         />
                                         {error && (
                                             <small className="text-red-400 my-2">{error}</small>
                                         )}
                                     </div>
 
-                                    <button
-                                        type="submit"
-                                        className="flex gap-2 justify-center bg-blue-900 hover:bg-blue-700 active:bg-gray-600 focus-visible:ring ring-gray-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
-                                    >
+                                    <button type="submit" class="px-7 py-3 text-md font-semibold text-center text-white transition duration-300 rounded-sm hover:from-blue-700 hover:to-blue-400 ease bg-gradient-to-br from-blue-800  to-blue-500 md:w-auto">
                                         {loading ? (
-                                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin "></div>
+                                            <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin mx-auto"></div>
                                         ) : (
                                             "Register"
                                         )}
@@ -220,7 +202,7 @@ const SignUp = () => {
 
                                     <button
                                         onClick={handleGoogle}
-                                        className="flex justify-center items-center bg-base-100 hover:bg-base-100 active:bg-gray-200 border border-gray-300 focus-visible:ring ring-gray-300 text-gray-800 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 gap-2 px-8 py-3"
+                                        className="flex justify-center items-center bg-white hover:bg-base-100 active:bg-gray-200 border border-gray-300 focus-visible:ring ring-gray-300 text-gray-800 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 gap-2 px-8 py-3"
                                     >
                                         {loading ? (
                                             <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin "></div>
@@ -257,7 +239,7 @@ const SignUp = () => {
                                     </button>
                                 </div>
 
-                                <div className="flex justify-center items-center bg-base-100 p-4 mb-10">
+                                <div className="flex justify-center items-center bg-white p-4 mb-2">
                                     <p className="text-gray-500 text-sm text-center">
                                         Already have an account?{" "}
                                         <Link
@@ -272,8 +254,13 @@ const SignUp = () => {
                         </div>
                     </div>
                 </div>
-            </section>
-        </section>
+                <aside className="w-full">
+                    <img src={img} alt="" className="mx-auto p-8 mt-16" />
+                </aside>
+            </div>
+        </div>
+
+
     );
 };
 

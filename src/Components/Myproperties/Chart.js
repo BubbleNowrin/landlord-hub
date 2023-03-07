@@ -3,7 +3,7 @@ import { VictoryLabel, VictoryPie } from 'victory';
 
 
 
-const Chart = ({ total, expenses, payments,cashflow }) => {
+const Chart = ({ total, expenses, payments, cashflow }) => {
 
     // console.log(expenses);
     const data = [

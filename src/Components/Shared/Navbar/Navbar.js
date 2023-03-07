@@ -20,7 +20,7 @@ const Navbar = () => {
     }, []);
 
     const navbarStyles = {
-        backgroundColor: scrollPos > 50 ? "white" : "transparent",
+        backgroundColor: scrollPos > 50 ? "white" : "white",
         transition: "background-color 0.5s ease-out",
     };
 
@@ -57,7 +57,7 @@ const Navbar = () => {
                             user?.uid &&
                             <li>
                                 <Link
-                                    to="/dashboard"
+                                    to="/properties/dashboard"
                                     aria-label="Our product"
                                     title="Our product"
                                     className="font-medium tracking-wide text-blue-900 transition-colors duration-200 hover:text-blue-800 text-lg"
@@ -120,13 +120,16 @@ const Navbar = () => {
                                 </li>
                                 :
                                 <li>
-                                    <Link
+                                    {/* <Link
                                         to="/login"
                                         className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide bg-blue-900 hover:bg-blue-700  text-white transition duration-200 rounded shadow-md text-lg"
                                         aria-label="Sign up"
                                         title="Sign up"
                                     >
                                         Log In
+                                    </Link> */}
+                                    <Link to="/login" class="px-7 py-3 text-md font-semibold text-center text-white transition duration-300 rounded-sm hover:from-blue-700 hover:to-blue-400 ease bg-gradient-to-br from-blue-800 to-blue-500 md:w-auto">
+                                        Login
                                     </Link>
                                 </li>
                         }
@@ -200,7 +203,7 @@ const Navbar = () => {
                                             user?.uid &&
                                             <li>
                                                 <Link
-                                                    to="/dashboard"
+                                                    to="/properties/dashboard"
                                                     aria-label="Our product"
                                                     title="Our product"
                                                     className="font-medium tracking-wide text-blue-900 transition-colors duration-200 hover:text-deep-purple-accent-400"
