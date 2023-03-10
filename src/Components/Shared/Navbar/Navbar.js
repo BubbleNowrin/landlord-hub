@@ -89,7 +89,7 @@ const Navbar = () => {
                                 <li onClick={handleLogOut}>
                                     <Link
                                         to="/signup"
-                                        className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide bg-blue-900 hover:bg-blue-700 text-white transition duration-200 rounded shadow-md text-lg"
+                                        className="px-7 py-3 text-md font-semibold text-center text-white transition duration-300 rounded-sm hover:from-blue-700 hover:to-blue-400 ease bg-gradient-to-br from-blue-800 to-blue-500 md:w-auto"
                                         aria-label="Sign up"
                                         title="Log Out"
                                     >
@@ -202,7 +202,7 @@ const Navbar = () => {
                                                 <li onClick={handleLogOut}>
                                                     <Link
                                                         to="/signup"
-                                                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-blue-900 hover:bg-blue-700 text-white "
+                                                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md hover:from-blue-700 hover:to-blue-400 ease bg-gradient-to-br from-blue-800 to-blue-500 text-white "
                                                         aria-label="Sign up"
                                                         title="Sign up"
                                                     >
@@ -213,7 +213,7 @@ const Navbar = () => {
                                                 <li>
                                                     <Link
                                                         to="/login"
-                                                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide bg-blue-900 transition duration-200 rounded shadow-md text-white hover:bg-blue-700 "
+                                                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide hover:from-blue-700 hover:to-blue-400 ease bg-gradient-to-br from-blue-800 to-blue-500 transition duration-200 rounded shadow-md text-white "
                                                         aria-label="Sign up"
                                                         title="Sign up"
                                                     >
