@@ -24,15 +24,15 @@ const Archived = () => {
     }
 
     return (
-        archived?.length > 0 ? <div className='grid grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto my-32 gap-10'>
+        archived?.length > 0 ? <div className='grid grid-cols-1 md:grid-cols-3 max-w-4xl mx-auto my-5 gap-4'>
             {
                 archived?.map(archivedProperty => <MyArchived archivedProperty={archivedProperty} key={archivedProperty._id}></MyArchived>)
             }
-            <div className='flex justify-end items-end '>
+            {/* <div className='flex justify-end items-end '>
                 <div>
                     <Link to='/properties' className='text-2xl mt-5 text-blue-900 font-semibold underline cursor-pointer'>Back to My Properties</Link>
                 </div>
-            </div>
+            </div> */}
         </div>
             :
             <div className='flex flex-col h-[80vh] w-full items-center justify-center gap-10'>

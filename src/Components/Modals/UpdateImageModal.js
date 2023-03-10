@@ -11,7 +11,7 @@ const UpdateImageModal = ({ modalOpen, setModalOpen, id, setSingleProperty, sing
         const form = e.target;
         const image = form?.photo.files[0];
 
-        const img_api = "701a0d7cdce71a8410d4cf17c044dfba";
+        const img_api = process.env.REACT_APP_imgbb_key;
 
         // create form Data
         const formData = new FormData();

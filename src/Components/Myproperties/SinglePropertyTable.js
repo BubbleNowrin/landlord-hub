@@ -19,7 +19,7 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
     const image = e.target.files[0];
     // console.log(id);
 
-    const img_api = "701a0d7cdce71a8410d4cf17c044dfba";
+    const img_api = process.env.REACT_APP_imgbb_key;
 
     // create form Data
     const formData = new FormData();
@@ -35,7 +35,7 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
       .then((image) => {
         const img = image.data.url;
         const data = { img };
-        fetch(`http://localhost:5000/upload_photo/${id}`, {
+        fetch(`https://landlord-hub.vercel.app/upload_photo/${id}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",
@@ -64,7 +64,7 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/delete-calculation/${id}`, {
+        fetch(`https://landlord-hub.vercel.app/delete-calculation/${id}`, {
           method: 'DELETE'
         })
           .then(res => res.json())
@@ -92,7 +92,7 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
               {allYears?.map((singleYear) => (
                 <button
                   onClick={() => setYear(singleYear)}
-                  className="btn bg-white text-black hover:bg-blue-900 hover:text-white"
+                  className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm  font-semibold bg-white text-black hover:bg-blue-900 hover:text-white"
                 >
                   {singleYear}
                 </button>
@@ -101,7 +101,7 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
             <div>
               <button
                 onClick={() => setYear(current.toString())}
-                className="btn bg-white text-black hover:bg-blue-900 hover:text-white"
+                className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm  font-semibold bg-white text-black hover:bg-blue-900 hover:text-white mb-2"
               >
                 Current Year
               </button>

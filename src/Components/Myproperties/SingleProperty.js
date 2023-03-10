@@ -118,7 +118,7 @@ const SingleProperty = () => {
 
         <section className="bg-white p-10 rounded-xl">
           {/* back to home */}
-          {singleProperty?.archived || (
+          {/* {singleProperty?.archived || (
             <div className="flex items-center">
               <BsArrowLeft className="mr-2" />
               <div>
@@ -130,7 +130,7 @@ const SingleProperty = () => {
                 </Link>
               </div>
             </div>
-          )}
+          )} */}
           {singleProperty?.archived && (
             <div className="flex items-center">
               <BsArrowLeft className="mr-2" />
@@ -161,14 +161,14 @@ const SingleProperty = () => {
             singleProperty={singleProperty}
           ></UpdateImageModal>
 
-          <div>
-            <div className="block rounded-lg p-4 shadow-lg shadow-indigo-200 bg-white w-96">
+          <div className="w-full">
+            <div className="block rounded-lg p-4 shadow-lg shadow-indigo-200 bg-white w-full lg:w-96">
               <div className='relative'>
                 <p className={`${className} font-medium absolute top-2 left-1`}>{status}</p>
                 <img
                   alt="Home"
                   src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="}
-                  className="h-56 rounded-md object-cover"
+                  className="h-56 rounded-md object-cover w-full"
                 />
               </div>
               <div className="flex flex-col">
@@ -251,7 +251,7 @@ const SingleProperty = () => {
                 <div className="mt-6 flex justify-between gap-8 text-xs">
 
 
-                  <div className="sm:inline-flex sm:shrink-0 sm:items-center">
+                  <div className="md:inline-flex md:shrink-0 md:items-center flex items-center gap-2 md:gap-0">
 
                     <div className='bg-gray-200 rounded-full p-1'>
                       <BsTag className="h-4 w-4 text-indigo-700" />
@@ -263,7 +263,7 @@ const SingleProperty = () => {
                       <p className="font-medium"> {rent ? "$" : ""}{rent}</p>
                     </div>
                   </div>
-                  <div className="sm:inline-flex sm:shrink-0 sm:items-center">
+                  <div className="md:inline-flex md:shrink-0 md:items-center flex items-center gap-2 md:gap-0">
 
 
                     <div className='bg-gray-200 rounded-full p-1'>
@@ -277,7 +277,7 @@ const SingleProperty = () => {
                     </div>
                   </div>
 
-                  <div className="sm:inline-flex sm:shrink-0 sm:items-center">
+                  <div className="md:inline-flex md:shrink-0 md:items-center flex items-center gap-2 md:gap-0">
 
 
                     <div className='bg-gray-200 rounded-full p-1'>
@@ -294,31 +294,33 @@ const SingleProperty = () => {
               </div>
             </div>
             {/* buttons */}
-            {singleProperty?.archived || (
-              <div className="flex gap-5 mt-5">
-                <label
-                  onClick={() => setModalOpen(true)}
-                  htmlFor="add-expense"
-                  className="btn bg-white text-black hover:bg-blue-900 hover:text-white"
-                >
-                  Add Expense
-                </label>
-                <label
-                  onClick={() => setModalOpen(true)}
-                  htmlFor="add-payment"
-                  className="btn bg-white text-black hover:bg-blue-900 hover:text-white"
-                >
-                  Add Payment
-                </label>
-                <DownloadTableExcel
-                  filename="users table"
-                  sheet="users"
-                  currentTableRef={tableRef.current}
-                >
-                  <button className="btn bg-white text-black hover:bg-blue-900 hover:text-white">Export</button>
-                </DownloadTableExcel>
-              </div>
-            )}
+            <div>
+              {singleProperty?.archived || (
+                <div className="flex gap-1 md:gap-5 mt-5">
+                  <label
+                    onClick={() => setModalOpen(true)}
+                    htmlFor="add-expense"
+                    className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm  font-semibold bg-white text-black hover:bg-blue-900 hover:text-white"
+                  >
+                    Add Expense
+                  </label>
+                  <label
+                    onClick={() => setModalOpen(true)}
+                    htmlFor="add-payment"
+                    className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm font-semibold bg-white text-black hover:bg-blue-900 hover:text-white"
+                  >
+                    Add Payment
+                  </label>
+                  <DownloadTableExcel
+                    filename="users table"
+                    sheet="users"
+                    currentTableRef={tableRef.current}
+                  >
+                    <button className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm font-semibold bg-white text-black hover:bg-blue-900 hover:text-white">Export</button>
+                  </DownloadTableExcel>
+                </div>
+              )}
+            </div>
           </div>
         </section>
       </div>

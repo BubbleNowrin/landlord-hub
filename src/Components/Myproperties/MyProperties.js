@@ -33,13 +33,13 @@ const MyProperties = () => {
                     <div className=''>
                         <input type="search" name="" id="" placeholder='Search...' className='w-11/12 ml-4 md:w-40 p-2' />
                     </div>
-                    <div className='flex flex-row-reverse gap-1 md:gap-3 mt-3 md:mt-0'>
+                    <div className='flex flex-row-reverse gap-[2px] md:gap-3 mt-3 md:mt-0'>
                         <Link to='/properties/archived' className='hidden md:block px-4 py-2 rounded-md border-[1px] border-[#A6A6A6]  font-semibold bg-white text-black hover:bg-blue-900 hover:text-white'>Archived Properties</Link>
                         <Link to='/properties/archived' className='block md:hidden px-2  rounded-md border-[1px] border-[#A6A6A6]   font-semibold bg-white text-black hover:bg-blue-900 hover:text-white'>Archived Properties</Link>
                         <button className='px-2  md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] font-semibold bg-white text-black hover:bg-blue-900 hover:text-white'>Under Repair</button>
                         <button className='px-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6]   font-semibold bg-white text-black hover:bg-blue-900 hover:text-white'>Available</button>
                         <button className='px-2  md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6]   font-semibold bg-white text-black hover:bg-blue-900 hover:text-white'>Active Lease</button>
-                        <button className='hidden md:block md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6]   font-semibold bg-white hover:bg-blue-900 hover:text-white text-black'>All Properties</button>
+                        <button className='hidden md:block md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6]  font-semibold bg-white hover:bg-blue-900 hover:text-white text-black'>All Properties</button>
                         <button className='block md:hidden px-2 rounded-md border-[1px] border-[#A6A6A6]   font-semibold bg-white hover:bg-blue-900 hover:text-white text-black'>All</button>
                     </div>
 

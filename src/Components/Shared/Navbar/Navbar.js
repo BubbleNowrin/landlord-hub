@@ -79,33 +79,11 @@ const Navbar = () => {
                                 </Link>
                             </li>
                         }
-                        {/* {
-                            user?.uid &&
-                            <li>
-                                <Link
-                                    to="/archived"
-                                    aria-label="Our product"
-                                    title="Our product"
-                                    className="font-medium tracking-wide text-blue-900 transition-colors duration-200 hover:text-blue-800 text-lg"
-                                >
-                                    Archived
-                                </Link>
-                            </li>
-                        } */}
+
 
                     </ul>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
-                        {/* {
-                            user?.photoURL &&
-                            <li className='text-blue-900 font-bold flex justify-between items-center'>
-                                <div className="avatar online">
-                                    <div className="w-10 rounded-full">
-                                        <img src={user?.photoURL} alt="" />
-                                    </div>
-                                </div>
-                            </li>
 
-                        } */}
                         {
                             user?.email ?
                                 <li onClick={handleLogOut}>
@@ -120,14 +98,7 @@ const Navbar = () => {
                                 </li>
                                 :
                                 <li>
-                                    {/* <Link
-                                        to="/login"
-                                        className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide bg-blue-900 hover:bg-blue-700  text-white transition duration-200 rounded shadow-md text-lg"
-                                        aria-label="Sign up"
-                                        title="Sign up"
-                                    >
-                                        Log In
-                                    </Link> */}
+
                                     <Link to="/login" class="px-7 py-3 text-md font-semibold text-center text-white transition duration-300 rounded-sm hover:from-blue-700 hover:to-blue-400 ease bg-gradient-to-br from-blue-800 to-blue-500 md:w-auto">
                                         Login
                                     </Link>
@@ -225,26 +196,13 @@ const Navbar = () => {
                                                 </Link>
                                             </li>
                                         }
-                                        {/* {
-                                            user?.uid &&
-                                            <li>
-                                                <Link
-                                                    to="/archived"
-                                                    aria-label="Our product"
-                                                    title="Our product"
-                                                    className="font-medium tracking-wide text-blue-900 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                >
-                                                    Archived
-                                                </Link>
-                                            </li>
-                                        } */}
 
                                         {
                                             user?.email ?
                                                 <li onClick={handleLogOut}>
                                                     <Link
                                                         to="/signup"
-                                                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-blue-900 hover:bg-blue-700 "
+                                                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-blue-900 hover:bg-blue-700 text-white "
                                                         aria-label="Sign up"
                                                         title="Sign up"
                                                     >
