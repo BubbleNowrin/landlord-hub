@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Outlet } from 'react-router';
 import { Link } from 'react-router-dom';
-import logo from "../Assets/llll.png";
+import logo from "../Assets/png text.png";
 import logo1 from "../Assets/logo blue1111.png";
 import { RiHomeLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
@@ -57,15 +57,14 @@ const PropertyLayout = () => {
                     <label htmlFor="property-drawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-72 text-base-content bg-blue-900">
                         <>
-                            <img src={logo} alt="" />
+                            <img src={logo} alt="" className='w-40 mx-auto' />
                         </>
                         <div className='mt-10'>
-                            <li className='text-white'><Link to='/home'><RiHomeLine />Home</Link></li>
+                            {/* <li className='text-white'><Link to='/home'><RiHomeLine />Home</Link></li> */}
                             <li className='text-white mt-2'><Link to='/properties/dashboard'><RxDashboard />Dashboard</Link></li>
                             <li className='text-white mt-2'><Link to='/properties'><MdOutlineHomeWork />My Properties</Link></li>
                             <li onClick={handleLogOut} className='text-white mt-2'><Link to='/login'><FiLogOut />Log Out</Link></li>
                         </div>
-
                     </ul>
 
                 </div>

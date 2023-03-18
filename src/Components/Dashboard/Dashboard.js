@@ -47,6 +47,8 @@ const Dashboard = () => {
 
   ];
 
+  console.log(properties);
+
   return (
     <div className="max-w-5xl mx-auto my-5">
       <div className="flex justify-start gap-5 mx-5">
@@ -156,15 +158,12 @@ const Dashboard = () => {
             />
             <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center'>
               <p>Cashflow</p>
-              <span className={properties?.cashflow > 0 ? "text-green-500" : "text-red-500"}>{properties?.cashflow}</span>
+              <span className={properties?.cashflow > 0 ? "text-green-500" : "text-red-500"}>${properties?.cashflow.toFixed(2)}</span>
             </div>
           </div>
 
         </section>
       </div>
-
-
-
       <section className='bg-white p-10 rounded-xl my-5'>
         <div className="overflow-x-auto mb-10">
 
