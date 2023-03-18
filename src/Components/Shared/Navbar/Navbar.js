@@ -43,7 +43,7 @@ const Navbar = () => {
                 </Link>
                 <div className='flex gap-3'>
                     <ul className="flex items-center hidden space-x-8 lg:flex">
-                        <li>
+                        {/* <li>
                             <Link
                                 to="/"
                                 aria-label="Our product"
@@ -52,7 +52,7 @@ const Navbar = () => {
                             >
                                 Home
                             </Link>
-                        </li>
+                        </li> */}
                         {
                             user?.uid &&
                             <li>
@@ -160,7 +160,7 @@ const Navbar = () => {
                                 </div>
                                 <nav>
                                     <ul className="space-y-4">
-                                        <li>
+                                        {/* <li>
                                             <Link
                                                 to="/"
                                                 aria-label="Our product"
@@ -169,7 +169,7 @@ const Navbar = () => {
                                             >
                                                 Home
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         {
                                             user?.uid &&
                                             <li>

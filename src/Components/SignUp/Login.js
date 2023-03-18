@@ -111,8 +111,8 @@ const Login = () => {
         setPassword(pass);
     };
     return (
-        <section className="bg-[#F3F4FC] lg:m-40 rounded-2xl">
-            <section className="flex flex-col-reverse  lg:flex-row container my-10 mx-auto">
+        <section className="max-w-7xl mx-auto">
+            <div className="flex flex-col-reverse lg:flex-row my-10 bg-[#F3F4FC] lg:m-40 rounded-2xl">
                 <div className="w-full flex justify-center items-center">
                     <div className="w-full mx-auto">
                         <div className="max-w-xl ">
@@ -227,7 +227,7 @@ const Login = () => {
                 <aside className="w-full">
                     <img src={login} alt="" className="mx-auto p-8 mt-20" />
                 </aside>
-            </section>
+            </div>
         </section>
     );
 };

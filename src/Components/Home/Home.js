@@ -11,9 +11,9 @@ import Footer from '../Shared/Footer/Footer';
 
 const Home = () => {
     return (
-        <div>
+        <div className='max-w-7xl mx-auto'>
             <section
-                className="relative bg-[url(https://i.ibb.co/bXR2YjK/Rectangle-45.png)] bg-cover bg-center bg-no-repeat bg-fixed"
+                className="relative bg-[url(https://i.ibb.co/bXR2YjK/Rectangle-45.png)] bg-cover bg-center bg-no-repeat bg-fixed "
             >
                 <div
                     className="absolute inset-0  hero-overlay bg-opacity-40"
@@ -36,58 +36,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            <section>
-                {/* <div className="container px-6 py-12 mx-auto">
-                    <div className="grid items-center gap-4 xl:grid-cols-5">
-                        <div className="max-w-2xl mx-auto my-8 space-y-4 text-center xl:col-span-2 xl:text-left">
-                            <h2 className="text-4xl font-bold text-blue-900">Easy-to-use Business Tools for Small to Mid-Size Real Estate Investors</h2>
-                            <p className="text-gray-500">Utilizing his exceptional experience and knowledge of the luxury waterfront markets, Roland serves an extensive and elite worldwide client base. He enjoys a reputation as a tenacious Broker.</p>
-                        </div>
-                        <div className="p-6 xl:col-span-3">
-                            <div className="grid gap-4 md:grid-cols-2">
-                                <div className="grid content-center gap-4">
-
-                                    <div className="p-6 rounded shadow-xl hover:shadow-slate-300">
-                                        <TbReportMoney className='text-6xl font-bold text-blue-900 mb-4 p-2 bg-gray-200' />
-                                        <div>
-                                            <p className="text-2xl font-bold text-blue-900">Track Your Expenses With Ease</p>
-
-                                        </div>
-
-                                        <p className='text-gray-500 mt-2'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quaerat modi in molestias. Cum molestiae ab quae quibusdam dolore veritatis doloribus placeat dolor rerum optio officiis officia, quod delectus recusandae!</p>
-                                    </div>
-
-                                </div>
-                                <div className="grid content-center gap-4">
-                                    <div>
-
-                                        <div className="p-6 rounded shadow-xl hover:shadow-slate-300">
-                                            <IoReceipt className='text-6xl font-bold text-blue-900 mb-4 bg-gray-200 p-2' />
-                                            <div>
-                                                <p className="text-2xl font-bold text-blue-900">Log Your Receipts</p>
-
-                                            </div>
-
-                                            <p className='text-gray-500 mt-2'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quaerat modi in molestias. Cum molestiae ab quae quibusdam dolore veritatis doloribus placeat dolor rerum optio officiis officia, quod delectus recusandae!</p>
-                                        </div>
-                                    </div>
-                                    <div>
-
-                                        <div className="p-6 rounded shadow-xl hover:shadow-slate-300">
-                                            <TbReport className='text-6xl font-bold text-blue-900 mb-4 bg-gray-200 p-2' />
-                                            <div>
-                                                <p className="text-2xl font-bold text-blue-900">Generate Income Reports</p>
-
-                                            </div>
-
-                                            <p className='text-gray-500 mt-2'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quaerat modi in molestias. Cum molestiae ab quae quibusdam dolore veritatis doloribus placeat dolor rerum optio officiis officia, quod delectus recusandae!</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
+            <section >
                 <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
                     <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
                         <div>
@@ -124,7 +73,7 @@ const Home = () => {
                             Easy-to-use Business Tools for Small to Mid-Size Real Estate Investors
                         </h2>
                         <p className="text-base text-gray-700 md:text-lg">
-                            Utilizing his exceptional experience and knowledge of the luxury waterfront markets, Roland serves an extensive and elite worldwide client base. He enjoys a reputation as a tenacious Broker.
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis accusamus illo possimus. Consequatur a enim voluptates! Facere nulla earum consectetur aspernatur
                         </p>
                     </div>
                     <div className="grid gap-5 mb-8 md:grid-cols-2 lg:grid-cols-3">
@@ -159,7 +108,7 @@ const Home = () => {
 
                 </div>
             </section>
-            <section className="p-4 lg:p-8 my-6">
+            <section className="p-4 lg:p-8 my-6 mb-20">
                 <div className="container mx-auto space-y-12">
 
                     <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row-reverse">

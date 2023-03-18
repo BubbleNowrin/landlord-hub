@@ -112,13 +112,13 @@ const SingleProperty = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto flex flex-col my-5">
+    <div className="w-11/12 mx-auto flex flex-col my-5">
       <div className="">
         {/* card */}
 
         <section className="bg-white p-10 rounded-xl">
           {/* back to home */}
-          {/* {singleProperty?.archived || (
+          {singleProperty?.archived || (
             <div className="flex items-center">
               <BsArrowLeft className="mr-2" />
               <div>
@@ -130,7 +130,7 @@ const SingleProperty = () => {
                 </Link>
               </div>
             </div>
-          )} */}
+          )}
           {singleProperty?.archived && (
             <div className="flex items-center">
               <BsArrowLeft className="mr-2" />
@@ -162,7 +162,7 @@ const SingleProperty = () => {
           ></UpdateImageModal>
 
           <div className="w-full">
-            <div className="block rounded-lg p-4 shadow-lg shadow-indigo-200 bg-white w-full lg:w-96">
+            <div className="block rounded-lg p-4 shadow-lg shadow-indigo-200 bg-white w-full lg:w-96 mx-auto">
               <div className='relative'>
                 <p className={`${className} font-medium absolute top-2 left-1`}>{status}</p>
                 <img
@@ -175,7 +175,7 @@ const SingleProperty = () => {
                 <div className="flex justify-end mt-2">
                   <div className="flex">
                     {singleProperty?.archived || (
-                      <div>
+                      <div className="flex gap-1">
                         <div className="dropdown dropdown-bottom dropdown-end">
                           <label
                             tabIndex={0}
@@ -294,7 +294,7 @@ const SingleProperty = () => {
               </div>
             </div>
             {/* buttons */}
-            <div>
+            <div className="w-full lg:w-96 mx-auto">
               {singleProperty?.archived || (
                 <div className="flex gap-1 md:gap-5 mt-5">
                   <label

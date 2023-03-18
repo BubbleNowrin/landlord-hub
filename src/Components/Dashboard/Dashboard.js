@@ -6,7 +6,11 @@ import Loader from '../Loader/Loader';
 import Chart from '../Myproperties/Chart';
 import { RiArrowDropDownLine } from "react-icons/ri";
 import MonthPieChart from "../Myproperties/MonthPieChart";
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, AreaChart, CartesianGrid, Cell, Line, LineChart, PieChart, XAxis, YAxis, Pie } from 'recharts';
+import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { VictoryPie } from 'victory';
+
 
 
 
@@ -36,6 +40,12 @@ const Dashboard = () => {
   if (isLoading) {
     return <Loader />;
   }
+
+  const data = [
+    { x: "Payments", y: properties?.payments },
+    { x: "Expenses", y: properties?.expenses }
+
+  ];
 
   return (
     <div className="max-w-5xl mx-auto my-5">
@@ -74,24 +84,19 @@ const Dashboard = () => {
             ))}
           </ul>
         </div>
+
         <div className="dropdown dropdown-bottom dropdown-end">
           <label tabIndex={0} className="m-1 btn bg-white hover:bg-blue-900 hover:text-white text-black">
             Select Month <RiArrowDropDownLine className="text-2xl" />
           </label>
 
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            {properties?.allMonth?.map((singleYear) => (
-              <li>
-                <p onClick={() => setMonth(singleYear)}>
-                  {new Date(Date.UTC(0, singleYear - 1)).toLocaleString(
-                    "default",
-                    {
-                      month: "long",
-                    }
-                  )}
+          <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            {properties?.allMonth?.map((singleMonth) => (
+              <li key={singleMonth}>
+                <p onClick={() => setMonth(singleMonth)}>
+                  {new Date(0, singleMonth - 1).toLocaleString("default", {
+                    month: "long",
+                  })}
                 </p>
               </li>
             ))}
@@ -101,95 +106,68 @@ const Dashboard = () => {
       <div className="flex justify-center my-10">
         <p>
           {property ? property : "All Properties"}, {year} {" "}
-          {month ? "," + new Date(Date.UTC(0, month - 1)).toLocaleString("default", {
+          {month ? "," + new Date(Date(0, month - 1)).toLocaleString("default", {
             month: "long",
           }) : ""}
         </p>
       </div>
       <div className="flex items-center justify-between gap-12 my-12">
-
-        {/* <div className=''>
-                    <MonthChart></MonthChart>
-                </div> */}
-        {/* <div className="w-full lg:w-2/3 mb-10 mx-auto flex flex-col items-center justify-center">
-            <MonthPieChart
-              className="z-10"
-              expenses={monthExpenses}
-              payments={monthPayments}
-              total={monthTotal}
-            ></MonthPieChart>
-            <div className="dropdown dropdown-bottom dropdown-end">
-              <label tabIndex={0} className="m-1 btn btn-outline">
-                Select Month <RiArrowDropDownLine className="text-2xl" />
-              </label>
-
-              <ul
-                tabIndex={0}
-                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                {allMonth?.map((singleMonth) => (
-                  <li>
-                    <p onClick={() => setMonth(singleMonth)}>
-                      {new Date(Date.UTC(0, singleMonth - 1)).toLocaleString(
-                        "default",
-                        { month: "long" }
-                      )}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div> */}
-        <section className='bg-white p-10 rounded-xl'>
-          <div className="mx-auto  rounded-md p-5">
-            <LineChart
-              width={550}
-              height={450}
-              data={properties?.cashflowData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
+        <section className=' bg-white md:p-5  rounded-xl lg:flex justify-evenly items-center w-full'>
+          <div className='pt-5'>
+            <AreaChart width={350} height={250} data={properties?.cashflowData}
             >
-              <CartesianGrid strokeDasharray="3 3" />
+              <defs>
+                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                </linearGradient>
+              </defs>
               <XAxis dataKey="date" />
               <YAxis dataKey="cashflow" />
+              <CartesianGrid strokeDasharray="3 3" />
               <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="date"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-              <Line type="monotone" dataKey="cashflow" stroke="#82ca9d" />
-            </LineChart>
+              <Area type="monotone" dataKey="cashflow" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+            </AreaChart>
           </div>
-        </section>
-        <section className='bg-white p-10 rounded-xl'>
-          <div className="flex justify-start rounded-md p-5">
-            <Chart
-              className="z-10"
-              expenses={properties?.expenses}
-              payments={properties?.payments}
-              total={properties?.total}
-              cashflow={properties?.cashflow}
-            ></Chart>
+          <div className='relative'>
+
+            <VictoryPie
+              data={data}
+              innerRadius={80}
+              width={370}
+              colorScale={["#4CAF50", "#FF0000"]}
+              labels={({ datum }) => `${datum.x}: ${datum.y}`}
+              style={{
+                data: {
+                  stroke: "white",
+                  strokeWidth: 10
+                },
+                labels: {
+                  fill: "black",
+                  fontSize: 16,
+                  padding: 30
+                }
+              }}
+
+            />
+            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center'>
+              <p>Cashflow</p>
+              <span className={properties?.cashflow > 0 ? "text-green-500" : "text-red-500"}>{properties?.cashflow}</span>
+            </div>
           </div>
+
         </section>
       </div>
 
-      {/* <div className="w-full lg:w-2/3 mb-10 mx-auto flex flex-col items-center justify-center">
-          
-        </div> */}
+
 
       <section className='bg-white p-10 rounded-xl my-5'>
         <div className="overflow-x-auto mb-10">
-          {/* <h3 className="text-center font-bold text-blue-900 text-xl mb-2">
-            Expenses & Payments Table of All the Properties
-          </h3> */}
+
           <table className="table w-full">
             <thead>
               <tr>
@@ -200,9 +178,7 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {/* {
-                        property?.calculations?.map(calc => <DashboardExpense calc={calc}></DashboardExpense>)
-                    } */}
+
 
               {properties?.calculations?.map((calc) => (
                 <tr
