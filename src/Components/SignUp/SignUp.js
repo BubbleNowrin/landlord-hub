@@ -7,7 +7,7 @@ import { AuthContext } from "../../Contexts/UserContext";
 
 
 const SignUp = () => {
-    const { googleLogin, createUser, updateUser } = useContext(AuthContext);
+    const { googleLogin, createUser, updateUser, verifyEmail } = useContext(AuthContext);
 
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -46,37 +46,66 @@ const SignUp = () => {
         // };
         createUser(email, password)
             .then((res) => {
-                console.log(res.user);
-                // update user
-                updateUser(name)
+                //email verification 
+                verifyEmail()
                     .then(() => {
-                        const user = {
-                            name,
-                            email,
-                        };
-                        fetch("https://landlord-hub.vercel.app/users", {
-                            method: "POST",
-                            headers: {
-                                "content-type": "application/json",
-                            },
-                            body: JSON.stringify(user),
-                        })
-                            .then((res) => res.json())
-                            .then((data) => {
-                                Swal.fire(
-                                    "Success",
-                                    "User created successfully",
-                                    "success"
-                                );
-                                setLoading(false);
-                                navigate("/");
-                            });
+                        // update user
+                        updateUser(name)
+                            .then(() => {
+                                const user = {
+                                    name,
+                                    email,
+                                };
 
+                                const jwtUser = res.user;
+
+                                const currentUser = {
+                                    email: jwtUser.email
+                                }
+
+                                //send user info to server
+                                fetch("http://localhost:5000/users", {
+                                    method: "POST",
+                                    headers: {
+                                        "content-type": "application/json",
+                                    },
+                                    body: JSON.stringify(user),
+                                })
+
+                                //get jwt token
+
+                                fetch('http://localhost:5000/jwt', {
+                                    method: "POST",
+                                    headers: {
+                                        "content-type": "application/json"
+                                    },
+                                    body: JSON.stringify(currentUser)
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        // Swal.fire(
+                                        //     "Success",
+                                        //     "User created successfully",
+                                        //     "success"
+                                        // );
+                                        Swal.fire(
+                                            "Email send!!",
+                                            `Account Verification Email sent to : ${email}, please check your spam/junk folder`,
+                                            "success"
+                                        );
+
+                                        setLoading(false);
+                                        localStorage.setItem("token", data.token);
+                                        navigate('/properties/dashboard');
+                                    })
+                            })
+                            .catch((err) => {
+                                setLoading(false);
+                                Swal.fire("Opps", err.message, "error");
+                            });
                     })
-                    .catch((err) => {
-                        setLoading(false);
-                        Swal.fire("Opps", err.message, "error");
-                    });
+                console.log(res.user);
+
             })
             .catch((err) => {
                 setLoading(false);
@@ -96,20 +125,38 @@ const SignUp = () => {
                     email: res?.user?.email,
                     img: res?.user?.photoURL,
                 };
-                fetch("https://landlord-hub.vercel.app/users", {
+
+                const jwtUser = res.user;
+
+                const currentUser = {
+                    email: jwtUser.email
+                }
+
+                //send user info to server
+                fetch("http://localhost:5000/users", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",
                     },
                     body: JSON.stringify(user),
                 })
-                    .then((res) => res.json())
-                    .then((data) => {
+
+                //get jwt token
+
+                fetch('http://localhost:5000/jwt', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
                         Swal.fire("Success", "Google Log In", "success");
                         setLoading(false);
-                        navigate("/");
-                    });
-
+                        localStorage.setItem("token", data.token);
+                        navigate('/properties/dashboard');
+                    })
             })
             .catch((err) => {
                 Swal.fire("Opps", err.message, "error");

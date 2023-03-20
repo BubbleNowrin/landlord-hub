@@ -30,10 +30,11 @@ const NewPaymentModal = ({ modalOpen, setModalOpen, singleProperty, refetch }) =
       state: singleProperty?.state,
       zip: singleProperty?.zip,
     };
-    fetch(`https://landlord-hub.vercel.app/calculation`, {
+    fetch(`http://localhost:5000/calculation`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify(payments),
     })

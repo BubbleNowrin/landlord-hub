@@ -9,7 +9,7 @@ const AddPropertyModal = ({ refetch, modalOpen, setModalOpen }) => {
 
     const { data: states } = useQuery({
         queryKey: ['states'],
-        queryFn: () => fetch(`https://landlord-hub.vercel.app/states`).then(res => res.json())
+        queryFn: () => fetch(`http://localhost:5000/states`).then(res => res.json())
     })
 
     // console.log(states);
@@ -58,10 +58,11 @@ const AddPropertyModal = ({ refetch, modalOpen, setModalOpen }) => {
             state,
             zip
         }
-        fetch("https://landlord-hub.vercel.app/add-property", {
+        fetch("http://localhost:5000/add-property", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
+                authorization: `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(property),
         })

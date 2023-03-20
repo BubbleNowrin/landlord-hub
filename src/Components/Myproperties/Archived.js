@@ -8,13 +8,22 @@ import MyArchived from './MyArchived';
 
 const Archived = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     // console.log(user.email);
 
     //get the user specific bookings data
     const { data: archived, refetch, isLoading } = useQuery({
         queryKey: ['archived'],
-        queryFn: () => fetch(`https://landlord-hub.vercel.app/arhived-property?email=${user?.email}`).then(res => res.json())
+        queryFn: () => fetch(`http://localhost:5000/arhived-property?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res => {
+            if (res.status === 401 || res.status === 403) {
+                return logOut();
+            }
+            return res.json()
+        })
     })
 
     console.log(archived);
@@ -28,15 +37,18 @@ const Archived = () => {
             {
                 archived?.map(archivedProperty => <MyArchived archivedProperty={archivedProperty} key={archivedProperty._id}></MyArchived>)
             }
-            {/* <div className='flex justify-end items-end '>
+            <div className='flex justify-end items-end '>
                 <div>
                     <Link to='/properties' className='text-2xl mt-5 text-blue-900 font-semibold underline cursor-pointer'>Back to My Properties</Link>
                 </div>
-            </div> */}
+            </div>
         </div>
             :
             <div className='flex flex-col h-[80vh] w-full items-center justify-center gap-10'>
                 <p className='text-xl lg:text-5xl font-medium text-blue-900 text-center'>No Archived Properties to Show</p>
+                <div>
+                    <Link to='/properties' className='text-2xl mt-5 text-blue-900 font-semibold underline cursor-pointer'>Back to My Properties</Link>
+                </div>
             </div>
     );
 };

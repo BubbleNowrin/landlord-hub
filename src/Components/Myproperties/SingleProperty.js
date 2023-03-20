@@ -38,10 +38,11 @@ const SingleProperty = () => {
   const navigate = useNavigate();
 
   const handleDelete = (id) => {
-    fetch(`https://landlord-hub.vercel.app/delete/${id}`, {
+    fetch(`http://localhost:5000/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem('token')}`
       },
     })
       .then((res) => res.json())
@@ -52,10 +53,11 @@ const SingleProperty = () => {
   };
 
   const handleArchive = (id) => {
-    fetch(`https://landlord-hub.vercel.app/archived/${id}`, {
+    fetch(`http://localhost:5000/archived/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem('token')}`
       },
     })
       .then((res) => res.json())
@@ -66,10 +68,11 @@ const SingleProperty = () => {
   };
 
   const handleReactivate = (id) => {
-    fetch(`https://landlord-hub.vercel.app/reactivate/${id}`, {
+    fetch(`http://localhost:5000/reactivate/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem('token')}`
       },
     })
       .then((res) => res.json())
@@ -87,7 +90,11 @@ const SingleProperty = () => {
   } = useQuery({
     queryKey: ["calculations", year, singleProperty?._id],
     queryFn: () =>
-      fetch(`https://landlord-hub.vercel.app/calculations/${singleProperty?._id}?year=${year}`).then(
+      fetch(`http://localhost:5000/calculations/${singleProperty?._id}?year=${year}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }).then(
         (res) => res.json()
       ),
   });
@@ -300,14 +307,14 @@ const SingleProperty = () => {
                   <label
                     onClick={() => setModalOpen(true)}
                     htmlFor="add-expense"
-                    className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm  font-semibold bg-white text-black hover:bg-blue-900 hover:text-white"
+                    className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px]  text-sm  font-semibold bg-red-600 text-white hover:bg-red-700 hover:text-white"
                   >
                     Add Expense
                   </label>
                   <label
                     onClick={() => setModalOpen(true)}
                     htmlFor="add-payment"
-                    className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm font-semibold bg-white text-black hover:bg-blue-900 hover:text-white"
+                    className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px]  text-sm font-semibold bg-green-600 text-white hover:bg-green-700 hover:text-white"
                   >
                     Add Payment
                   </label>

@@ -15,7 +15,7 @@ import { VictoryPie } from 'victory';
 
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const date = new Date();
   const [year, setYear] = useState(date.getFullYear());
   const [month, setMonth] = useState("");
@@ -25,9 +25,16 @@ const Dashboard = () => {
   const { data: properties, isLoading } = useQuery({
     queryKey: ["properties", user?.email, year, month, property],
     queryFn: () =>
-      fetch(`https://landlord-hub.vercel.app/dashboard?email=${user?.email}&year=${year}&month=${month}&street=${property}`).then(
-        (res) => res.json()
-      ),
+      fetch(`http://localhost:5000/dashboard?email=${user?.email}&year=${year}&month=${month}&street=${property}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }).then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          return logOut();
+        }
+        return res.json()
+      }),
   });
 
   const handleYearMonth = year => {

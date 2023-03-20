@@ -24,10 +24,31 @@ const Login = () => {
 
         loginUser(email, password)
             .then((res) => {
-                console.log(res.user);
+                const user = res.user;
+
+                const currentUser = {
+                    email: user.email
+                }
+
+                console.log(currentUser);
+
                 Swal.fire("Success", `Welcome to LandLord`, "success");
                 setLoading(false);
-                navigate('/properties/dashboard');
+                //get jwt token
+                fetch('http://localhost:5000/jwt', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        localStorage.setItem("token", data.token);
+                        navigate('/properties/dashboard');
+                    })
+
             })
             .catch((err) => {
                 Swal.fire("Opps", err.message, "error");
@@ -46,22 +67,39 @@ const Login = () => {
                     email: res?.user?.email,
                     img: res?.user?.photoURL,
                 };
-                fetch("https://landlord-hub.vercel.app/users", {
+
+                const jwtUser = res.user;
+
+                const currentUser = {
+                    email: jwtUser.email
+                }
+
+                //send user info to server
+                fetch("http://localhost:5000/users", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",
                     },
                     body: JSON.stringify(user),
                 })
-                    .then((res) => res.json())
-                    .then((data) => {
+
+                //get jwt token
+
+                fetch('http://localhost:5000/jwt', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
                         Swal.fire("Success", "Google Log In", "success");
                         setLoading(false);
-
+                        localStorage.setItem("token", data.token);
                         navigate('/properties/dashboard');
-                    });
-                // console.log("successfully logged in");
-                // navigate('/dashboard');
+                    })
+
             })
             .catch((err) => {
                 Swal.fire("Opps", err.message, "error");
@@ -92,24 +130,24 @@ const Login = () => {
     };
 
     // setPass
-    const handlePassword = (e) => {
-        const pass = e.target.value;
-        if (!/(?=.*[A-Z].*[A-Z])/.test(pass)) {
-            return setError("Please provide at least two uppercase");
-        }
-        if (!/(?=.*[0-9].*[0-9])/.test(pass)) {
-            return setError("Password Must have at least 2 numbers");
-        }
-        if (!/(?=.*[!@#$&*])/.test(pass)) {
-            return setError("Please provide at least one special character");
-        }
-        if (pass.length < 8) {
-            return setError("Please provide at least 8 character");
-        }
+    // const handlePassword = (e) => {
+    //     const pass = e.target.value;
+    //     if (!/(?=.*[A-Z].*[A-Z])/.test(pass)) {
+    //         return setError("Please provide at least two uppercase");
+    //     }
+    //     if (!/(?=.*[0-9].*[0-9])/.test(pass)) {
+    //         return setError("Password Must have at least 2 numbers");
+    //     }
+    //     if (!/(?=.*[!@#$&*])/.test(pass)) {
+    //         return setError("Please provide at least one special character");
+    //     }
+    //     if (pass.length < 8) {
+    //         return setError("Please provide at least 8 character");
+    //     }
 
-        setError("");
-        setPassword(pass);
-    };
+    //     setError("");
+    //     setPassword(pass);
+    // };
     return (
         <section className="max-w-7xl mx-auto">
             <div className="flex flex-col-reverse lg:flex-row my-10 bg-[#F3F4FC] lg:m-40 rounded-2xl">
@@ -137,7 +175,7 @@ const Login = () => {
                                     <div>
 
                                         <input
-                                            onChange={handlePassword}
+                                            // onChange={handlePassword}
                                             required
                                             name="password"
                                             type="password"

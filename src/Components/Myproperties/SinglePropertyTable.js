@@ -35,10 +35,11 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
       .then((image) => {
         const img = image.data.url;
         const data = { img };
-        fetch(`https://landlord-hub.vercel.app/upload_photo/${id}`, {
+        fetch(`http://localhost:5000/upload_photo/${id}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",
+            authorization: `Bearer ${localStorage.getItem('token')}`
           },
           body: JSON.stringify(data),
         })
@@ -64,8 +65,11 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://landlord-hub.vercel.app/delete-calculation/${id}`, {
-          method: 'DELETE'
+        fetch(`http://localhost:5000/delete-calculation/${id}`, {
+          method: 'DELETE',
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         })
           .then(res => res.json())
           .then(data => {

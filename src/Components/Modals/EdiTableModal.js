@@ -11,10 +11,11 @@ const EdiTableModal = ({ modalData, refetch, modalOpen, setModalOpen }) => {
     const amount = form.amount.value;
     const description = form.description.value;
     const category = form.category.value;
-    fetch(`https://landlord-hub.vercel.app/update-calculation/${_id}`, {
+    fetch(`http://localhost:5000/update-calculation/${_id}`, {
       method: 'PUT',
       headers: {
-        'content-type': "application/json"
+        'content-type': "application/json",
+        authorization: `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify({ date, amount, description, category })
     }).then(res => res.json()).then(data => {
@@ -55,7 +56,7 @@ const EdiTableModal = ({ modalData, refetch, modalOpen, setModalOpen }) => {
                 defaultValue={date}
               />
               <input
-                type="number"
+                type="text"
                 name="amount"
                 placeholder="Date"
                 className="input w-full input-bordered"

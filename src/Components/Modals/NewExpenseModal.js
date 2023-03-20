@@ -45,10 +45,11 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, refetch, singleProperty }) =
             zip: singleProperty?.zip,
             receipt: img
           };
-          fetch(`https://landlord-hub.vercel.app/calculation`, {
+          fetch(`http://localhost:5000/calculation`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
+              authorization: `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(expenses),
           })
@@ -79,10 +80,11 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, refetch, singleProperty }) =
         state: singleProperty?.state,
         zip: singleProperty?.zip,
       };
-      fetch(`https://landlord-hub.vercel.app/calculation`, {
+      fetch(`http://localhost:5000/calculation`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify(expenses),
       })

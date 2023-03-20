@@ -13,13 +13,22 @@ import { IoIosArrowDropdown } from 'react-icons/io';
 const MyProperties = () => {
     // const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     // console.log(user.email);
 
     //get the user specific bookings data
     const { data: properties, refetch, isLoading } = useQuery({
         queryKey: ['properties'],
-        queryFn: () => fetch(`https://landlord-hub.vercel.app/property?email=${user?.email}`).then(res => res.json())
+        queryFn: () => fetch(`http://localhost:5000/property?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res => {
+            if (res.status === 401 || res.status === 403) {
+                return logOut();
+            }
+            return res.json()
+        })
 
     })
 
