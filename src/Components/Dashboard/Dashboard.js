@@ -25,7 +25,7 @@ const Dashboard = () => {
   const { data: properties, isLoading } = useQuery({
     queryKey: ["properties", user?.email, year, month, property],
     queryFn: () =>
-      fetch(`http://localhost:5000/dashboard?email=${user?.email}&year=${year}&month=${month}&street=${property}`, {
+      fetch(`https://landlord-hub.vercel.app/dashboard?email=${user?.email}&year=${year}&month=${month}&street=${property}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`
         }

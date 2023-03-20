@@ -19,7 +19,7 @@ const MyProperties = () => {
     //get the user specific bookings data
     const { data: properties, refetch, isLoading } = useQuery({
         queryKey: ['properties'],
-        queryFn: () => fetch(`http://localhost:5000/property?email=${user?.email}`, {
+        queryFn: () => fetch(`https://landlord-hub.vercel.app/property?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
             }

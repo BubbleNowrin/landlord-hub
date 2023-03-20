@@ -64,7 +64,7 @@ const SignUp = () => {
                                 }
 
                                 //send user info to server
-                                fetch("http://localhost:5000/users", {
+                                fetch("https://landlord-hub.vercel.app/users", {
                                     method: "POST",
                                     headers: {
                                         "content-type": "application/json",
@@ -74,7 +74,7 @@ const SignUp = () => {
 
                                 //get jwt token
 
-                                fetch('http://localhost:5000/jwt', {
+                                fetch('https://landlord-hub.vercel.app/jwt', {
                                     method: "POST",
                                     headers: {
                                         "content-type": "application/json"
@@ -133,7 +133,7 @@ const SignUp = () => {
                 }
 
                 //send user info to server
-                fetch("http://localhost:5000/users", {
+                fetch("https://landlord-hub.vercel.app/users", {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",
@@ -143,7 +143,7 @@ const SignUp = () => {
 
                 //get jwt token
 
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://landlord-hub.vercel.app/jwt', {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"

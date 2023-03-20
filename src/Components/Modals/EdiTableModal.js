@@ -11,7 +11,7 @@ const EdiTableModal = ({ modalData, refetch, modalOpen, setModalOpen }) => {
     const amount = form.amount.value;
     const description = form.description.value;
     const category = form.category.value;
-    fetch(`http://localhost:5000/update-calculation/${_id}`, {
+    fetch(`https://landlord-hub.vercel.app/update-calculation/${_id}`, {
       method: 'PUT',
       headers: {
         'content-type': "application/json",

@@ -21,7 +21,7 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty, sin
             bedroom,
             bathroom
         }
-        fetch(`http://localhost:5000/edit-property/${id}`, {
+        fetch(`https://landlord-hub.vercel.app/edit-property/${id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -36,7 +36,7 @@ const EditPropertyModal = ({ modalOpen, setModalOpen, id, setSingleProperty, sin
                     "Property Updated Successfully",
                     "success"
                 );
-                fetch(`http://localhost:5000/property/${id}`, {
+                fetch(`https://landlord-hub.vercel.app/property/${id}`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('token')}`
                     }

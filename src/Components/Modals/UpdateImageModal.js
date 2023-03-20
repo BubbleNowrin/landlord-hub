@@ -31,7 +31,7 @@ const UpdateImageModal = ({ modalOpen, setModalOpen, id, setSingleProperty, sing
                 const propImage = {
                     img
                 }
-                fetch(`http://localhost:5000/upload/${id}`, {
+                fetch(`https://landlord-hub.vercel.app/upload/${id}`, {
                     method: "PUT",
                     headers: {
                         "content-type": "application/json",
@@ -46,7 +46,7 @@ const UpdateImageModal = ({ modalOpen, setModalOpen, id, setSingleProperty, sing
                             "Image Uploaded Successfully",
                             "success"
                         );
-                        fetch(`http://localhost:5000/property/${id}`, {
+                        fetch(`https://landlord-hub.vercel.app/property/${id}`, {
                             headers: {
                                 authorization: `Bearer ${localStorage.getItem('token')}`
                             }

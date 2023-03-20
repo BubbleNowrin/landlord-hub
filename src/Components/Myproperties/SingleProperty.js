@@ -38,7 +38,7 @@ const SingleProperty = () => {
   const navigate = useNavigate();
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/delete/${id}`, {
+    fetch(`https://landlord-hub.vercel.app/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -53,7 +53,7 @@ const SingleProperty = () => {
   };
 
   const handleArchive = (id) => {
-    fetch(`http://localhost:5000/archived/${id}`, {
+    fetch(`https://landlord-hub.vercel.app/archived/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -68,7 +68,7 @@ const SingleProperty = () => {
   };
 
   const handleReactivate = (id) => {
-    fetch(`http://localhost:5000/reactivate/${id}`, {
+    fetch(`https://landlord-hub.vercel.app/reactivate/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -90,7 +90,7 @@ const SingleProperty = () => {
   } = useQuery({
     queryKey: ["calculations", year, singleProperty?._id],
     queryFn: () =>
-      fetch(`http://localhost:5000/calculations/${singleProperty?._id}?year=${year}`, {
+      fetch(`https://landlord-hub.vercel.app/calculations/${singleProperty?._id}?year=${year}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`
         }
