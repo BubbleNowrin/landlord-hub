@@ -135,7 +135,7 @@ const Dashboard = () => {
                   <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <XAxis dataKey="date" />
+              <XAxis dataKey="date" tickFormatter={(dateStr) => new Date(dateStr).toLocaleString("default", { month: "short" }).substring(0, 3)} />
               <YAxis dataKey="cashflow" />
               <CartesianGrid strokeDasharray="3 3" />
               <Tooltip />
