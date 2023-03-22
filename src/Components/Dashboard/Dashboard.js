@@ -6,9 +6,9 @@ import Loader from '../Loader/Loader';
 import Chart from '../Myproperties/Chart';
 import { RiArrowDropDownLine } from "react-icons/ri";
 import MonthPieChart from "../Myproperties/MonthPieChart";
-import { Area, AreaChart, CartesianGrid, Cell, Line, LineChart, PieChart, XAxis, YAxis, Pie } from 'recharts';
+import { Area, AreaChart, CartesianGrid, Cell, Line, Tooltip, LineChart, PieChart, XAxis, YAxis, Pie } from 'recharts';
 import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Legend } from 'chart.js';
 import { VictoryPie } from 'victory';
 
 
@@ -43,7 +43,6 @@ const Dashboard = () => {
   }
 
 
-
   if (isLoading) {
     return <Loader />;
   }
@@ -54,7 +53,7 @@ const Dashboard = () => {
 
   ];
 
-  console.log(properties);
+  console.log(month);
 
   return (
     <div className="max-w-5xl mx-auto my-5">
@@ -115,7 +114,7 @@ const Dashboard = () => {
       <div className="flex justify-center my-10">
         <p>
           {property ? property : "All Properties"}, {year} {" "}
-          {month ? "," + new Date(Date(0, month - 1)).toLocaleString("default", {
+          {month ? "," + new Date(0, month - 1).toLocaleString("default", {
             month: "long",
           }) : ""}
         </p>

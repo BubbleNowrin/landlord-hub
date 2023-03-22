@@ -45,8 +45,11 @@ const SingleProperty = () => {
         authorization: `Bearer ${localStorage.getItem('token')}`
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        return res.json();
+      })
       .then((data) => {
+        console.log(data);
         navigate("/properties");
         Swal.fire("Success", "Property Deleted Successfully", "success");
       });
