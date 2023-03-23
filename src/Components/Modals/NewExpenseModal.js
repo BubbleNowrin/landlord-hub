@@ -10,6 +10,7 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, refetch, singleProperty }) =
   const date = new Date();
   const today = date.toJSON().slice(0, 10);
   const handleOnSubmit = e => {
+
     e.preventDefault();
     const form = e.target;
     const date = form.date.value;
@@ -129,15 +130,28 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, refetch, singleProperty }) =
                 <small className="text-red-400 my-2">{error}</small>
               )}
             </div>
-            <label for="dropzone-file" class="w-full flex items-center px-3 py-3 mx-auto text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-              </svg>
+            {/* {
+              loading ? (
+                <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin mx-auto"></div>
+              ) : (<label for="dropzone-file" class="w-full flex items-center px-3 py-3 mx-auto text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </svg>
 
-              <h2 class="mx-3 text-gray-400">Upload Receipt</h2>
+                <h2 class="mx-3 text-gray-400">Upload Receipt</h2>
 
-              <input id="dropzone-file" type="file" class="hidden" name='photo' />
-            </label>
+                <input id="dropzone-file" type="file" class="hidden" name='photo' />
+              </label>)
+            } */}
+
+            <div className='flex justify-center items-center'>
+              <h2 class=" text-gray-400 text-sm">Upload Receipt</h2>
+              <input
+                type="file"
+                name="photo"
+                className="file-input file-input-bordered  w-full mb-2"
+              />
+            </div>
             <textarea className="textarea textarea-primary" placeholder="Description" name="description" maxLength={100} required></textarea>
             {
               error ? <input className='w-full btn bg-blue-900' type="submit" value="Add" disabled /> : <input className='w-full btn bg-blue-900' type="submit" value="Add" />
