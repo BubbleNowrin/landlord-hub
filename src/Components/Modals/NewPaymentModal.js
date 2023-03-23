@@ -1,7 +1,12 @@
 import React from 'react';
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 const NewPaymentModal = ({ modalOpen, setModalOpen, singleProperty, refetch }) => {
+
+  const [amount, setAmount] = useState("");
+  const [error, setError] = useState("");
+
   const date = new Date();
   const today = date.toJSON().slice(0, 10);
 
@@ -47,6 +52,17 @@ const NewPaymentModal = ({ modalOpen, setModalOpen, singleProperty, refetch }) =
 
       });
   }
+  // setAmount
+  const handleAmount = (e) => {
+    const amountNumber = e.target.value;
+    if (!/^[0-9]*[.,]?[0-9]+$/.test(amountNumber)) {
+      return setError("Please Provide Only Number");
+    }
+
+    setError("");
+    setAmount(amountNumber);
+  };
+
   return (
     modalOpen && (
       <div>
@@ -81,13 +97,19 @@ const NewPaymentModal = ({ modalOpen, setModalOpen, singleProperty, refetch }) =
                 className="input w-full input-bordered"
                 required
               />
-              <input
-                name="amount"
-                type="text"
-                placeholder="Amount"
-                className="input w-full input-bordered"
-                required
-              />
+              <div>
+                <input
+                  onChange={handleAmount}
+                  name="amount"
+                  type="text"
+                  placeholder="Amount"
+                  className="input w-full input-bordered"
+                  required
+                />
+                {error && (
+                  <small className="text-red-400 my-2">{error}</small>
+                )}
+              </div>
               <textarea
                 className="textarea textarea-primary"
                 placeholder="Description"
@@ -96,11 +118,9 @@ const NewPaymentModal = ({ modalOpen, setModalOpen, singleProperty, refetch }) =
                 required
               ></textarea>
 
-              <input
-                className="w-full btn bg-blue-900"
-                type="submit"
-                value="Add"
-              />
+              {
+                error ? <input className='w-full btn bg-blue-900' type="submit" value="Add" disabled /> : <input className='w-full btn bg-blue-900' type="submit" value="Add" />
+              }
             </form>
           </div>
         </div>

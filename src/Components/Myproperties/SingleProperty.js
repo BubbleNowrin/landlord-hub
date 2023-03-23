@@ -30,8 +30,9 @@ const SingleProperty = () => {
   const [year, setYear] = useState(currentYear.toString());
   // const [tableData, setTableData] = useState([]);
   const single = useLoaderData();
-  const [modalOpen, setModalOpen] = useState(false);
   const [singleProperty, setSingleProperty] = useState(single);
+  const [modalOpen, setModalOpen] = useState(false);
+
   // console.log(typeof (year));
 
 
@@ -98,10 +99,10 @@ const SingleProperty = () => {
           authorization: `Bearer ${localStorage.getItem('token')}`
         }
       }).then(
-        (res) => res.json()
-      ),
+        (res) => res.json())
   });
 
+  console.log(tableData);
 
   let className = "text-gray-900";
   if (singleProperty?.status === "Active Lease") {
@@ -322,8 +323,8 @@ const SingleProperty = () => {
                     Add Payment
                   </label>
                   <DownloadTableExcel
-                    filename="users table"
-                    sheet="users"
+                    filename={singleProperty?.street}
+                    sheet="property"
                     currentTableRef={tableRef.current}
                   >
                     <button className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm font-semibold bg-white text-black hover:bg-blue-900 hover:text-white">Export</button>
@@ -359,6 +360,7 @@ const SingleProperty = () => {
         tableData={tableData?.calculations}
         allYears={tableData?.allYear}
         setYear={setYear}
+        year={year}
         refetch={refetch}
         current={currentYear}
       />

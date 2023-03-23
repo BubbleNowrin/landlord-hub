@@ -1,7 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 const NewExpenseModal = ({ modalOpen, setModalOpen, refetch, singleProperty }) => {
+
+  const [amount, setAmount] = useState("");
+  const [error, setError] = useState("");
 
   const date = new Date();
   const today = date.toJSON().slice(0, 10);
@@ -96,13 +100,18 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, refetch, singleProperty }) =
           setModalOpen(false)
         });
     }
-
-
-
-
-
   };
 
+  // setAmount
+  const handleAmount = (e) => {
+    const amountNumber = e.target.value;
+    if (!/^[0-9]*[.,]?[0-9]+$/.test(amountNumber)) {
+      return setError("Please Provide Only Number");
+    }
+
+    setError("");
+    setAmount(amountNumber);
+  };
 
   return (
     modalOpen && <div>
@@ -114,7 +123,12 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, refetch, singleProperty }) =
           <form onSubmit={handleOnSubmit} className='grid grid-cols-1 gap-3 mt-10'>
             <input type="date" name='date' defaultValue={today} placeholder="Date" className="input w-full input-bordered" required />
             <input name='category' type="text" placeholder="Category" className="input w-full input-bordered" required />
-            <input name="amount" type="text" placeholder="Amount" className="input w-full input-bordered" required />
+            <div>
+              <input onChange={handleAmount} name="amount" type="text" placeholder="Amount" className="input w-full input-bordered" required />
+              {error && (
+                <small className="text-red-400 my-2">{error}</small>
+              )}
+            </div>
             <label for="dropzone-file" class="w-full flex items-center px-3 py-3 mx-auto text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -125,7 +139,9 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, refetch, singleProperty }) =
               <input id="dropzone-file" type="file" class="hidden" name='photo' />
             </label>
             <textarea className="textarea textarea-primary" placeholder="Description" name="description" maxLength={100} required></textarea>
-            <input className='w-full btn bg-blue-900' type="submit" value="Add" />
+            {
+              error ? <input className='w-full btn bg-blue-900' type="submit" value="Add" disabled /> : <input className='w-full btn bg-blue-900' type="submit" value="Add" />
+            }
           </form>
         </div>
       </div>

@@ -1,10 +1,19 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
 const EdiTableModal = ({ modalData, refetch, modalOpen, setModalOpen }) => {
+
+
+  console.log(modalData);
+
+  const [balance, setBalance] = useState("");
+  const [error, setError] = useState("");
+
   const { _id, expense, date, category, street, amount, description } = modalData;
-  const handleUpdate = e => {
+
+  const handleUpdate = (e) => {
+    console.log(_id);
     e.preventDefault();
     const form = e.target;
     const date = form.date.value;
@@ -26,6 +35,17 @@ const EdiTableModal = ({ modalData, refetch, modalOpen, setModalOpen }) => {
       }
     })
   }
+
+  // setBalance
+  const handleAmount = (e) => {
+    const amountNumber = e.target.value;
+    if (!/^[0-9]*[.,]?[0-9]+$/.test(amountNumber)) {
+      return setError("Please Provide Only Number");
+    }
+
+    setError("");
+    setBalance(amountNumber);
+  };
   return (
     modalOpen && (
       <div>
@@ -51,37 +71,40 @@ const EdiTableModal = ({ modalData, refetch, modalOpen, setModalOpen }) => {
               <input
                 type="date"
                 name="date"
-                placeholder="Amount"
+                placeholder="Date"
                 className="input w-full input-bordered"
                 defaultValue={date}
               />
               <input
-                type="text"
-                name="amount"
-                placeholder="Date"
-                className="input w-full input-bordered"
-                defaultValue={amount}
-              />
-              <input
                 type="category"
                 name="category"
-                placeholder="Date"
+                placeholder="Category"
                 className="input w-full input-bordered"
                 defaultValue={category}
               />
+              <div>
+                <input
+                  onChange={handleAmount}
+                  type="text"
+                  name="amount"
+                  placeholder="Amount"
+                  className="input w-full input-bordered"
+                  defaultValue={amount}
+                />
+                {error && (
+                  <small className="text-red-400 my-2">{error}</small>
+                )}
+              </div>
               <textarea
                 name="description"
                 type="text"
-                placeholder="Bedroom"
+                placeholder="Description"
                 className="textarea w-full textarea-bordered"
                 defaultValue={description}
               />
-
-              <input
-                className="w-full btn bg-blue-900"
-                type="submit"
-                value="Update"
-              />
+              {
+                error ? <input className='w-full btn bg-blue-900' type="submit" value="Add" disabled /> : <input className='w-full btn bg-blue-900' type="submit" value="Update" />
+              }
             </form>
           </div>
         </div>

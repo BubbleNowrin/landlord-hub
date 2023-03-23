@@ -11,9 +11,6 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
   const [modalData, setModalData] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
 
-
-
-
   const uploadPhoto = (id, e) => {
     setLoading(true);
     const image = e.target.files[0];
@@ -84,9 +81,17 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
   }
 
   const handleModal = calc => {
+
+    // console.log(id);
+
+    // const singleData = tableData.find((singleD) => singleD._id === id);
+
+    // console.log(singleData);
     setModalData(calc);
     setModalOpen(true);
   }
+
+
   return (
     <section className='bg-white p-10 rounded-xl my-5'>
       <div className="flex flex-col">
