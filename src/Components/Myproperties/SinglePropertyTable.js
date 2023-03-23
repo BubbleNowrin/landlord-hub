@@ -5,7 +5,7 @@ import { PhotoProvider, PhotoView } from 'react-photo-view';
 import Swal from 'sweetalert2';
 import EdiTableModal from '../Modals/EdiTableModal';
 
-const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, refetch }) => {
+const SinglePropertyTable = ({ current, tableData, allYears, setYear, refetch }) => {
 
   const [loading, setLoading] = useState(false);
   const [modalData, setModalData] = useState({});
@@ -116,7 +116,7 @@ const SinglePropertyTable = ({ current, tableRef, tableData, allYears, setYear, 
               </button>
             </div>
           </div>
-          <table className="table w-full " ref={tableRef}>
+          <table className="table w-full " id="table-to-xls-singleProp">
             <thead className=''>
               <tr>
                 <th>Date</th>

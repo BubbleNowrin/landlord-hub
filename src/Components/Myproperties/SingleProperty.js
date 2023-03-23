@@ -22,10 +22,11 @@ import SinglePropertyTable from "./SinglePropertyTable";
 import Loader from "../Loader/Loader";
 import { MdOutlineBathtub } from "react-icons/md";
 import { RiHotelBedLine } from "react-icons/ri";
-import location from "../../Assets/Vector (1).svg"
+import location from "../../Assets/Vector (1).svg";
+import ReactHtmlTableToExcel from 'react-html-table-to-excel';
 
 const SingleProperty = () => {
-  const tableRef = useRef(null);
+
   const currentYear = new Date().getFullYear();
   const [year, setYear] = useState(currentYear.toString());
   // const [tableData, setTableData] = useState([]);
@@ -322,13 +323,13 @@ const SingleProperty = () => {
                   >
                     Add Payment
                   </label>
-                  <DownloadTableExcel
+                  <ReactHtmlTableToExcel
+                    className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm font-semibold bg-white text-black hover:bg-blue-900 hover:text-white"
+                    table="table-to-xls-singleProp"
                     filename={singleProperty?.street}
                     sheet="property"
-                    currentTableRef={tableRef.current}
-                  >
-                    <button className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm font-semibold bg-white text-black hover:bg-blue-900 hover:text-white">Export</button>
-                  </DownloadTableExcel>
+                    buttonText="Export"
+                  />
                 </div>
               )}
             </div>
@@ -356,7 +357,6 @@ const SingleProperty = () => {
 
       <SinglePropertyTable
         id={_id}
-        tableRef={tableRef}
         tableData={tableData?.calculations}
         allYears={tableData?.allYear}
         setYear={setYear}

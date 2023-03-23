@@ -12,12 +12,13 @@ import { Chart as ChartJS, ArcElement, Legend } from 'chart.js';
 import { VictoryPie } from 'victory';
 import { DownloadTableExcel } from 'react-export-table-to-excel';
 import { useRef } from 'react';
+import ReactHtmlTableToExcel from 'react-html-table-to-excel';
 
 
 
 
 const Dashboard = () => {
-  const tableRef = useRef(null);
+
   const { user, logOut } = useContext(AuthContext);
   const date = new Date();
   const [year, setYear] = useState(date.getFullYear());
@@ -188,17 +189,18 @@ const Dashboard = () => {
 
       <section className='bg-white p-10 rounded-xl my-5'>
         <div className='flex justify-end mb-2'>
-          <DownloadTableExcel
+
+          <ReactHtmlTableToExcel
+            className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm font-semibold bg-white text-black hover:bg-blue-900 hover:text-white"
+            table="table-to-xls"
             filename="DashBoard Property Expenses"
             sheet="property"
-            currentTableRef={tableRef.current}
-          >
-            <button className="px-2 py-2 md:px-4 md:py-2 rounded-md border-[1px] border-[#A6A6A6] text-sm font-semibold bg-white text-black hover:bg-blue-900 hover:text-white ">Export</button>
-          </DownloadTableExcel>
+            buttonText="Export"
+          />
         </div>
         <div className="overflow-x-auto mb-10">
 
-          <table className="table w-full" ref={tableRef}>
+          <table className="table w-full" id="table-to-xls">
             <thead>
               <tr>
                 <th>Property</th>
