@@ -5,7 +5,7 @@ import { PhotoProvider, PhotoView } from 'react-photo-view';
 import Swal from 'sweetalert2';
 import EdiTableModal from '../Modals/EdiTableModal';
 
-const SinglePropertyTable = ({ current, tableData, allYears, setYear, refetch }) => {
+const SinglePropertyTable = ({ current, tableData, allYears, setYear, year, refetch }) => {
 
   const [loading, setLoading] = useState(false);
   const [modalData, setModalData] = useState({});
@@ -80,9 +80,39 @@ const SinglePropertyTable = ({ current, tableData, allYears, setYear, refetch })
     });
   }
 
+  //delete receipt
+  const deleteReceipt = id => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`https://landlord-hub.vercel.app/delete-receipt/${id}`, {
+          method: 'PUT',
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
+          .then(res => res.json())
+          .then(data => {
+
+            if (data.modifiedCount > 0) {
+              refetch();
+              Swal.fire("Deleted!", "Receipt has been deleted.", "success");
+            }
+          })
+      }
+    });
+  }
+
   const handleModal = calc => {
 
-    // console.log(id);
+    console.log(calc);
 
     // const singleData = tableData.find((singleD) => singleD._id === id);
 
@@ -172,7 +202,12 @@ const SinglePropertyTable = ({ current, tableData, allYears, setYear, refetch })
                               </label>
                             </PhotoView>
                           </PhotoProvider>
+
+                          <label onClick={() => deleteReceipt(calc?._id)} className="flex items-center gap-2 justify-center btn btn-sm bg-red-500 hover:bg-red-600 border-none mt-1 text-white">
+                            <BsTrash />Delete Receipt
+                          </label>
                         </td>
+
                       ) : (
                         <td>
                           {loading ? (
@@ -223,6 +258,7 @@ const SinglePropertyTable = ({ current, tableData, allYears, setYear, refetch })
               refetch={refetch}
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
+              year={year}
             />
           </table>
         </div>

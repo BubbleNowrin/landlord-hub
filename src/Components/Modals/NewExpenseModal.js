@@ -144,8 +144,8 @@ const NewExpenseModal = ({ modalOpen, setModalOpen, refetch, singleProperty }) =
               </label>)
             } */}
 
-            <div className='flex justify-center items-center'>
-              <h2 class=" text-gray-400 text-sm">Upload Receipt</h2>
+            <div className=''>
+              <h2 class=" text-gray-400 ml-2">Upload Receipt</h2>
               <input
                 type="file"
                 name="photo"

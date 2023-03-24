@@ -1,16 +1,46 @@
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const EdiTableModal = ({ modalData, refetch, modalOpen, setModalOpen }) => {
-
-
-  console.log(modalData);
+const EdiTableModal = ({ modalData, modalOpen, setModalOpen, year, refetch }) => {
 
   const [balance, setBalance] = useState("");
   const [error, setError] = useState("");
 
+  // const single = useLoaderData();
+  // const [singleProperty, setSingleProperty] = useState(single);
+
   const { _id, expense, date, category, street, amount, description } = modalData;
+  // const { _id } = modalData;
+
+  // console.log(modalData);
+
+  // const {
+  //   data: editData, isLoading,
+  //   refetch,
+  // } = useQuery({
+  //   queryKey: ["calculations", year, singleProperty?._id],
+  //   queryFn: () =>
+  //     fetch(`https://landlord-hub.vercel.app/calculations-edit/${singleProperty?._id}?year=${year}&calcId=${_id}`, {
+  //       headers: {
+  //         authorization: `Bearer ${localStorage.getItem('token')}`
+  //       }
+  //     }).then(
+  //       (res) => res.json()).then(data => console.log(data))
+  // });
+
+  // useEffect(() => {
+  //   fetch(`https://landlord-hub.vercel.app/calculations-edit/${singleProperty?._id}?year=${year}&calcId=${modalData._id}`, {
+  //     headers: {
+  //       authorization: `Bearer ${localStorage.getItem('token')}`
+  //     }
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => console.log(data))
+  // }, [singleProperty?._id, year, _id])
 
   const handleUpdate = (e) => {
     console.log(_id);
