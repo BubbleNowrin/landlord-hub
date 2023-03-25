@@ -150,7 +150,7 @@ const Dashboard = () => {
                   <Area type="monotone" dataKey="cashflow" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
                 </AreaChart>
               </div>
-              <div className='relative w-[28rem]'>
+              <div className='relative md:w-[28rem]'>
 
                 <VictoryPie
                   data={data}
@@ -172,8 +172,8 @@ const Dashboard = () => {
 
                 />
                 <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center'>
-                  <p>Cashflow</p>
-                  <span className={properties?.cashflow > 0 ? "text-green-500" : "text-red-500"}>${properties?.cashflow.toFixed(2)}</span>
+                  <p className='text-xs sm:text-base' >Cashflow</p>
+                  <span className={properties?.cashflow > 0 ? "text-green-500 text-xs md:text-base " : "text-red-500 text-xs md:text-base"}>${properties?.cashflow.toFixed(2)}</span>
                 </div>
               </div>
 
