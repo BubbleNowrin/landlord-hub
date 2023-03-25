@@ -10,47 +10,9 @@ const SinglePropertyTable = ({ current, tableData, allYears, setYear, year, refe
   const [loading, setLoading] = useState(false);
   const [modalData, setModalData] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
+  const [imgId, setImgId] = useState(null);
 
-  const uploadPhoto = (id, e) => {
-    setLoading(true);
-    const image = e.target.files[0];
-    // console.log(id);
-
-    const img_api = process.env.REACT_APP_imgbb_key;
-
-    // create form Data
-    const formData = new FormData();
-    formData.append("image", image);
-
-    const url = `https://api.imgbb.com/1/upload?key=${img_api}`;
-
-    fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((image) => {
-        const img = image.data.url;
-        const data = { img };
-        fetch(`https://landlord-hub.vercel.app/upload_photo/${id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-            authorization: `Bearer ${localStorage.getItem('token')}`
-          },
-          body: JSON.stringify(data),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data)
-            if (data.modifiedCount > 0) {
-              refetch()
-              setLoading(false)
-            }
-          });
-      });
-  };
-
+  // console.log(imgId);
   const handleDelete = id => {
     Swal.fire({
       title: "Are you sure?",
@@ -112,15 +74,53 @@ const SinglePropertyTable = ({ current, tableData, allYears, setYear, year, refe
 
   const handleModal = calc => {
 
-    console.log(calc);
-
+    // console.log(calc);
     // const singleData = tableData.find((singleD) => singleD._id === id);
-
     // console.log(singleData);
     setModalData(calc);
     setModalOpen(true);
   }
 
+  //upload receipt
+  const uploadPhoto = (e) => {
+    setLoading(true);
+    const image = e.target.files[0];
+    console.log(imgId);
+
+    const img_api = process.env.REACT_APP_imgbb_key;
+
+    // create form Data
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const url = `https://api.imgbb.com/1/upload?key=${img_api}`;
+
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((image) => {
+        const img = image.data.url;
+        const data = { img };
+        fetch(`http://localhost:5000/upload_photo/${imgId}`, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data)
+            if (data.modifiedCount > 0) {
+              refetch()
+              setLoading(false)
+            }
+          });
+      });
+  };
 
   return (
     <section className='bg-white p-10 rounded-xl my-5'>
@@ -219,11 +219,13 @@ const SinglePropertyTable = ({ current, tableData, allYears, setYear, year, refe
                                 id="file-upload"
                                 type="file"
                                 className="hidden"
-                                onChange={(e) => uploadPhoto(calc?._id, e)}
+
+                                onChange={(e) => uploadPhoto(e)}
                               />
                               <label
                                 htmlFor="file-upload"
                                 className="flex items-center gap-2 justify-center btn btn-sm bg-red-500 border-none hover:bg-red-600 text-white"
+                                onClick={() => setImgId(calc._id)}
                               >
                                 <BsUpload /> Add receipt
                               </label>
