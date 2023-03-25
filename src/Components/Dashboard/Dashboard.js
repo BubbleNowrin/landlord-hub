@@ -150,12 +150,12 @@ const Dashboard = () => {
                   <Area type="monotone" dataKey="cashflow" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
                 </AreaChart>
               </div>
-              <div className='relative'>
+              <div className='relative w-[23rem] '>
 
                 <VictoryPie
                   data={data}
                   innerRadius={80}
-                  width={370}
+                  width={500}
                   colorScale={["#4CAF50", "#FF0000"]}
                   labels={({ datum }) => `${datum.x}: ${datum.y}`}
                   style={{

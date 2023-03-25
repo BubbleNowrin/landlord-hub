@@ -22,7 +22,10 @@ import SinglePropertyTable from "./SinglePropertyTable";
 import Loader from "../Loader/Loader";
 import { MdOutlineBathtub } from "react-icons/md";
 import { RiHotelBedLine } from "react-icons/ri";
+
 import location from "../../Assets/Vector (1).svg";
+import defaultPropertyImage from "../../Assets/defaultPropertyImage.jpg";
+
 import ReactHtmlTableToExcel from 'react-html-table-to-excel';
 
 const SingleProperty = () => {
@@ -178,9 +181,9 @@ const SingleProperty = () => {
               <div className='relative'>
                 <p className={`${className} font-medium absolute top-2 left-1`}>{status}</p>
                 <img
+                  src={img ? img : defaultPropertyImage}
+                  className="rounded-md object-contain w-full"
                   alt="Home"
-                  src={img ? img : "https://media.istockphoto.com/id/165979491/vector/illustration-of-a-small-brick-house-with-white-door.jpg?s=612x612&w=0&k=20&c=addCFy31yjHBBt0pEgJnwUvAkMgKgtXazRUjF3ar_OI="}
-                  className="h-56 rounded-md object-cover w-full"
                 />
               </div>
               <div className="flex flex-col">
