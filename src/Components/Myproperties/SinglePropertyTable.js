@@ -119,6 +119,7 @@ const SinglePropertyTable = ({ current, tableData, allYears, setYear, year, refe
     // console.log(singleData);
     setModalData(calc);
     setModalOpen(true);
+
   }
 
 
@@ -236,6 +237,7 @@ const SinglePropertyTable = ({ current, tableData, allYears, setYear, year, refe
                     <td></td>
                   )}
                   <td className="flex gap-2">
+                    {/* Edit button */}
                     <label
                       onClick={() => handleModal(calc)}
                       htmlFor="edit-table"

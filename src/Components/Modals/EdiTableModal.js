@@ -83,7 +83,8 @@ const EdiTableModal = ({ modalData, modalOpen, setModalOpen, year, refetch }) =>
         <div className="modal">
           <div className="modal-box relative">
             <label
-              htmlFor="edit-table"
+              onClick={() => setModalOpen(false)}
+
               className="btn btn-sm btn-circle absolute right-2 top-2"
             >
               ✕
