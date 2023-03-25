@@ -103,7 +103,7 @@ const SinglePropertyTable = ({ current, tableData, allYears, setYear, year, refe
       .then((image) => {
         const img = image.data.url;
         const data = { img };
-        fetch(`http://localhost:5000/upload_photo/${imgId}`, {
+        fetch(`https://landlord-hub.vercel.app/upload_photo/${imgId}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",
