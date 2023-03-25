@@ -129,7 +129,7 @@ const Dashboard = () => {
           </div>
 
           <div className="flex items-center justify-between gap-12 my-12">
-            <section className=' bg-white md:p-5  rounded-xl lg:flex justify-evenly items-center w-full'>
+            <section className=' bg-white md:p-5 md:px-2  rounded-xl lg:flex justify-evenly items-center w-full'>
               <div className='pt-5'>
                 <AreaChart width={350} height={250} data={properties?.cashflowData}
                 >
@@ -150,12 +150,12 @@ const Dashboard = () => {
                   <Area type="monotone" dataKey="cashflow" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
                 </AreaChart>
               </div>
-              <div className='relative w-[23rem] '>
+              <div className='relative w-[28rem]'>
 
                 <VictoryPie
                   data={data}
                   innerRadius={80}
-                  width={500}
+                  width={650}
                   colorScale={["#4CAF50", "#FF0000"]}
                   labels={({ datum }) => `${datum.x}: ${datum.y}`}
                   style={{
