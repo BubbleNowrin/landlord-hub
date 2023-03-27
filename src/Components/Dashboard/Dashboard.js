@@ -57,7 +57,7 @@ const Dashboard = () => {
 
   ];
 
-  console.log(properties);
+  // console.log("properties", properties);
 
   return (
 

@@ -99,7 +99,7 @@ const Navbar = () => {
                                 :
                                 <li>
 
-                                    <Link to="/login" class="px-7 py-3 text-md font-semibold text-center text-white transition duration-300 rounded-sm hover:from-blue-700 hover:to-blue-400 ease bg-gradient-to-br from-blue-800 to-blue-500 md:w-auto">
+                                    <Link to="/login" className="px-7 py-3 text-md font-semibold text-center text-white transition duration-300 rounded-sm hover:from-blue-700 hover:to-blue-400 ease bg-gradient-to-br from-blue-800 to-blue-500 md:w-auto">
                                         Login
                                     </Link>
                                 </li>

@@ -106,7 +106,7 @@ const SingleProperty = () => {
         (res) => res.json())
   });
 
-  console.log(tableData);
+  // console.log("table data", tableData);
 
   let className = "text-gray-900";
   if (singleProperty?.status === "Active Lease") {

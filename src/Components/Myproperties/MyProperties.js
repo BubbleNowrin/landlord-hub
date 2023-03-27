@@ -36,6 +36,7 @@ const MyProperties = () => {
         return <Loader></Loader>
     }
 
+
     return (
         <section className='w-11/12 mx-auto'>
             <div className='flex flex-col md:flex-row-reverse  my-5 max-w-4xl mx-auto'>

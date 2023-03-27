@@ -43,7 +43,6 @@ const EdiTableModal = ({ modalData, modalOpen, setModalOpen, year, refetch }) =>
   // }, [singleProperty?._id, year, _id])
 
   const handleUpdate = (e) => {
-    console.log(_id);
     e.preventDefault();
     const form = e.target;
     const date = form.date.value;
@@ -96,9 +95,7 @@ const EdiTableModal = ({ modalData, modalOpen, setModalOpen, year, refetch }) =>
               onSubmit={handleUpdate}
               className="grid grid-cols-1 gap-3 mt-10"
             >
-              {/* <input type="text" defaultValue={user?.email} className="input w-full input-bordered text-gray-500" readOnly /> */}
 
-              {/* <input name='address' type="text" placeholder="Address" className="input w-full input-bordered" /> */}
               <input
                 type="date"
                 name="date"
@@ -139,6 +136,7 @@ const EdiTableModal = ({ modalData, modalOpen, setModalOpen, year, refetch }) =>
             </form>
           </div>
         </div>
+
       </div>
     )
   );

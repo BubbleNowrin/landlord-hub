@@ -232,7 +232,7 @@ const SignUp = () => {
                                         )}
                                     </div>
 
-                                    <button type="submit" class="px-7 py-3 text-md font-semibold text-center text-white transition duration-300 rounded-sm hover:from-blue-700 hover:to-blue-400 ease bg-gradient-to-br from-blue-800  to-blue-500 md:w-auto">
+                                    <button type="submit" className="px-7 py-3 text-md font-semibold text-center text-white transition duration-300 rounded-sm hover:from-blue-700 hover:to-blue-400 ease bg-gradient-to-br from-blue-800  to-blue-500 md:w-auto">
                                         {loading ? (
                                             <div className="w-8 h-8 border-4 border-dashed rounded-full animate-spin mx-auto"></div>
                                         ) : (

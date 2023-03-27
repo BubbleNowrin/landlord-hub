@@ -19,8 +19,6 @@ const NewPaymentModal = ({ modalOpen, setModalOpen, singleProperty, refetch }) =
     const amount = form.amount.value;
     const description = form.description.value;
 
-    console.log(date, category, amount, description);
-
     const payments = {
       date,
       dateString: new Date(),

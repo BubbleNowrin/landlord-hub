@@ -1,0 +1,1 @@
+Here i going to put all available properties acept click properties 
